@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
@@ -36,17 +36,53 @@ public class AdministratorManager {
 	
 	public void store(Administrator administrator) throws RARException{
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
-		String updateAdministratorSql = "update person  set type = 'Administrator', firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
-		PreparedStatement stmt;
+		String updateAdministratorSql = "update person  set type = \"Administrator\", firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
+		java.sql.PreparedStatement stmt;
 		int inscnt;
 		long userId;
 		
 		try {
 			if(!administrator.isPersistent())
-				stmt = (PreparedStatement) conn.prepareStatement(insertAdministratorSql);
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertAdministratorSql);
 			else
-				stmt = (PreparedStatement) conn.prepareStatement(updateAdministratorSql);
-		}catch() {
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateAdministratorSql);
+		
+			if(administrator.getFirstName() != null)
+					stmt.setString(1,administrator.getFirstName());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
+
+			if(administrator.getLastName() != null)
+					stmt.setString(2,administrator.getLastName());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: LastName undefined");
+
+			if(administrator.getUserName() != null)
+					stmt.setString(3,administrator.getUserName());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: UserName undefined");
+
+			if(administrator.getPassword() != null)
+					stmt.setString(4,administrator.getPassword());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: Password undefined");
+
+			if(administrator.getEmail() != null)
+					stmt.setString(5,administrator.getEmail());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: Email undefined");
+
+			if(administrator.getAddress() != null)
+					stmt.setString(6,administrator.getAddress());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
+
+			if(administrator.getCreatedDate()() != null)
+					stmt.setString(7,administrator.getCreatedDate());
+			else
+					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
+		
+		}catch () {
 			
 		}//try catch
 	
