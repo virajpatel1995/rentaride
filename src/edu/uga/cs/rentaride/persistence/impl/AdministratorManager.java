@@ -85,8 +85,29 @@ public class AdministratorManager {
 			if(administrator.isPersistent())
 				stmt.setLong(8,  administrator.getId());
 		
-		}catch () {
+			inscnt = stmt.executeUpdate();
 			
+			if(!administrator.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							userId = r.getLong(1);
+							if(userId > 0)
+								administrator.setId(userId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("AdministratorManager.save: failed to save an Administrator");
+			}//if else
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new RARException("AdministratorManager.save: failed to save an Administrator" + e);
 		}//try catch
 	
 	}//store
