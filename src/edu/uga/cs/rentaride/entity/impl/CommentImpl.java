@@ -16,7 +16,6 @@ public class CommentImpl extends Persistence implements Comment {
 	    private Date			 date;
 	    private Rental			 rental;
 	    private Customer		 customer;
-	    private long			 id;
 
 
 	public CommentImpl()
@@ -26,33 +25,20 @@ public class CommentImpl extends Persistence implements Comment {
 	        this.date = null;
 	        this.rental = null;
 	        this.customer = null;
-	        this.id = 0;
 	    }
 
 	    public CommentImpl( String text,
 	                       Date date,
 	                       Rental rental,
-	                       Customer customer,
-	                       long id
-	                      )
+	                       Customer customer)
 	    {
 	    	super( -1 );
 	        this.text = text;
 	        this.date = date;
 	        this.rental = rental;
 	        this.customer = customer;
-	        this.id = id;
 	    }
 
-	@Override
-	public long getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
 	//FINISH******************************************************************
 //	@Override
 //	public boolean isPersistent() {
