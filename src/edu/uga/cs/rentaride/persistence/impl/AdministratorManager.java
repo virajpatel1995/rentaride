@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mysql.jbdc.PreparedStatement;
+
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
@@ -33,7 +35,11 @@ public class AdministratorManager {
 	}//constructor
 	
 	public void store(Administrator administrator) throws RARException{
+		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
+		String updateAdministratorSql = "update person  set type = 'Administrator', firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
+		PreparedStatement stmt;
 		
+	
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
