@@ -81,7 +81,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Customer createCustomer() {
 		// TODO Auto-generated method stub
-		CustomerImpl.Customer = new CustomerImpl();
+		CustomerImpl Customer = new CustomerImpl(null, null, null, null, null, null, null, null, null, null, null, null);
 		Customer.setId(-1);
 		Persistence.setPersistencvalayer(persistence);
 		return Customer;
@@ -92,11 +92,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
 			String cardNumber, Date cardExpiration) throws RARException {
 		
-		
-		
-		CustomerImpl.Customer(firstName, lastName, userName, password, email, address, createDate, membershipExpiration, licenseState, licenseNumber, cardNumber, cardExpiration);
-		//persistence.setPersistencvalayer(persistence);
-		//return Customer;
+		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration);
+		Persistence.setPersistencvalayer(persistence);
+		return Customer;
 		
 	}
 
