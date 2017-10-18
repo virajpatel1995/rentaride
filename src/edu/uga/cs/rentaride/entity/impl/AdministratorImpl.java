@@ -10,112 +10,142 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class AdministratorImpl extends Persistence implements Administrator {
 
+	// Administrator Attributes
+	private String           userName;
+    private String           password;
+    private String           email;
+    private String           firstName;
+    private String           lastName;
+    private String           address;
+    private Date			 createDate;
+    private UserStatus		 userStatus;
+    private long			 id;
+    
+    public AdministratorImpl()
+    {
+        super( -1 );
+        this.userName = null;
+        this.password = null;
+        this.email = null;
+        this.firstName = null;
+        this.lastName = null;
+        this.address = null;
+        this.createDate = null;
+        this.userStatus = null;
+        this.id = 0;
+    }
+
+    public AdministratorImpl( String userName,
+                       String password,
+                       String email,
+                       String firstName,
+                       String lastName,
+                       String address,
+                       Date createDate,
+                       UserStatus userStatus,
+                       long id)
+    {
+        super( -1 );
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.createDate = createDate;
+        this.userStatus = userStatus;
+        this.id = id;
+    }
+	
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		
+		this.firstName = firstName;
 	}
 
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		return lastName;
 	}
 
 	@Override
 	public void setLastName(String lastName) {
-		// TODO Auto-generated method stub
-		
+		this.lastName = lastName;
 	}
 
 	@Override
 	public String getUserName() {
-		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 
 	@Override
 	public void setUserName(String userName) throws RARException {
-		// TODO Auto-generated method stub
+		this.userName = userName;
 		
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		
+		this.email = email;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
-		
+		this.password = password;
 	}
 
 	@Override
 	public Date getCreatedDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return createDate;
 	}
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		// TODO Auto-generated method stub
-		
+		this.createDate = createDate;		
 	}
 
 	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return address;
 	}
 
 	@Override
 	public void setAddress(String address) {
-		// TODO Auto-generated method stub
-		
+		this.address = address;
 	}
 
 	@Override
 	public UserStatus getUserStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return userStatus;
 	}
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
-		// TODO Auto-generated method stub
-		
+		this.userStatus = userStatus;
 	}
 
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+		this.id = id;
 	}
 
 	@Override
