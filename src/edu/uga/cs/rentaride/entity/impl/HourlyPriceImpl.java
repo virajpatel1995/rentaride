@@ -45,11 +45,11 @@ public class HourlyPriceImpl extends Persistence implements HourlyPrice{
 		this.id = id;
 	}
 //FINISH**********************************************************************
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 //FINISH**********************************************************************
 
 	@Override
