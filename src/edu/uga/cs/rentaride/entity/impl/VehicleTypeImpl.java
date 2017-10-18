@@ -12,8 +12,8 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 public class VehicleTypeImpl extends Persistence implements VehicleType {
 
 	// VehicleType Attributes
-			private String           name;
-		    private long			 id;
+	private String     name;
+	private long			 id;
 		    
 	public VehicleTypeImpl()
 	{
@@ -21,6 +21,7 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 		this.name = null;
 		this.id = 0;
 	}
+
 
 	public VehicleTypeImpl( String name,long id)
 	{
