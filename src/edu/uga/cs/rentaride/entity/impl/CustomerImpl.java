@@ -13,183 +13,241 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class CustomerImpl extends Persistence implements Customer {
 
+	// Customer Attributes
+		private String            userName;
+	    private String            password;
+	    private String            email;
+	    private String            firstName;
+	    private String            lastName;
+	    private String            address;
+	    private String		  	  state;
+	    private String	 		  licenseNumber;
+	    private String			  cardNumber;
+	    private Date			  createDate;
+	    private Date			  memberUntil;
+	    private Date			  cardExpiration;
+	    private UserStatus		  userStatus;
+	    private long			  id;
+	    private List<Reservation> reservations;
+	    private List<Comment>	  comments;
+	    private List<Rental>      rentals;
+
+	    
+	    public CustomerImpl()
+	    {
+	        super( -1 );
+	        this.userName = null;
+	        this.password = null;
+	        this.email = null;
+	        this.firstName = null;
+	        this.lastName = null;
+	        this.address = null;
+	        this.state = null;
+	        this.licenseNumber = null;
+	        this.cardNumber = null;
+	        this.createDate = null;
+	        this.memberUntil = null;
+	        this.cardExpiration = null;
+	        this.userStatus = null;
+	        this.id = 0;
+	    }
+
+	    public CustomerImpl( String userName,
+	                       String password,
+	                       String email,
+	                       String firstName,
+	                       String lastName,
+	                       String address,
+	                       String state,
+	                       String licenseNumber,
+	                       String cardNumber,
+	                       Date createDate,
+	                       Date memberUntil,
+	                       Date cardExpiration,
+	                       UserStatus userStatus,
+	                       long id)
+	    {
+	        super( -1 );
+	        this.userName = userName;
+	        this.password = password;
+	        this.email = email;
+	        this.firstName = firstName;
+	        this.lastName = lastName;
+	        this.address = address;
+	        this.state = state;
+	        this.licenseNumber = licenseNumber;
+	        this.cardNumber = cardNumber;
+	        this.createDate = createDate;
+	        this.memberUntil = memberUntil;
+	        this.cardExpiration = cardExpiration;
+	        this.userStatus = userStatus;
+	        this.id = id;
+	    }
+	
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		
+		this.firstName = firstName;
 	}
 
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		return lastName;
 	}
 
 	@Override
 	public void setLastName(String lastName) {
-		// TODO Auto-generated method stub
-		
+		this.lastName = lastName;
 	}
 
 	@Override
 	public String getUserName() {
-		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 
 	@Override
 	public void setUserName(String userName) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.userName = userName;
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		
+		this.email = email;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
-		
+		this.password = password;
 	}
 
 	@Override
 	public Date getCreatedDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return createDate;
 	}
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		// TODO Auto-generated method stub
-		
+		this.createDate = createDate;
 	}
 
 	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return address;
 	}
 
 	@Override
 	public void setAddress(String address) {
-		// TODO Auto-generated method stub
-		
+		this.address = address;
 	}
 
 	@Override
 	public UserStatus getUserStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return userStatus;
 	}
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
-		// TODO Auto-generated method stub
-		
+		this.userStatus = userStatus;
 	}
 
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+		this.id = id;
 	}
 
+//FINISH******************************************************************
 	@Override
 	public boolean isPersistent() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+//FINISH******************************************************************
 
 	@Override
 	public Date getMemberUntil() {
-		// TODO Auto-generated method stub
-		return null;
+		return memberUntil;
 	}
 
 	@Override
 	public void setMemberUntil(Date memberUntil) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.memberUntil = memberUntil;
 	}
 
 	@Override
 	public String getLicenseState() {
-		// TODO Auto-generated method stub
-		return null;
+		return state;
 	}
 
 	@Override
 	public void setLicenseState(String state) {
-		// TODO Auto-generated method stub
-		
+		this.state = state;
 	}
 
 	@Override
 	public String getLicenseNumber() {
-		// TODO Auto-generated method stub
-		return null;
+		return licenseNumber;
 	}
 
 	@Override
 	public void setLicenseNumber(String licenseNumber) {
-		// TODO Auto-generated method stub
-		
+		this.licenseNumber = licenseNumber;
 	}
 
 	@Override
 	public String getCreditCardNumber() {
-		// TODO Auto-generated method stub
-		return null;
+		return cardNumber;
 	}
 
 	@Override
 	public void setCreditCardNumber(String cardNumber) {
-		// TODO Auto-generated method stub
-		
+		this.cardNumber = cardNumber;
 	}
 
 	@Override
 	public Date getCreditCardExpiration() {
-		// TODO Auto-generated method stub
-		return null;
+		return cardExpiration;
 	}
 
 	@Override
 	public void setCreditCardExpiration(Date cardExpiration) {
-		// TODO Auto-generated method stub
-		
+		this.cardExpiration = cardExpiration;
 	}
 
+	
+	//FINISH******************************************************************
+	/*@Override
+	public List<Reservation> getReservations() throws RARException {
+		if( reservations  == null )
+            if( isPersistent() ) {
+                Reservation reservation = new ReservationImpl();
+                reservation.setCustomer( this );
+                reservations = getPersistenvalayer().restoreReservation( reservation );
+                //System.out.println(  "Person.getClubsMembership: lazy traversal" );                         
+            }
+
+        return reservations;
+	}*/
 	@Override
-	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
+	public List<Reservation> getReservations(){
 		return null;
 	}
 
@@ -204,5 +262,5 @@ public class CustomerImpl extends Persistence implements Customer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	//FINISH******************************************************************
 }

@@ -147,11 +147,11 @@ public class AdministratorImpl extends Persistence implements Administrator {
 	public void setId(long id) {
 		this.id = id;
 	}
-
+	//FINISH******************************************************************
 	@Override
 	public boolean isPersistent() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	//FINISH******************************************************************
 }
