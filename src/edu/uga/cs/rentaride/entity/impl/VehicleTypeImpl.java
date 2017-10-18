@@ -22,9 +22,13 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 		this.id = 0;
 	}
 
+<<<<<<< HEAD
 	public VehicleTypeImpl( String name,
 		                    long id
 		                  )
+=======
+	public VehicleTypeImpl( String name,long id)
+>>>>>>> master
 	{
 		super( -1 );
 		this.name = name;
