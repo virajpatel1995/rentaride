@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.jbdc.PreparedStatement;
+import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
@@ -38,7 +38,17 @@ public class AdministratorManager {
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
 		String updateAdministratorSql = "update person  set type = 'Administrator', firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
 		PreparedStatement stmt;
+		int inscnt;
+		long userId;
 		
+		try {
+			if(!administrator.isPersistent())
+				stmt = (PreparedStatement) conn.prepareStatement(insertAdministratorSql);
+			else
+				stmt = (PreparedStatement) conn.prepareStatement(updateAdministratorSql);
+		}catch() {
+			
+		}//try catch
 	
 	}//store
 	
