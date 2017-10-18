@@ -52,5 +52,5 @@ public interface Comment
      * It is a derived association, so there is no setter method for this value.
      * @param customer the customer who made the comment
      */
-    // public void setCustomer( Customer customer );
+    public void setCustomer( Customer customer );
 }
