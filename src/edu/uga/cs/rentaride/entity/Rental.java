@@ -81,7 +81,7 @@ public interface Rental
      * This is a derived association, so no setter is needed.
      * @param customer the new Customer for this rental
      */
-    // public void setCustomer( Customer customer );
+    public void setCustomer( Customer customer );
     
     /** Return the comment associated with this rental.
      * @return the Comment associated with this rental

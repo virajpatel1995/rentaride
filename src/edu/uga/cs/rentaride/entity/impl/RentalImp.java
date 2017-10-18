@@ -130,6 +130,11 @@ public class RentalImp extends Persistence implements Rental {
 	}
 
 	@Override
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@Override
 	public Comment getComment() {
 		// TODO Auto-generated method stub
 		return comment;
