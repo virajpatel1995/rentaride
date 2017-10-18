@@ -26,6 +26,7 @@ public class VehicleImpl extends Persistence implements Vehicle {
     private VehicleType		 vehicleType;
     private RentalLocation   rentalLocation;
     private long			 id;
+    private List<Rental> 	rentals;
     
     public VehicleImpl()
     {
@@ -81,11 +82,11 @@ public class VehicleImpl extends Persistence implements Vehicle {
 		this.id = id;
 	}
 //FINISH***************************************************************************
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 //FINISH***************************************************************************
 	
 	@Override
@@ -190,9 +191,17 @@ public class VehicleImpl extends Persistence implements Vehicle {
 
 	//FINISH***************************************************************************
 	@Override
-	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Rental> getRentals() throws RARException {
+		if( rentals == null )
+			if( isPersistent() ) {
+				Rental rental = new RentalImp();
+				rental.setVehicle( this );
+				rentals = getPersistencvalayer().restoreRental(rental);
+			}
+			else
+				throw new RARException( "This rental object is not persistent" );
+
+		return rentals;
 	}
 	//FINISH***************************************************************************
 

@@ -175,11 +175,11 @@ public class CustomerImpl extends Persistence implements Customer {
 	}
 
 //FINISH******************************************************************
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 //FINISH******************************************************************
 
 	@Override
