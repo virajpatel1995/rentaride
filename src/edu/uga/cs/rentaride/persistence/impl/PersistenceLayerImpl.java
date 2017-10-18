@@ -30,6 +30,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	private ReservationManager reservationManager = null;
 	private VehicleManager vehicleManager = null;
 	private VehicleTypeManager vehicleTypeManager = null;
+	private RentARideParamsManager rentARideParamsManager = null;
 	
 	/*
 	 * PersistenceLayerImpl Constructor
@@ -44,6 +45,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		reservationManager = new ReservationManager(conn, objectLayer);
 		vehicleManager = new VehicleManager(conn, objectLayer);
 		vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
+		rentARideParamsManager = new RentARideParamsManager(conn, objectLayer);
 		System.out.println("PersistenceLayerImpl.PersistenceLayerImpl(conn, objectLayer): Initilized");
 	}//Constructor
 
@@ -64,152 +66,134 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Customer> restoreCustomer(Customer modelCustomer) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return customerManager.restore(modelCustomer);
+	}//restoreCustomer
 
 	@Override
 	public void storeCustomer(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
+		customerManager.store(customer);
+	}//storeCustomer
+	
+	/*
+	@Override
+	public void deleteCustomer(Customer customer) throws RARException{
+		customerManager.delete(customer);
+	}//deleteCustomer
+	 */
+	
 	@Override
 	public List<RentalLocation> restoreRentalLocation(RentalLocation modelRentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return rentalLocationManager.restore(modelRentalLocation);
+	}//restoreRentalLocation
 
 	@Override
 	public void storeRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		rentalLocationManager.store(rentalLocation);
+	}//storeRentalLocation
 
 	@Override
 	public void deleteRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		rentalLocationManager.delete(rentalLocation);
+	}//deleteRentalLocation
 
 	@Override
 	public List<Reservation> restoreReservation(Reservation modelReservation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return reservationManager.restore(modelReservation);
+	}//restoreReservation
 
 	@Override
 	public void storeReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		reservationManager.store(reservation);
+	}//storeReservation
 
 	@Override
 	public void deleteReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		reservationManager.delete(reservation);
+	}//deleteReservation
 
 	@Override
 	public List<Rental> restoreRental(Rental modelRental) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return rentalManager.restore(modelRental);
+	}//restoreRental
 
 	@Override
 	public void storeRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		rentalManager.store(rental);
+	}//storeRental
 
 	@Override
 	public void deleteRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		rentalManager.delete(rental);
+	}//deleteRental
 
 	@Override
 	public List<VehicleType> restoreVehicleType(VehicleType modelVehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleTypeManager.restore(modelVehicleType);
 	}
 
 	@Override
 	public void storeVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		vehicleTypeManager.store(vehicleType);
 	}
 
 	@Override
 	public void deleteVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		vehicleTypeManager.delete(vehicleType);
 	}
 
 	@Override
 	public List<Vehicle> restoreVehicle(Vehicle modelVehicle) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleManager.restore(modelVehicle);
 	}
 
 	@Override
 	public void storeVehicle(Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		
+		vehicleManager.store(vehicle);
 	}
 
 	@Override
 	public void deleteVehicle(Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		
+		vehicleManager.delete(vehicle);
 	}
 
 	@Override
 	public List<Comment> restoreComment(Comment modelComment) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return commentManager.restore(modelComment);
 	}
 
 	@Override
 	public void storeComment(Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-		
+		commentManager.store(comment);
 	}
 
 	@Override
 	public void deleteComment(Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-		
+		commentManager.delete(comment);
 	}
 
 	@Override
 	public List<HourlyPrice> restoreHourlyPrice(HourlyPrice modelHourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return hourlyPriceManager.restore(modelHourlyPrice);
 	}
 
 	@Override
 	public void storeHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		hourlyPriceManager.store(hourlyPrice);
 	}
 
 	@Override
 	public void deleteHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		hourlyPriceManager.delete(hourlyPrice);
 	}
 
 	@Override
 	public RentARideParams restoreRentARideConfig() throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return rentARideParamsManager.restore();
 	}
 
 	@Override
 	public void storeRentARideConfig(RentARideParams rentARideConfig) throws RARException {
-		// TODO Auto-generated method stub
-		
+		rentARideParamsManager.store(rentARideConfig);
 	}
 
 	@Override

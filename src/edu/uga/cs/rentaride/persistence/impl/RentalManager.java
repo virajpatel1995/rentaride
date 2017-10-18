@@ -32,7 +32,7 @@ public class RentalManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Rental rental) {
+	public void store(Rental rental) throws RARException{
 		//TODO
 	}//store
 	
@@ -41,7 +41,7 @@ public class RentalManager {
 		return null;
 	}//restore
 	
-	public void delete(Rental rental) {
+	public void delete(Rental rental) throws RARException{
 		//TODO
 	}//delete
 	

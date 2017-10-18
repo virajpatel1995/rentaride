@@ -27,7 +27,6 @@ public class CustomerImpl extends Persistence implements Customer {
 	    private Date			  memberUntil;
 	    private Date			  cardExpiration;
 	    private UserStatus		  userStatus;
-	    private long			  id;
 	    private List<Reservation> reservations;
 	    private List<Comment>	  comments;
 	    private List<Rental>      rentals;
@@ -49,7 +48,6 @@ public class CustomerImpl extends Persistence implements Customer {
 	        this.memberUntil = null;
 	        this.cardExpiration = null;
 	        this.userStatus = null;
-	        this.id = 0;
 	    }
 
 	    public CustomerImpl( String userName,
@@ -63,9 +61,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	                       String cardNumber,
 	                       Date createdDate,
 	                       Date memberUntil,
-	                       Date cardExpiration,
-	                       UserStatus userStatus,
-	                       long id)
+	                       Date cardExpiration)
 	    {
 	        super( -1 );
 	        this.userName = userName;
@@ -80,8 +76,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	        this.createdDate = createdDate;
 	        this.memberUntil = memberUntil;
 	        this.cardExpiration = cardExpiration;
-	        this.userStatus = userStatus;
-	        this.id = id;
+	        this.userStatus = UserStatus.ACTIVE;
 	    }
 	
 	@Override
@@ -164,16 +159,7 @@ public class CustomerImpl extends Persistence implements Customer {
 		this.userStatus = userStatus;
 	}
 
-	@Override
-	public long getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
-
+	
 //FINISH******************************************************************
 //	@Override
 //	public boolean isPersistent() {

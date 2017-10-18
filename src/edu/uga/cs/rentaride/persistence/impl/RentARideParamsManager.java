@@ -21,28 +21,28 @@ import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
-public class ReservationManager {
+public class RentARideParamsManager {
 	
 	//variables for objectlayer and connection
 	private ObjectLayer objectLayer = null;
 	private Connection conn = null;
 	
-	public ReservationManager(Connection conn, ObjectLayer objectLayer) {
+	public RentARideParamsManager(Connection conn, ObjectLayer objectLayer) {
 		this.conn = conn;
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Reservation reservation) throws RARException{
+	public void store(RentARideParams rentARideParams) throws RARException{
 		//TODO
 	}//store
 	
-	public List<Reservation> restore(Reservation reservation) throws RARException{
+	public RentARideParams restore() throws RARException{
 		//TODO
 		return null;
 	}//restore
 	
-	public void delete(Reservation reservation) throws RARException{
+	public void delete(RentARideParams rentARideParams) throws RARException{
 		//TODO
 	}//delete
 	
-}//ReservationManager
+}//RentARideParamsManager

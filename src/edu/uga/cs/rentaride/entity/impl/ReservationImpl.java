@@ -29,7 +29,7 @@ public class ReservationImpl extends Persistence implements Reservation {
 		this.rental = null;
 	}
 
-	public ReservationImpl(long id, Date pickupTime, int length, Customer customer, VehicleType vehicleType, RentalLocation rentalLocation, Rental rental) {
+	public ReservationImpl(Date pickupTime, int length, Customer customer, VehicleType vehicleType, RentalLocation rentalLocation, Rental rental) {
 		super(-1);
 		this.pickupTime = pickupTime;
 		this.length = length;

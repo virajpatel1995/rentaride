@@ -32,7 +32,7 @@ public class HourlyPriceManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(HourlyPrice hourlyPrice) {
+	public void store(HourlyPrice hourlyPrice) throws RARException{
 		//TODO
 	}//store
 	
@@ -41,7 +41,7 @@ public class HourlyPriceManager {
 		return null;
 	}//restore
 	
-	public void delete(HourlyPrice HourlyPrice) {
+	public void delete(HourlyPrice HourlyPrice) throws RARException{
 		//TODO
 	}//delete
 	
