@@ -1,5 +1,6 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
+import java.sql.Connection;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
@@ -17,9 +18,17 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
-		
+	//variables for the managers
+	private AdministratorManager administratorManager = null;
+	private CommentManager commentManager = null;
+	private CustomerManager customerManager = null;
+	private HourlyPriceManager hourlyPriceManager = null;
+	private RentalManager rentalManager = null;
+	private RentalLocationManager rentalLocationManager = null;
+	private ReservationManager reservationManager = null;
+	private VehicleManager vehicleManager = null;
+	private VehicleTypeManager vehicleTypeManager = null;
 	
-	private 
 
 	@Override
 	public List<Administrator> restoreAdministrator(Administrator modelAdministrator) throws RARException {
