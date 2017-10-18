@@ -247,20 +247,44 @@ public class CustomerImpl extends Persistence implements Customer {
         return reservations;
 	}*/
 	@Override
-	public List<Reservation> getReservations(){
-		return null;
+	public List<Reservation> getReservations() throws RARException {
+        if( reservations == null )
+            if( isPersistent() ) {
+                Reservation reservation = new ReservationImpl();
+                reservation.setCustomer( this );
+                reservations = getPersistencvalayer().restoreReservation(reservation);
+            }
+            else
+                throw new RARException( "This reservation object is not persistent" );
+
+        return reservations;
 	}
 
 	@Override
-	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Comment> getComments() throws RARException {
+        if( comments == null )
+            if( isPersistent() ) {
+                Comment comment = new CommentImpl();
+                comment.setCustomer(this);
+                comments= getPersistencvalayer().restoreComment(comment);
+            }
+            else
+                throw new RARException( "This comment object is not persistent" );
+
+        return comments;
+    }
 
 	@Override
-	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Rental> getRentals() throws RARException {
+        if( rentals == null )
+            if( isPersistent() ) {
+                Rental rental = new RentalImp();
+                rental.setCustomer( this );
+                rentals= getPersistencvalayer().restoreRental(rental);
+            }
+            else
+                throw new RARException( "This retanl object is not persistent" );
+        return rentals;
 	}
 	//FINISH******************************************************************
 }
