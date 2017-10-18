@@ -11,36 +11,54 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class VehicleTypeImpl extends Persistence implements VehicleType {
 
+	// VehicleType Attributes
+			private String           name;
+		    private long			 id;
+		    
+		    public VehicleTypeImpl()
+		    {
+		        super( -1 );
+		        this.name = null;
+		        this.id = 0;
+		    }
+
+		    public VehicleTypeImpl( String name,
+		                       long id
+		                      )
+		    {
+		    	super( -1 );
+		        this.name = name;
+		        this.id = id;
+		    }
+	
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+		this.id = id;
 	}
-
+//FINISH********************************************************************************
 	@Override
 	public boolean isPersistent() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+//FINISH********************************************************************************
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public void setName(String name) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.name = name;
 	}
 
+	//FINISH********************************************************************************
 	@Override
 	public List<HourlyPrice> getHourlyPrices() {
 		// TODO Auto-generated method stub
@@ -58,5 +76,5 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	//FINISH********************************************************************************
 }
