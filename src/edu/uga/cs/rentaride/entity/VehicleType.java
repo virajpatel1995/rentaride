@@ -28,15 +28,15 @@ public interface VehicleType
     /** Return a list of all hourly prices for this VehicleType.
      * @return a list of all hourly prices made by this VehicleType
      */
-    public List<HourlyPrice> getHourlyPrices();
+    public List<HourlyPrice> getHourlyPrices() throws RARException;
     
     /** Return a list of all vehicles of this VehicleType.
      * @return a list of all vehicles of this VehicleType
      */
-    public List<Vehicle> getVehicles();
+    public List<Vehicle> getVehicles() throws RARException;
     
     /** Return a list of all reservations for this VehicleType.
      * @return a list of all reservations for this VehicleType
      */
-    public List<Reservation> getReservations();
+    public List<Reservation> getReservations() throws RARException;
 }
