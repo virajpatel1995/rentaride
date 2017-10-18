@@ -1,5 +1,6 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
+import java.sql.Connection;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
@@ -14,27 +15,52 @@ import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+import edu.uga.cs.rentaride.object.ObjectLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
+
+	//variables for the managers
+	private AdministratorManager administratorManager = null;
+	private CommentManager commentManager = null;
+	private CustomerManager customerManager = null;
+	private HourlyPriceManager hourlyPriceManager = null;
+	private RentalManager rentalManager = null;
+	private RentalLocationManager rentalLocationManager = null;
+	private ReservationManager reservationManager = null;
+	private VehicleManager vehicleManager = null;
+	private VehicleTypeManager vehicleTypeManager = null;
+	
+	/*
+	 * PersistenceLayerImpl Constructor
+	 */
+	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer) {
+		administratorManager = new AdministratorManager(conn, objectLayer);
+		commentManager = new CommentManager(conn, objectLayer);
+		customerManager = new CustomerManager(conn, objectLayer);
+		hourlyPriceManager = new HourlyPriceManager(conn, objectLayer);
+		rentalManager = new RentalManager(conn, objectLayer);
+		rentalLocationManager = new RentalLocationManager(conn, objectLayer);
+		reservationManager = new ReservationManager(conn, objectLayer);
+		vehicleManager = new VehicleManager(conn, objectLayer);
+		vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
+		System.out.println("PersistenceLayerImpl.PersistenceLayerImpl(conn, objectLayer): Initilized");
+	}//Constructor
+
 	@Override
 	public List<Administrator> restoreAdministrator(Administrator modelAdministrator) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return administratorManager.restore(modelAdministrator);
+	}//restoreAdministrator
 
 	@Override
 	public void storeAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
-		
-		
-	}
+		administratorManager.store(administrator);
+	}//storeAdministrator
 
 	@Override
 	public void deleteAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
+		administratorManager.delete(administrator);
+	}//deleteAdministrator
 
 	@Override
 	public List<Customer> restoreCustomer(Customer modelCustomer) throws RARException {
