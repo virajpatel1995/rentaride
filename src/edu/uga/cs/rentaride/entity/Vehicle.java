@@ -122,5 +122,5 @@ public interface Vehicle
     /** Return a list of all rentals which used this vehicle.
      * @return a list of all rentals for this vehicle
      */
-    public List<Rental> getRentals();
+    public List<Rental> getRentals() throws RARException;
 }
