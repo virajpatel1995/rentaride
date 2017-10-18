@@ -32,8 +32,8 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator administrator) {
-		//TODO
+	public void store(Administrator administrator) throws RARException{
+		
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
@@ -41,7 +41,7 @@ public class AdministratorManager {
 		return null;
 	}//restore
 	
-	public void delete(Administrator administrator) {
+	public void delete(Administrator administrator) throws RARException{
 		//TODO
 	}//delete
 	

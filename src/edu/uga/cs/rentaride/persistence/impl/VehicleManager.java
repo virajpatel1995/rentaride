@@ -32,7 +32,7 @@ public class VehicleManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Vehicle vehicle) {
+	public void store(Vehicle vehicle) throws RARException{
 		//TODO
 	}//store
 	
@@ -41,7 +41,7 @@ public class VehicleManager {
 		return null;
 	}//restore
 	
-	public void delete(Vehicle vehicle) {
+	public void delete(Vehicle vehicle) throws RARException{
 		//TODO
 	}//delete
 	
