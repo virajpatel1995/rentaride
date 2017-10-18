@@ -27,7 +27,7 @@ public class CustomerManager {
 	private ObjectLayer objectLayer = null;
 	private Connection conn = null;
 	
-	public CustomerManager(Connection conn, ObjectLayer objectLayer) {
+	public CustomerManager(Connection conn, ObjectLayer objectLayer) throws RARException{
 		this.conn = conn;
 		this.objectLayer = objectLayer;
 	}//constructor
@@ -41,8 +41,9 @@ public class CustomerManager {
 		return null;
 	}//restore
 	
-	public void delete(Customer customer) {
+	/*
+	public void delete(Customer customer) throws RARException{
 		//TODO
 	}//delete
-	
+	*/
 }//CustomerManager

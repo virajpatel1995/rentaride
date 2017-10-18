@@ -27,7 +27,7 @@ public class CommentManager {
 	private ObjectLayer objectLayer = null;
 	private Connection conn = null;
 	
-	public CommentManager(Connection conn, ObjectLayer objectLayer) {
+	public CommentManager(Connection conn, ObjectLayer objectLayer) throws RARException{
 		this.conn = conn;
 		this.objectLayer = objectLayer;
 	}//constructor
@@ -41,7 +41,7 @@ public class CommentManager {
 		return null;
 	}//restore
 	
-	public void delete(Comment comment) {
+	public void delete(Comment comment) throws RARException{
 		//TODO
 	}//delete
 	

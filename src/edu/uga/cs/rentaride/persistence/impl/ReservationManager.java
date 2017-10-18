@@ -32,7 +32,7 @@ public class ReservationManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Reservation reservation) {
+	public void store(Reservation reservation) throws RARException{
 		//TODO
 	}//store
 	
@@ -41,7 +41,7 @@ public class ReservationManager {
 		return null;
 	}//restore
 	
-	public void delete(Reservation reservation) {
+	public void delete(Reservation reservation) throws RARException{
 		//TODO
 	}//delete
 	

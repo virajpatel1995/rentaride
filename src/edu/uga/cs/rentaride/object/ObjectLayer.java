@@ -373,7 +373,7 @@ public interface ObjectLayer
      * @return the new Comment object instance with the given attribute values
      * @throws RARException in case either the rental is null
      */
-    public Comment createComment( String text, Date date, Rental rental ) throws RARException;
+    public Comment createComment( String text, Date date, Rental rental, Customer customer ) throws RARException;
 
     /**
      * Create a new Comment object with undefined attribute values.
@@ -452,7 +452,7 @@ public interface ObjectLayer
      * so only one object will exist.
      * @return the RentARideConfig object
      */
-    public RentARideParams findRentARideParams();
+    public RentARideParams findRentARideParams() throws RARException;
     
     /**
      * Store a given RentARideConfig object in persistent data store.
