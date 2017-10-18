@@ -26,7 +26,7 @@ public interface Persistable {
      * 
      * @return persistent identifier of an entity object instance.
      */
-    public long getId();
+    public long getId(); //test
 
     /**
      * Set the persistent identifier for this entity object.  This method is typically used by the persistence
