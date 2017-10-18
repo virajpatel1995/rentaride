@@ -6,17 +6,22 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class RentARideParamsImpl extends Persistence implements RentARideParams{
 
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	private int membershipPrice;
+	private int lateFee;
+
+	public RentARideParamsImpl(){
+		super(-1);
+		this.membershipPrice = 0;
+		this.lateFee = 0;
 	}
 
-	@Override
-	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+	public RentARideParamsImpl(int membershipPrice, int lateFee) {
+		super(-1);
+		this.membershipPrice = membershipPrice;
+		this.lateFee = lateFee;
 	}
+
+
 
 	@Override
 	public boolean isPersistent() {
@@ -24,28 +29,24 @@ public class RentARideParamsImpl extends Persistence implements RentARideParams{
 		return false;
 	}
 
+
 	@Override
 	public int getMembershipPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return membershipPrice;
 	}
 
 	@Override
 	public void setMembershipPrice(int membershipPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.membershipPrice = membershipPrice;
 	}
 
 	@Override
 	public int getLateFee() {
-		// TODO Auto-generated method stub
-		return 0;
+		return lateFee;
 	}
 
 	@Override
 	public void setLateFee(int lateFee) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.lateFee = lateFee;
 	}
-
 }

@@ -15,21 +15,19 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 			private String           name;
 		    private long			 id;
 		    
-		    public VehicleTypeImpl()
-		    {
-		        super( -1 );
-		        this.name = null;
-		        this.id = 0;
-		    }
+	public VehicleTypeImpl()
+	{
+		super( -1 );
+		this.name = null;
+		this.id = 0;
+	}
 
-		    public VehicleTypeImpl( String name,
-		                       long id
-		                      )
-		    {
-		    	super( -1 );
-		        this.name = name;
-		        this.id = id;
-		    }
+	public VehicleTypeImpl( String name,long id)
+	{
+		super( -1 );
+		this.name = name;
+		this.id = id;
+	}
 	
 	@Override
 	public long getId() {
