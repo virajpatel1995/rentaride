@@ -17,14 +17,33 @@ import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 import edu.uga.cs.rentaride.persistence.impl.Persistence;
+import edu.uga.cs.rentaride.entity.impl.AdministratorImpl;
+
 
 public class ObjectLayerImpl implements ObjectLayer {
+	
+	PersistenceLayer persistence = null;
 
+	
+	public ObjectLayerImpl(){
+        this.persistence = null;
+        System.out.println( "ObjectLayerImpl.ObjectLayerImpl(): initialized" );
+    }
+	
+	public ObjectLayerImpl( PersistenceLayer persistence ){
+        this.persistence = persistence;
+        System.out.println( "ObjectLayerImpl.ObjectLayerImpl(persistence): initialized" );
+    }
+	
+	
 	@Override
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
 			String email, String address, Date createDate) throws RARException {
 		// TODO Auto-generated method stub
+		AdministratorImpl Administrator = new AdministratorImpl();
+		
 		return null;
 	}
 
