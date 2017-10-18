@@ -13,7 +13,7 @@ public class CommentImpl extends Persistence implements Comment {
 
 	// Comment Attributes
 		private String           text;
-	    private Date			 Date;
+	    private Date			 date;
 	    private Rental			 rental;
 	    private Customer		 customer;
 	    private long			 id;
@@ -22,7 +22,7 @@ public class CommentImpl extends Persistence implements Comment {
 	    {
 	        super( -1 );
 	        this.text = null;
-	        this.Date = null;
+	        this.date = null;
 	        this.rental = null;
 	        this.customer = null;
 	        this.id = 0;
@@ -37,7 +37,7 @@ public class CommentImpl extends Persistence implements Comment {
 	    {
 	    	super( -1 );
 	        this.text = text;
-	        this.Date = date;
+	        this.date = date;
 	        this.rental = rental;
 	        this.customer = customer;
 	        this.id = id;
@@ -45,14 +45,12 @@ public class CommentImpl extends Persistence implements Comment {
 	
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+		this.id = id;		
 	}
 
 	@Override
@@ -64,43 +62,37 @@ public class CommentImpl extends Persistence implements Comment {
 	@Override
 	public String getText() {
 		// TODO Auto-generated method stub
-		return null;
+		return text;
 	}
 
 	@Override
 	public void setText(String text) {
-		// TODO Auto-generated method stub
-		
+		this.text = text;
 	}
 
 	@Override
 	public Date getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return date;
 	}
 
 	@Override
 	public void setDate(Date date) {
-		// TODO Auto-generated method stub
-		
+		this.date = date;
 	}
 
 	@Override
 	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
+		return rental;
 	}
 
 	@Override
 	public void setRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.rental = rental;
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return customer;
 	}
 
 }
