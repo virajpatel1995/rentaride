@@ -36,7 +36,7 @@ public class RentARideParamsManager {
 		//TODO
 	}//store
 	
-	public List<Rental> restore(RentARideParams rentARideParams) throws RARException{
+	public RentARideParams restore() throws RARException{
 		//TODO
 		return null;
 	}//restore
@@ -45,4 +45,4 @@ public class RentARideParamsManager {
 		//TODO
 	}//delete
 	
-}//RentalManager
+}//RentARideParamsManager

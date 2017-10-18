@@ -41,8 +41,9 @@ public class CustomerManager {
 		return null;
 	}//restore
 	
+	/*
 	public void delete(Customer customer) {
 		//TODO
 	}//delete
-	
+	*/
 }//CustomerManager
