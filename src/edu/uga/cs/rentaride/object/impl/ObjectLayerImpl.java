@@ -48,10 +48,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Administrator createAdministrator() {
 		AdministratorImpl Administrator = new AdministratorImpl(null, null, null, null, null,null, null, null, 0);
+
 		Persistence.setPersistencvalayer(persistence);
-		 Administrator.setId(-1);
-		 Persistence.setPersistencvalayer(persistence);
-		 return Administrator;
+		return Administrator;
 		
 	}
 
@@ -60,12 +59,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
 			String email, String address, Date createDate) throws RARException {
-		Persistence.setPersistencvalayer(persistence);
-		// TODO Auto-generated method stub
-		Persistence.setPersistencvalayer(persistence);
+
 		AdministratorImpl Administrator = new AdministratorImpl(firstName, lastName, userName, password, email, address, createDate, null, 0);
 		Persistence.setPersistencvalayer(persistence);
-		edu.uga.cs.rentaride.persistence.impl.Persistence.setPersistencvalayer(persistence);
 		return Administrator;
 			}
 
@@ -99,8 +95,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email,
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
-			Persistence.setPersistencvalayer(persistence);
-			String cardNumber, Date cardExpiration) throws RARException {		
+			String cardNumber, Date cardExpiration) throws RARException {
 	
 		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration);
 		Persistence.setPersistencvalayer(persistence);
@@ -138,7 +133,6 @@ public class ObjectLayerImpl implements ObjectLayer {
 
 	@Override
 	public List<RentalLocation> findRentalLocation(RentalLocation modelRentalLocation) throws RARException {
-		// TODO Auto-generated method stub
 		return persistence.restoreRentalLocation(modelRentalLocation);
 	}
 
@@ -240,7 +234,6 @@ public class ObjectLayerImpl implements ObjectLayer {
 
 	@Override
 	public List<VehicleType> findVehicleType(VehicleType modelVehicleType) throws RARException {
-		// TODO Auto-generated method stub
 		return persistence.restoreVehicleType(modelVehicleType);
 
 	}
@@ -288,7 +281,6 @@ public class ObjectLayerImpl implements ObjectLayer {
 
 	@Override
 	public Comment createComment(String text, Date date, Rental rental, Customer customer) throws RARException {
-		// TODO Auto-generated method stub
 		Comment comment = new CommentImpl(text, date,rental,customer);
 		Persistence.setPersistencvalayer(persistence);
 		return comment;
