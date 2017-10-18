@@ -25,7 +25,6 @@ public class VehicleImpl extends Persistence implements Vehicle {
     private VehicleCondition condition;
     private VehicleType		 vehicleType;
     private RentalLocation   rentalLocation;
-    private long			 id;
     private List<Rental> 	rentals;
     
     public VehicleImpl()
@@ -41,7 +40,6 @@ public class VehicleImpl extends Persistence implements Vehicle {
         this.condition = null;
         this.vehicleType = null;
         this.rentalLocation = null;
-        this.id = 0;
     }
 
     public VehicleImpl(String make,
@@ -53,9 +51,7 @@ public class VehicleImpl extends Persistence implements Vehicle {
                        VehicleStatus status,
                        VehicleCondition condition,
                        VehicleType vehicleType,
-                       RentalLocation rentalLocation,
-                       long id
-                      )
+                       RentalLocation rentalLocation)
     {
     	super( -1 );
     	this.make = make;
@@ -68,19 +64,9 @@ public class VehicleImpl extends Persistence implements Vehicle {
         this.condition = condition;
         this.vehicleType = vehicleType;
         this.rentalLocation = rentalLocation;
-        this.id = id;
     }
 	
-	
-	@Override
-	public long getId() {
-		return id;
-	}
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
 //FINISH***************************************************************************
 //	@Override
 //	public boolean isPersistent() {
