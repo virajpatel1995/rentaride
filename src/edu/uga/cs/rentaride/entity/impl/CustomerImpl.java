@@ -13,7 +13,7 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class CustomerImpl extends Persistence implements Customer {
 
-	// Customer Attributes
+		// Customer Attributes
 		private String            userName;
 	    private String            password;
 	    private String            email;
@@ -23,7 +23,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	    private String		  	  state;
 	    private String	 		  licenseNumber;
 	    private String			  cardNumber;
-	    private Date			  createDate;
+	    private Date			  createdDate;
 	    private Date			  memberUntil;
 	    private Date			  cardExpiration;
 	    private UserStatus		  userStatus;
@@ -45,7 +45,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	        this.state = null;
 	        this.licenseNumber = null;
 	        this.cardNumber = null;
-	        this.createDate = null;
+	        this.createdDate = null;
 	        this.memberUntil = null;
 	        this.cardExpiration = null;
 	        this.userStatus = null;
@@ -61,7 +61,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	                       String state,
 	                       String licenseNumber,
 	                       String cardNumber,
-	                       Date createDate,
+	                       Date createdDate,
 	                       Date memberUntil,
 	                       Date cardExpiration,
 	                       UserStatus userStatus,
@@ -77,7 +77,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	        this.state = state;
 	        this.licenseNumber = licenseNumber;
 	        this.cardNumber = cardNumber;
-	        this.createDate = createDate;
+	        this.createdDate = createdDate;
 	        this.memberUntil = memberUntil;
 	        this.cardExpiration = cardExpiration;
 	        this.userStatus = userStatus;
@@ -136,12 +136,12 @@ public class CustomerImpl extends Persistence implements Customer {
 
 	@Override
 	public Date getCreatedDate() {
-		return createDate;
+		return createdDate;
 	}
 
 	@Override
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	@Override
