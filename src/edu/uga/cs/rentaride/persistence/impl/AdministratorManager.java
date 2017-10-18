@@ -14,6 +14,7 @@ import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.RentARideParams;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
@@ -31,7 +32,7 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator adm) {
+	public void store(Administrator administrator) {
 		//TODO
 	}//store
 	
