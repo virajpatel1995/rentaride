@@ -7,58 +7,79 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class HourlyPriceImpl extends Persistence implements HourlyPrice{
 
+	// HourlyPrice Attributes
+		    private int			 	 maxHours;
+		    private int				 price;
+		    private VehicleType		 vehicleType;
+		    private long			 id;
+		    
+		    public HourlyPriceImpl()
+		    {
+		        super( -1 );
+		        this.maxHours = 0;
+		        this.price = 0;
+		        this.vehicleType = null;
+		        this.id = 0;
+		    }
+
+		    public HourlyPriceImpl( int maxHours,
+		                       int price,
+		                       VehicleType vehicleType,
+		                       long id
+		                      )
+		    {
+		    	super( -1 );
+		        this.maxHours = maxHours;
+		        this.price = price;
+		        this.vehicleType = vehicleType;
+		        this.id = id;
+		    }
+	
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+		this.id = id;
 	}
-
+//FINISH**********************************************************************
 	@Override
 	public boolean isPersistent() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+//FINISH**********************************************************************
 
 	@Override
 	public int getMaxHours() {
-		// TODO Auto-generated method stub
-		return 0;
+		return maxHours;
 	}
 
 	@Override
 	public void setMaxHours(int maxHours) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.maxHours = maxHours;
 	}
 
 	@Override
 	public int getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return price;
 	}
 
 	@Override
 	public void setPrice(int price) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.price = price;
 	}
 
 	@Override
 	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleType;
 	}
 
 	@Override
 	public void setVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.vehicleType = vehicleType;
 	}
 
 }
