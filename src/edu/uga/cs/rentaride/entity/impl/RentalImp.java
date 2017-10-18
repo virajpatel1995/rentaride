@@ -46,11 +46,11 @@ public class RentalImp extends Persistence implements Rental {
 		this.comment = comment;
 	}
 
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
 	@Override
 	public Date getPickupTime() {

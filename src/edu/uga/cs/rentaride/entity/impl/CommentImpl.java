@@ -17,8 +17,9 @@ public class CommentImpl extends Persistence implements Comment {
 	    private Rental			 rental;
 	    private Customer		 customer;
 	    private long			 id;
-	    
-	    public CommentImpl()
+
+
+	public CommentImpl()
 	    {
 	        super( -1 );
 	        this.text = null;
@@ -42,7 +43,7 @@ public class CommentImpl extends Persistence implements Comment {
 	        this.customer = customer;
 	        this.id = id;
 	    }
-	
+
 	@Override
 	public long getId() {
 		return id;
@@ -50,14 +51,14 @@ public class CommentImpl extends Persistence implements Comment {
 
 	@Override
 	public void setId(long id) {
-		this.id = id;		
+		this.id = id;
 	}
 	//FINISH******************************************************************
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 	//FINISH******************************************************************
 	@Override
 	public String getText() {
@@ -92,6 +93,10 @@ public class CommentImpl extends Persistence implements Comment {
 	@Override
 	public Customer getCustomer() {
 		return customer;
+	}
+	@Override
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }

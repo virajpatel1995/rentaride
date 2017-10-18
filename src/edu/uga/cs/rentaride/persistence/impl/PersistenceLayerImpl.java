@@ -17,10 +17,6 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
-		
-	
-	private 
-
 	@Override
 	public List<Administrator> restoreAdministrator(Administrator modelAdministrator) throws RARException {
 		// TODO Auto-generated method stub
