@@ -13,7 +13,7 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class CustomerImpl extends Persistence implements Customer {
 
-	// Customer Attributes
+		// Customer Attributes
 		private String            userName;
 	    private String            password;
 	    private String            email;

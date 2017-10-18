@@ -20,6 +20,8 @@ import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 import edu.uga.cs.rentaride.persistence.impl.Persistence;
 import edu.uga.cs.rentaride.entity.impl.AdministratorImpl;
+import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
+
 
 
 public class ObjectLayerImpl implements ObjectLayer {
@@ -37,54 +39,68 @@ public class ObjectLayerImpl implements ObjectLayer {
         System.out.println( "ObjectLayerImpl.ObjectLayerImpl(persistence): initialized" );
     }
 	
+	@Override
+	public Administrator createAdministrator() {
+		AdministratorImpl Administrator = new AdministratorImpl(null, null, null, null, null,null, null, null, 0);
+		 Administrator.setId(-1);
+		 Persistence.setPersistencvalayer(persistence);
+		 return Administrator;
+		
+	}
+
+
 	
 	@Override
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
 			String email, String address, Date createDate) throws RARException {
 		// TODO Auto-generated method stub
-		AdministratorImpl Administrator = new AdministratorImpl();
-		
-		return null;
-	}
+		AdministratorImpl Administrator = new AdministratorImpl(firstName, lastName, userName, password, email, address, createDate, null, 0);
+		Persistence.setPersistencvalayer(persistence);
+		return Administrator;
+			}
 
-	@Override
-	public Administrator createAdministrator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public List<Administrator> findAdministrator(Administrator modelAdministrator) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return persistence.restoreAdministrator(modelAdministrator);
 	}
 
 	@Override
 	public void storeAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
 		
+		persistence.storeAdministrator(administrator);		
 	}
 
 	@Override
 	public void deleteAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
+		persistence.deleteAdministrator(administrator);
 		
+	}
+	
+	@Override
+	public Customer createCustomer() {
+		// TODO Auto-generated method stub
+		CustomerImpl.Customer = new CustomerImpl();
+		Customer.setId(-1);
+		Persistence.setPersistencvalayer(persistence);
+		return Customer;
 	}
 
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email,
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
 			String cardNumber, Date cardExpiration) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		
+		CustomerImpl.Customer(firstName, lastName, userName, password, email, address, createDate, membershipExpiration, licenseState, licenseNumber, cardNumber, cardExpiration);
+		//persistence.setPersistencvalayer(persistence);
+		//return Customer;
+		
 	}
 
-	@Override
-	public Customer createCustomer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public List<Customer> findCustomer(Customer modelCustomer) throws RARException {
 		// TODO Auto-generated method stub
