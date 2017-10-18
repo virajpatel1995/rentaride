@@ -45,11 +45,11 @@ public class UserImpl extends Persistence implements User {
 		this.userStatus = userStatus;
 	}
 
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
 
 	@Override

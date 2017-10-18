@@ -50,11 +50,11 @@ public class RentalLocationImpl extends Persistence implements RentalLocation {
         this.capacity = capacity;
     }
 
-    @Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//    @Override
+//	public boolean isPersistent() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
 	@Override
 	public String getName() {
