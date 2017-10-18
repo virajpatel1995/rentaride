@@ -13,8 +13,11 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 
 	// VehicleType Attributes
 	private String     name;
-	private long			 id;
-		    
+	private long		id;
+	List<HourlyPrice> hourlyPrices;
+	List<Vehicle> vehicles;
+	List<Reservation> reservations;
+
 	public VehicleTypeImpl()
 	{
 		super( -1 );
@@ -58,21 +61,39 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 
 	//FINISH********************************************************************************
 	@Override
-	public List<HourlyPrice> getHourlyPrices() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HourlyPrice> getHourlyPrices() throws RARException {
+		if( hourlyPrices == null )
+			if( isPersistent() ) {
+				hourlyPrices= getPersistencvalayer().restoreVehicleTypeHourlyPrice(this);
+			}
+			else
+				throw new RARException( "This hourlyPrices object is not persistent" );
+
+		return hourlyPrices;
 	}
 
 	@Override
-	public List<Vehicle> getVehicles() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Vehicle> getVehicles() throws RARException {
+		if( vehicles == null )
+			if( isPersistent() ) {
+				vehicles= getPersistencvalayer().restoreVehicleVehicleType(this);
+			}
+			else
+				throw new RARException( "This vehicle object is not persistent" );
+
+		return vehicles;
 	}
 
 	@Override
-	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reservation> getReservations() throws RARException {
+		if( reservations == null )
+			if( isPersistent() ) {
+				reservations = getPersistencvalayer().restoreReservationVehicleType(this);
+			}
+			else
+				throw new RARException( "This reservation object is not persistent" );
+
+		return reservations;
 	}
 	//FINISH********************************************************************************
 }
