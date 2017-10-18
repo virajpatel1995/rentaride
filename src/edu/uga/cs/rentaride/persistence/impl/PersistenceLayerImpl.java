@@ -30,6 +30,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	private ReservationManager reservationManager = null;
 	private VehicleManager vehicleManager = null;
 	private VehicleTypeManager vehicleTypeManager = null;
+	private RentARideParamsManager rentARideParamsManager = null
 	
 	/*
 	 * PersistenceLayerImpl Constructor
@@ -44,6 +45,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		reservationManager = new ReservationManager(conn, objectLayer);
 		vehicleManager = new VehicleManager(conn, objectLayer);
 		vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
+		rentARideParamsManager = new RentARideParamsManager(conn, objectLayer);
 		System.out.println("PersistenceLayerImpl.PersistenceLayerImpl(conn, objectLayer): Initilized");
 	}//Constructor
 
@@ -72,11 +74,13 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		customerManager.store(customer);
 	}//storeCustomer
 	
-	//@Override
-	//public void deleteCustomer(Customer customer) throws RARException{
-		//TODO
-	//}//deleteCustomer
-
+	/*
+	@Override
+	public void deleteCustomer(Customer customer) throws RARException{
+		customerManager.delete(customer);
+	}//deleteCustomer
+	 */
+	
 	@Override
 	public List<RentalLocation> restoreRentalLocation(RentalLocation modelRentalLocation) throws RARException {
 		return rentalLocationManager.restore(modelRentalLocation);
@@ -179,20 +183,17 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		hourlyPriceManager.delete(hourlyPrice);
 	}
 
 	@Override
 	public RentARideParams restoreRentARideConfig() throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return rentARideParamsManager.restore();
 	}
 
 	@Override
 	public void storeRentARideConfig(RentARideParams rentARideConfig) throws RARException {
-		// TODO Auto-generated method stub
-		
+		rentARideParamsManager.store(rentARideConfig);
 	}
 
 	@Override
