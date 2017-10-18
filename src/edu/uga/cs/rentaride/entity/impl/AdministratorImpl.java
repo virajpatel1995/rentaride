@@ -17,7 +17,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
     private String           firstName;
     private String           lastName;
     private String           address;
-    private Date			 createDate;
+    private Date			 createdDate;
     private UserStatus		 userStatus;
     private long			 id;
     
@@ -30,7 +30,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
         this.firstName = null;
         this.lastName = null;
         this.address = null;
-        this.createDate = null;
+        this.createdDate = null;
         this.userStatus = null;
         this.id = 0;
     }
@@ -41,7 +41,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
                        String firstName,
                        String lastName,
                        String address,
-                       Date createDate,
+                       Date createdDate,
                        UserStatus userStatus,
                        long id)
     {
@@ -52,7 +52,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
         this.userStatus = userStatus;
         this.id = id;
     }
@@ -110,12 +110,12 @@ public class AdministratorImpl extends Persistence implements Administrator {
 
 	@Override
 	public Date getCreatedDate() {
-		return createDate;
+		return createdDate;
 	}
 
 	@Override
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;		
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	@Override
