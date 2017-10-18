@@ -12,7 +12,6 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class RentalImp extends Persistence implements Rental {
 
-	private long id;
 	private Date pickupTime;
 	private Date returnTime;
 	private boolean late;
@@ -23,18 +22,28 @@ public class RentalImp extends Persistence implements Rental {
 	private Comment comment;
 
 
-
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return id;
+	public RentalImp(){
+		super(-1);
+		this.pickupTime = null;
+		this.returnTime = null;
+		this.late = false;
+		this.charges = 0;
+		this.reservation = null;
+		this.vehicle = null;
+		this.customer = null;
+		this.comment = null;
 	}
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-		// TODO Auto-generated method stub
-		
+	public RentalImp(Date pickupTime, Date returnTime, boolean late, int charges, Reservation reservation, Vehicle vehicle, Customer customer, Comment comment) {
+		super(-1);
+		this.pickupTime = pickupTime;
+		this.returnTime = returnTime;
+		this.late = late;
+		this.charges = charges;
+		this.reservation = reservation;
+		this.vehicle = vehicle;
+		this.customer = customer;
+		this.comment = comment;
 	}
 
 	@Override

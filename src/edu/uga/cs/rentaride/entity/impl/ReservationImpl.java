@@ -12,16 +12,31 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class ReservationImpl extends Persistence implements Reservation {
 
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	private Date pickupTime;
+	private int length;
+	private Customer customer;
+	private VehicleType vehicleType;
+	private RentalLocation rentalLocation;
+	private Rental rental;
+
+	public ReservationImpl(){
+		super(-1);
+		this.pickupTime = null;
+		this.length = 0;
+		this.customer = null;
+		this.vehicleType = null;
+		this.rentalLocation = null;
+		this.rental = null;
 	}
 
-	@Override
-	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
+	public ReservationImpl(long id, Date pickupTime, int length, Customer customer, VehicleType vehicleType, RentalLocation rentalLocation, Rental rental) {
+		super(-1);
+		this.pickupTime = pickupTime;
+		this.length = length;
+		this.customer = customer;
+		this.vehicleType = vehicleType;
+		this.rentalLocation = rentalLocation;
+		this.rental = rental;
 	}
 
 	@Override
@@ -32,74 +47,61 @@ public class ReservationImpl extends Persistence implements Reservation {
 
 	@Override
 	public Date getPickupTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return pickupTime;
 	}
 
 	@Override
-	public void setPickupTime(Date pickupTime) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setPickupTime(Date pickupTime) throws RARException{
+		this.pickupTime = pickupTime;
 	}
 
 	@Override
 	public int getLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return length;
 	}
 
 	@Override
-	public void setLength(int length) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setLength(int length) throws RARException{
+		this.length = length;
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return customer;
 	}
 
 	@Override
-	public void setCustomer(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setCustomer(Customer customer) throws RARException{
+		this.customer = customer;
 	}
 
 	@Override
 	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleType;
 	}
 
 	@Override
-	public void setVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setVehicleType(VehicleType vehicleType) throws RARException{
+		this.vehicleType = vehicleType;
 	}
 
 	@Override
 	public RentalLocation getRentalLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return rentalLocation;
 	}
 
 	@Override
-	public void setRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setRentalLocation(RentalLocation rentalLocation) throws RARException{
+		this.rentalLocation = rentalLocation;
 	}
 
 	@Override
 	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
+		return rental;
 	}
 
 	@Override
-	public void setRental(Rental rental) {
-		// TODO Auto-generated method stub
-		
+	public void setRental(Rental rental){
+		this.rental = rental;
 	}
-
 }
