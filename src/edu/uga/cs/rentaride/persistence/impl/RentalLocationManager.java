@@ -34,7 +34,63 @@ public class RentalLocationManager {
 	}//constructor
 	
 	public void store(RentalLocation rentalLocation) throws RARException{
-		//TODO
+		String insertRentalLocationSql = "insert into rentalLocation ( name, address, capacity) values ( ?, ?, ?)";
+		String updateRentalLocationSql = "update person  set name = ?, address = ?, capacity = ?, where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long rentalLocationId;
+		
+		try {
+	
+			if(!rentalLocation.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertRentalLocationSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateRentalLocationSql);
+			
+			if(rentalLocation.getName() != null)
+					stmt.setString(1,rentalLocation.getName());
+			else
+					throw new RARException("RentalLocationManager.save: can't save a Rental Location: Name undefined");
+
+			if(rentalLocation.getAddress() != null)
+					stmt.setString(2,rentalLocation.getAddress());
+			else
+					throw new RARException("RentalLocationManager.save: can't save an Rental Location: Address undefined");
+
+			if(rentalLocation.getCapacity() > 0)
+					stmt.setInt(3,rentalLocation.getCapacity());
+			else
+					throw new RARException("RentalLocationManager.save: can't save a RentalLocation: Capacity undefined");
+
+			if(rentalLocation.isPersistent())
+				stmt.setLong(4,  rentalLocation.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!rentalLocation.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							rentalLocationId = r.getLong(1);
+							if(rentalLocationId > 0)
+								rentalLocation.setId(rentalLocationId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("RentalLocationManager.save: failed to save a Rental Location");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("RentalLocationManager.save: Failed to save a Rental Location: " + e);
+		}//try catch
+	
 	}//store
 	
 	public List<RentalLocation> restore(RentalLocation rentalLocation) throws RARException{

@@ -34,7 +34,7 @@ public class HourlyPriceManager {
 	}//constructor
 	
 	public void store(HourlyPrice hourlyPrice) throws RARException{
-		String insertHourlyPriceSql = "insert into user ( maxHrs, price, vehicleTypeid ) values ( ?, ?, ? )";
+		String insertHourlyPriceSql = "insert into hourlyPrice ( maxHrs, price, vehicleTypeid ) values ( ?, ?, ? )";
 		String updateHourlyPriceSql = "update person  set maxHrs = ?, price = ?, vehicleTypeid = ? where id = ?";
 		java.sql.PreparedStatement stmt = null;
 		int inscnt;
