@@ -82,9 +82,9 @@ public class AdministratorManager {
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
 			if(administrator.getCreatedDate() != null)
-					stmt.setString(8,administrator.getCreatedDate().toString());
+					stmt.setDate(8,administrator.getCreatedDate());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
+					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
 			if(administrator.isPersistent())
 				stmt.setLong(9,  administrator.getId());
@@ -113,7 +113,7 @@ public class AdministratorManager {
 
 			e.printStackTrace();
 				throw new RARException("AdministratorManager.save: Failed to save an Administrator: " + e);
-		}//try ctach
+		}//try catch
 	
 	}//store
 	
