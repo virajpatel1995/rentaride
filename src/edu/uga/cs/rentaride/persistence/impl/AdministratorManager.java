@@ -34,7 +34,7 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator administrator) throws RARException{
+	public void store(Administrator administrator) throws RARException, SQLException {
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
 		String updateAdministratorSql = "update person  set type = \"Administrator\", firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
 		java.sql.PreparedStatement stmt;
@@ -77,21 +77,126 @@ public class AdministratorManager {
 			else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
-			if(administrator.getCreatedDate()() != null)
-					stmt.setString(7,administrator.getCreatedDate());
+			if(administrator.getCreatedDate() != null)
+					stmt.setString(7,administrator.getCreatedDate().toString());
 			else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
 		
-		}catch () {
+		}catch (Exception e) {
 			
 		}//try catch
 	
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
-		//TODO
-		return null;
-	}//restore
+		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from User";
+		Statement    stmt = null;
+		StringBuffer query = new StringBuffer( 100 );
+		StringBuffer condition = new StringBuffer( 100 );
+		List<Administrator> administrators = new ArrayList<>();
+
+		condition.setLength( 0 );
+
+		// form the query based on the given Person object instance
+		query.append( selectAdminSql );
+		if(administrator != null){
+			if(administrator.getId() >= 0)
+				query.append(" where id = " + administrator.getId());
+			else if (administrator.getUserName() != null)
+				query.append(" where username = '" + administrator.getUserName() + "'");
+            else {
+					if( administrator.getPassword() != null )
+						condition.append( " password = '" + administrator.getPassword() + "'" );
+
+					if( administrator.getEmail() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " email = '" + administrator.getEmail() + "'" );
+					}
+
+					if( administrator.getFirstName() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " firstName = '" + administrator.getFirstName() + "'" );
+					}
+
+					if( administrator.getLastName() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " lastName = '" + administrator.getLastName() + "'" );
+					}
+
+					if( administrator.getAddress() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " address = '" + administrator.getAddress() + "'" );
+					}
+
+					if( administrator.getCreatedDate() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " createdDate = '" + administrator.getCreatedDate() + "'" );
+					}
+					if( administrator.getUserStatus() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " status = '" + administrator.getUserStatus() + "'" );
+					}
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String firstName;
+					String lastName;
+					String userName;
+					String password;
+					String email;
+					String address;
+					Date date;
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getLong( 1 );
+						firstName = rs.getString( 2 );
+						lastName = rs.getString( 3 );
+						userName = rs.getString( 4 );
+						password = rs.getString( 5 );
+						email = rs.getString( 6 );
+						address = rs.getString( 7 );
+						date = rs.getDate( 8 );
+
+						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
+						administrator1.setId( id );
+
+						administrators.add( administrator1 );
+
+					}
+
+					return administrators;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );
+		}//restore
 	
 	public void delete(Administrator administrator) throws RARException{
 		//TODO
