@@ -38,7 +38,7 @@ public class AdministratorManager {
 	public void store(Administrator administrator) throws RARException, SQLException {
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
 		String updateAdministratorSql = "update person  set type = \"Administrator\", firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
-		java.sql.PreparedStatement stmt;
+		java.sql.PreparedStatement stmt = null;
 		int inscnt;
 		long userId;
 		
@@ -108,10 +108,7 @@ public class AdministratorManager {
 					throw new RARException("AdministratorManager.save: failed to save an Administrator");
 			}//if else
 			
-		}catch (SQLException e) {
-			e.printStackTrace();
-			throw new RARException("AdministratorManager.save: failed to save an Administrator" + e);
-		}//try catch
+		}
 	
 	}//store
 	
