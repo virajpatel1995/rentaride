@@ -34,7 +34,6 @@ public class CommentManager {
 	}//constructor
 	
 	public void store(Comment comment) {
-		
 		//TODO
 	}//store
 	

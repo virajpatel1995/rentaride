@@ -34,7 +34,64 @@ public class HourlyPriceManager {
 	}//constructor
 	
 	public void store(HourlyPrice hourlyPrice) throws RARException{
-		//TODO
+		String insertHourlyPriceSql = "insert into user ( maxHrs, price, vehicleTypeid ) values ( ?, ?, ? )";
+		String updateHourlyPriceSql = "update person  set maxHrs = ?, price = ?, vehicleTypeid = ? where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long hourlyPriceId;
+		
+		if(hourlyPrice.getVehicleType() == null)
+			throw new RARException ("HourlyPriceManager.save: Attempting ot save a HourlyPrice with no VehicleType defined");
+		if(!hourlyPrice.getVehicleType().isPersistent())	
+			throw new RARException ("HourlyPriceManager.save: Attempting ot save a HourlyPrice with no VehicleType is not persistent");
+		
+		try {
+	
+			if(!hourlyPrice.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertHourlyPriceSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateHourlyPriceSql);
+		
+			if(hourlyPrice.getMaxHours() > 0)
+					stmt.setInt(1,hourlyPrice.getMaxHours());
+			else
+					throw new RARException("HourlyPriceManager.save: can't save a Hourly Price: max hours undefined");
+
+			if(hourlyPrice.getPrice() > 0)
+					stmt.setInt(2,hourlyPrice.getPrice());
+			else
+					throw new RARException("HourlyPriceManager.save: can't save a HourlyPrice: Price undefined");
+
+			stmt.setLong(3,  hourlyPrice.getVehicleType().getId());
+			
+			if(hourlyPrice.isPersistent())
+				stmt.setLong(3,  hourlyPrice.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!hourlyPrice.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							hourlyPriceId = r.getLong(1);
+							if(hourlyPriceId > 0)
+								hourlyPrice.setId(hourlyPriceId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("HourlyPriceManager.save: failed to save a hourly price");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("HourlyPriceManager.save: Failed to save a Hourly Price: " + e);
+		}//try catch
 	}//store
 	
 	public List<HourlyPrice> restore(HourlyPrice hourlyPrice) throws RARException{
