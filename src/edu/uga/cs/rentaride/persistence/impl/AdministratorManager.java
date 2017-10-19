@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,7 +84,33 @@ public class AdministratorManager {
 					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
 		
 		}catch (Exception e) {
+
+			if(administrator.isPersistent())
+				stmt.setLong(8,  administrator.getId());
+		
+			inscnt = stmt.executeUpdate();
 			
+			if(!administrator.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							userId = r.getLong(1);
+							if(userId > 0)
+								administrator.setId(userId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("AdministratorManager.save: failed to save an Administrator");
+			}//if else
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new RARException("AdministratorManager.save: failed to save an Administrator" + e);
 		}//try catch
 	
 	}//store
@@ -198,8 +225,35 @@ public class AdministratorManager {
 			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );
 		}//restore
 	
+	
+	
+	
 	public void delete(Administrator administrator) throws RARException{
-		//TODO
-	}//delete
+		
+		String deleteAdministratorSql = "delete from administrator where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt;
+		             
+		        if( !administrator.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteAdministratorSql );         
+		            stmt.setLong( 1, administrator.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "AdministratorManager.delete: failed to delete a Administrator" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "AdministratorManager.delete: failed to delete a Administrator: " + e );       
+		            }
+		    }
+		
+		
+			
 	
 }//AdministratorManager

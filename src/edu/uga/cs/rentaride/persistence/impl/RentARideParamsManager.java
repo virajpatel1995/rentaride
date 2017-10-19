@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,32 @@ public class RentARideParamsManager {
 	}//restore
 	
 	public void delete(RentARideParams rentARideParams) throws RARException{
-		//TODO
+		
+		String deleteRentARideParamsSql = "delete from rentARideParams where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+		        if( !rentARideParams.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteRentARideParamsSql );         
+		            stmt.setLong( 1, rentARideParams.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "RentARideParamsManager.delete: failed to delete a rentARideParams" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "RentARideParamsManager.delete: failed to delete a rentARideParams: " + e );       
+		            }
+		
+		
+		
+		
 	}//delete
 	
 }//RentARideParamsManager
