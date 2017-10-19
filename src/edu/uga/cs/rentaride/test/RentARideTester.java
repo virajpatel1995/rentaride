@@ -7,6 +7,7 @@ import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
+import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
@@ -75,7 +76,41 @@ public class RentARideTester {
         	
         	Rental rental1 = objectLayer.createRental(new Date("2017-10-18 09:00:00"), reservation1, vehicle1);
         	Rental rental2 = objectLayer.createRental(new Date("2017-10-20 09:00:00"), reservation3, vehicle2);
-
+        	
+        	Comment comment1 = objectLayer.createComment("Great car", new Date("2017-10-19 09:00:00"), rental1, customer1);
+        	Comment comment2 = objectLayer.createComment("Best car ever", new Date("2017-10-21 09:00:00"), rental2, customer2);
+        	
+        	objectLayer.deleteComment(comment2);
+        	objectLayer.deleteComment(comment1);
+        	
+        	objectLayer.deleteRental(rental2);
+        	objectLayer.deleteRental(rental1);
+        	
+        	objectLayer.deleteReservation(reservation4);
+        	objectLayer.deleteReservation(reservation3);
+        	objectLayer.deleteReservation(reservation2);
+        	objectLayer.deleteReservation(reservation1);
+        	
+        	//NOT IMPLEMENTED?????
+        	//objectLayer.deleteCustomer(customer2);
+        	//objectLayer.deleteCustomer(customer1);
+        	
+        	objectLayer.deleteVehicle(vehicle4);
+        	objectLayer.deleteVehicle(vehicle3);
+        	objectLayer.deleteVehicle(vehicle2);
+        	objectLayer.deleteVehicle(vehicle1);
+        	
+        	objectLayer.deleteHourlyPrice(hourlyPrice2);
+        	objectLayer.deleteVehicleType(vehicleType2);
+        	objectLayer.deleteHourlyPrice(hourlyPrice1);
+        	objectLayer.deleteVehicleType(vehicleType1);
+        	
+        	objectLayer.deleteRentalLocation(rentalLocation2);
+        	objectLayer.deleteRentalLocation(rentalLocation1);
+        	
+        	objectLayer.deleteAdministrator(admin2);
+        	objectLayer.deleteAdministrator(admin1);
+        	
         }
         catch( RARException ce)
         {
