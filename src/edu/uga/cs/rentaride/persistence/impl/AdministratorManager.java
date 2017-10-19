@@ -118,7 +118,7 @@ public class AdministratorManager {
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
-		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from User";
+		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
 		Statement    stmt = null;
 		StringBuffer query = new StringBuffer( 100 );
 		StringBuffer condition = new StringBuffer( 100 );
