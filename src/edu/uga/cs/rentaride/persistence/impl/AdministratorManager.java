@@ -35,7 +35,7 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator administrator) throws RARException, SQLException {
+	public void store(Administrator administrator) throws RARException {
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";
 		String updateAdministratorSql = "update person  set type = ? firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
 		java.sql.PreparedStatement stmt = null;
