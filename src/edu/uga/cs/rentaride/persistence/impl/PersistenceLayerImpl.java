@@ -35,7 +35,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	/*
 	 * PersistenceLayerImpl Constructor
 	 */
-	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer) {
+	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer) throws RARException {
 		administratorManager = new AdministratorManager(conn, objectLayer);
 		commentManager = new CommentManager(conn, objectLayer);
 		customerManager = new CustomerManager(conn, objectLayer);

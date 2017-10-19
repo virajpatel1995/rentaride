@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,6 +34,7 @@ public class CommentManager {
 	}//constructor
 	
 	public void store(Comment comment) {
+		
 		//TODO
 	}//store
 	
@@ -42,7 +44,34 @@ public class CommentManager {
 	}//restore
 	
 	public void delete(Comment comment) throws RARException{
-		//TODO
+		
+		String deleteCommentSql = "delete from comment where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+		        if( !comment.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteCommentSql );         
+		            stmt.setLong( 1, comment.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "CommentManager.delete: failed to delete a Comment" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "CommentManager.delete: failed to delete a Comment: " + e );       
+		            }
+		
+		
+		
+		
+		
+		
 	}//delete
 	
 }//CommentManager

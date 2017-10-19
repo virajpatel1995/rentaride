@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -117,8 +118,35 @@ public class AdministratorManager {
 		return null;
 	}//restore
 	
+	
+	
+	
 	public void delete(Administrator administrator) throws RARException{
-		//TODO
-	}//delete
+		
+		String deleteAdministratorSql = "delete from administrator where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt;
+		             
+		        if( !administrator.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteAdministratorSql );         
+		            stmt.setLong( 1, administrator.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "AdministratorManager.delete: failed to delete a Administrator" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "AdministratorManager.delete: failed to delete a Administrator: " + e );       
+		            }
+		    }
+		
+		
+			
 	
 }//AdministratorManager
