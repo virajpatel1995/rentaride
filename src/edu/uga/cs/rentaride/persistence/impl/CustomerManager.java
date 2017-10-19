@@ -33,57 +33,83 @@ public class CustomerManager {
 	}//constructor
 	
 	public void store(Customer customer) {
-		String insertCustomerSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( 'Administrator', ?, ?, ?, ?, ?, ?, ? )";
-		String updateCustomerSql = "update person  set type = \"Customer\", firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
+		String insertCustomerSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		String updateCustomerSql = "update person  set type = ? firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ?, memberUntil = ?, licState = ?, licNumber = ?, ccNumber = ?, ccExpiration = ?, status = ? where id = ?";
 		java.sql.PreparedStatement stmt = null;
 		int inscnt;
 		long userId;
 		
 		try {
-			if(!administrator.isPersistent())
-				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertAdministratorSql);
+	
+			if(!customer.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertCustomerSql);
 			else
-				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateAdministratorSql);
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateCustomerSql);
 		
-			if(administrator.getFirstName() != null)
-					stmt.setString(1,administrator.getFirstName());
+			stmt.setString(1,  "Customer");
+			
+			if(customer.getFirstName() != null)
+					stmt.setString(2,customer.getFirstName());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: FirstName undefined");
 
-			if(administrator.getLastName() != null)
-					stmt.setString(2,administrator.getLastName());
+			if(customer.getLastName() != null)
+					stmt.setString(3,customer.getLastName());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: LastName undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: LastName undefined");
 
-			if(administrator.getUserName() != null)
-					stmt.setString(3,administrator.getUserName());
+			if(customer.getUserName() != null)
+					stmt.setString(4,customer.getUserName());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: UserName undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: UserName undefined");
 
-			if(administrator.getPassword() != null)
-					stmt.setString(4,administrator.getPassword());
+			if(customer.getPassword() != null)
+					stmt.setString(5,customer.getPassword());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: Password undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: Password undefined");
 
-			if(administrator.getEmail() != null)
-					stmt.setString(5,administrator.getEmail());
+			if(customer.getEmail() != null)
+					stmt.setString(6,customer.getEmail());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: Email undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: Email undefined");
 
-			if(administrator.getAddress() != null)
-					stmt.setString(6,administrator.getAddress());
+			if(customer.getAddress() != null)
+					stmt.setString(7,customer.getAddress());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: Address undefined");
 
-			if(administrator.getCreatedDate() != null)
-					stmt.setString(7,administrator.getCreatedDate().toString());
+			if(customer.getCreatedDate() != null)
+					stmt.setString(8,customer.getCreatedDate().toString());
 			else
-					throw new RARException("AdministratorManager.save: can't save an Administrator: FirstName undefined");
+					throw new RARException("CustomerManager.save: can't save an Customer: Created Date undefined");
+			
+			if(customer.getMemberUntil() != null)
+				stmt.setString(8,customer.getMemberUntil().toString());
+			else
+				throw new RARException("CustomerManager.save: can't save an Customer: Member Until undefined");
 		
-		}catch (Exception e) {
+			if(customer.getLicenseState() != null)
+				stmt.setString(8,customer.getLicenseState());
+			else
+				throw new RARException("CustomerManager.save: can't save an Customer: License State undefined");
+			
+			if(customer.getLicenseNumber() != null)
+				stmt.setString(7,customer.getLicenseNumber());
+			else
+				throw new RARException("CustomerManager.save: can't save an Customer: License Number undefined");
+			
+			if(customer.getCreditCardNumber() != null)
+				stmt.setString(7,customer.getCreditCardNumber());
+			else
+				throw new RARException("CustomerManager.save: can't save an Customer: Credit Card Number undefined");
 
-			if(administrator.isPersistent())
-				stmt.setLong(8,  administrator.getId());
+			if(customer.getCreditCardExpiration() != null)
+				stmt.setString(7,customer.getCreditCardExpiration().toString());
+			else
+				throw new RARException("CustomerManager.save: can't save an Customer: Credit Card Expiration undefined");
+
+			if(customer.isPersistent())
+				stmt.setLong(9,  customer.getId());
 		
 			inscnt = stmt.executeUpdate();
 			
@@ -105,7 +131,11 @@ public class CustomerManager {
 					throw new RARException("AdministratorManager.save: failed to save an Administrator");
 			}//if else
 			
-		}
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("AdministratorManager.save: Failed to save an Administrator: " + e);
+		}//try ctach
 	
 	}//store
 	
