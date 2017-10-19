@@ -11,7 +11,6 @@ public class HourlyPriceImpl extends Persistence implements HourlyPrice{
 		    private int			 	 maxHours;
 		    private int				 price;
 		    private VehicleType		 vehicleType;
-		    private long			 id;
 		    
 		    public HourlyPriceImpl()
 		    {
@@ -19,31 +18,19 @@ public class HourlyPriceImpl extends Persistence implements HourlyPrice{
 		        this.maxHours = 0;
 		        this.price = 0;
 		        this.vehicleType = null;
-		        this.id = 0;
 		    }
 
 		    public HourlyPriceImpl( int maxHours,
 		                       int price,
-		                       VehicleType vehicleType,
-		                       long id
+		                       VehicleType vehicleType
 		                      )
 		    {
 		    	super( -1 );
 		        this.maxHours = maxHours;
 		        this.price = price;
 		        this.vehicleType = vehicleType;
-		        this.id = id;
 		    }
-	
-	@Override
-	public long getId() {
-		return id;
-	}
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
 //FINISH**********************************************************************
 //	@Override
 //	public boolean isPersistent() {

@@ -23,7 +23,7 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 		this.name = null;
 	}
 
-	public VehicleTypeImpl( String name,long id)
+	public VehicleTypeImpl( String name)
 	{
 		super( -1 );
 		this.name = name;

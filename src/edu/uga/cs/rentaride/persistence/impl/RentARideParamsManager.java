@@ -32,7 +32,7 @@ public class RentARideParamsManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(RentARideParams rentARideParams) {
+	public void store(RentARideParams rentARideParams) throws RARException{
 		//TODO
 	}//store
 	
@@ -41,7 +41,7 @@ public class RentARideParamsManager {
 		return null;
 	}//restore
 	
-	public void delete(RentARideParams rentARideParams) {
+	public void delete(RentARideParams rentARideParams) throws RARException{
 		//TODO
 	}//delete
 	

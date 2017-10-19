@@ -30,7 +30,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	private ReservationManager reservationManager = null;
 	private VehicleManager vehicleManager = null;
 	private VehicleTypeManager vehicleTypeManager = null;
-	private RentARideParamsManager rentARideParamsManager = null
+	private RentARideParamsManager rentARideParamsManager = null;
 	
 	/*
 	 * PersistenceLayerImpl Constructor
