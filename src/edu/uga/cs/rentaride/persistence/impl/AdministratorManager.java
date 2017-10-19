@@ -35,7 +35,7 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator administrator) throws RARException, SQLException {
+	public void store(Administrator administrator) throws RARException {
 		String insertAdministratorSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";
 		String updateAdministratorSql = "update person  set type = ? firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ? where id = ?";
 		java.sql.PreparedStatement stmt = null;
@@ -118,7 +118,7 @@ public class AdministratorManager {
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
-		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from User";
+		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
 		Statement    stmt = null;
 		StringBuffer query = new StringBuffer( 100 );
 		StringBuffer condition = new StringBuffer( 100 );
