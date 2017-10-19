@@ -82,7 +82,7 @@ public class AdministratorManager {
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
 			if(administrator.getCreatedDate() != null)
-					stmt.setDate(8,administrator.getCreatedDate());
+					stmt.setDate(8,new java.sql.Date(administrator.getCreatedDate().getTime()));
 			else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
