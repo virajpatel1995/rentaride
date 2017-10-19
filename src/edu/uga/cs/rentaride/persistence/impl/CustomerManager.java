@@ -32,7 +32,7 @@ public class CustomerManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Customer customer) {
+	public void store(Customer customer) throws RARException{
 		String insertCustomerSql = "insert into user ( type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		String updateCustomerSql = "update person  set type = ? firstName = ?, lastName = ?, userName = ?, password = ?, email = ?, address = ?, createdDate = ?, memberUntil = ?, licState = ?, licNumber = ?, ccNumber = ?, ccExpiration = ?, status = ? where id = ?";
 		java.sql.PreparedStatement stmt = null;
@@ -79,12 +79,12 @@ public class CustomerManager {
 					throw new RARException("CustomerManager.save: can't save a Customer: Address undefined");
 
 			if(customer.getCreatedDate() != null)
-					stmt.setDate(8,customer.getCreatedDate());
+					stmt.setDate(8,new java.sql.Date(customer.getCreatedDate().getTime()));
 			else
 					throw new RARException("CustomerManager.save: can't save a Customer: Created Date undefined");
 			
 			if(customer.getMemberUntil() != null)
-				stmt.setDate(9,customer.getMemberUntil());
+				stmt.setDate(9,new java.sql.Date(customer.getMemberUntil().getTime()));
 			else
 				throw new RARException("CustomerManager.save: can't save a Customer: Member Until undefined");
 		
@@ -104,7 +104,7 @@ public class CustomerManager {
 				throw new RARException("CustomerManager.save: can't save a Customer: Credit Card Number undefined");
 
 			if(customer.getCreditCardExpiration() != null)
-				stmt.setDate(13,customer.getCreditCardExpiration());
+				stmt.setDate(13,new java.sql.Date(customer.getCreditCardExpiration().getTime()));
 			else
 				throw new RARException("CustomerManager.save: can't save a Customer: Credit Card Expiration undefined");
 
