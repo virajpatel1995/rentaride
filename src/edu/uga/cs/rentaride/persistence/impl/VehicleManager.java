@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,31 @@ public class VehicleManager {
 	}//restore
 	
 	public void delete(Vehicle vehicle) throws RARException{
-		//TODO
+		
+		String deleteVehicleSql = "delete from Vehicle where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+		        if( !vehicle.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteVehicleSql );         
+		            stmt.setLong( 1, vehicle.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "VehicleManager.delete: failed to delete a vehicle" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "VehicleManager.delete: failed to delete a vehicle: " + e );       
+		            }
+		
+		
+		
 	}//delete
 	
 }//VehicleManager

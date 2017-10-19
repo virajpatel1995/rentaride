@@ -24,7 +24,7 @@ import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 public class RentARideTester {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RARException {
 		Connection  conn = null;
         ObjectLayer objectLayer = null;
         PersistenceLayer persistence = null;
