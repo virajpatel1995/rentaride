@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,31 @@ public class HourlyPriceManager {
 	}//restore
 	
 	public void delete(HourlyPrice HourlyPrice) throws RARException{
-		//TODO
+		
+		String deleteHourlyPriceSql = "delete from HourlyPrice where id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+		        if( !HourlyPrice.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+		            return;
+		        
+		        try {
+		            stmt = (PreparedStatement) conn.prepareStatement( deleteHourlyPriceSql );         
+		            stmt.setLong( 1, HourlyPrice.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "HourlyPricerManager.delete: failed to delete a HourlyPrice" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "HourlyPriceManager.delete: failed to delete a HourlyPrice: " + e );       
+		            }
+		
+		
+		
 	}//delete
 	
 }//HourlyPriceManager
