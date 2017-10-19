@@ -48,101 +48,101 @@ public class CommentManager {
 			condition.setLength( 0 );
 
 			// form the query based on the given Person object instance
-			query.append( selectCommentSql );
-			if(comment != null){
-				if(comment.getId() >= 0)
-					query.append(" where id = " + comment.getId());
-				else if (comment.getUserName() != null)
-					query.append(" where username = '" + comment.getUserName() + "'");
-				else {
-					if( comment.getPassword() != null )
-						condition.append( " password = '" + comment.getPassword() + "'" );
-
-					if( comment.getEmail() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " email = '" + comment.getEmail() + "'" );
-					}
-
-					if( comment.getFirstName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " firstName = '" + comment.getFirstName() + "'" );
-					}
-
-					if( comment.getLastName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " lastName = '" + comment.getLastName() + "'" );
-					}
-
-					if( comment.getAddress() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " address = '" + comment.getAddress() + "'" );
-					}
-
-					if( comment.getCreatedDate() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " createdDate = '" + comment.getCreatedDate() + "'" );
-					}
-					if( comment.getUserStatus() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " status = '" + comment.getUserStatus() + "'" );
-					}
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
-				}
-			}
-
-			try {
-
-				stmt = conn.createStatement();
-
-				// retrieve the persistent Administrator objects
-				//
-				if( stmt.execute( query.toString() ) ) { // statement returned a result
-					ResultSet rs = stmt.getResultSet();
-
-					long id;
-					String firstName;
-					String lastName;
-					String userName;
-					String password;
-					String email;
-					String address;
-					Date date;
-
-					while( rs.next() ) {
-/**
- *  columnIndex need to match column index in database
- */
-						id = rs.getLong( 1 );
-						firstName = rs.getString( 2 );
-						lastName = rs.getString( 3 );
-						userName = rs.getString( 4 );
-						password = rs.getString( 5 );
-						email = rs.getString( 6 );
-						address = rs.getString( 7 );
-						date = rs.getDate( 8 );
-
-						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
-						administrator1.setId( id );
-
-						administrators.add( administrator1 );
-
-					}
-
-					return administrators;
-				}
-			}
-			catch( Exception e ) {      // just in case...
-				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
-			}
+//			query.append( selectCommentSql );
+//			if(comment != null){
+//				if(comment.getId() >= 0)
+//					query.append(" where id = " + comment.getId());
+//				else if (comment.getUserName() != null)
+//					query.append(" where username = '" + comment.getUserName() + "'");
+//				else {
+//					if( comment.getPassword() != null )
+//						condition.append( " password = '" + comment.getPassword() + "'" );
+//
+//					if( comment.getEmail() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " email = '" + comment.getEmail() + "'" );
+//					}
+//
+//					if( comment.getFirstName() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " firstName = '" + comment.getFirstName() + "'" );
+//					}
+//
+//					if( comment.getLastName() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " lastName = '" + comment.getLastName() + "'" );
+//					}
+//
+//					if( comment.getAddress() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " address = '" + comment.getAddress() + "'" );
+//					}
+//
+//					if( comment.getCreatedDate() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " createdDate = '" + comment.getCreatedDate() + "'" );
+//					}
+//					if( comment.getUserStatus() != null ) {
+//						if( condition.length() > 0 )
+//							condition.append( " and" );
+//						condition.append( " status = '" + comment.getUserStatus() + "'" );
+//					}
+//					if( condition.length() > 0 ) {
+//						query.append(  " where " );
+//						query.append( condition );
+//					}
+//				}
+//			}
+//
+//			try {
+//
+//				stmt = conn.createStatement();
+//
+//				// retrieve the persistent Administrator objects
+//				//
+//				if( stmt.execute( query.toString() ) ) { // statement returned a result
+//					ResultSet rs = stmt.getResultSet();
+//
+//					long id;
+//					String firstName;
+//					String lastName;
+//					String userName;
+//					String password;
+//					String email;
+//					String address;
+//					Date date;
+//
+//					while( rs.next() ) {
+///**
+// *  columnIndex need to match column index in database
+// */
+//						id = rs.getLong( 1 );
+//						firstName = rs.getString( 2 );
+//						lastName = rs.getString( 3 );
+//						userName = rs.getString( 4 );
+//						password = rs.getString( 5 );
+//						email = rs.getString( 6 );
+//						address = rs.getString( 7 );
+//						date = rs.getDate( 8 );
+//
+//						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
+//						administrator1.setId( id );
+//
+//						administrators.add( administrator1 );
+//
+//					}
+//
+//					return administrators;
+//				}
+//			}
+//			catch( Exception e ) {      // just in case...
+//				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+//			}
 
 			// if we get to this point, it's an error
 			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );
