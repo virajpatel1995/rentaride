@@ -61,7 +61,8 @@ public class CustomerImpl extends Persistence implements Customer {
 	                       String cardNumber,
 	                       Date createdDate,
 	                       Date memberUntil,
-	                       Date cardExpiration)
+	                       Date cardExpiration,
+							 UserStatus userStatus)
 	    {
 	        super( -1 );
 	        this.userName = userName;
@@ -76,7 +77,7 @@ public class CustomerImpl extends Persistence implements Customer {
 	        this.createdDate = createdDate;
 	        this.memberUntil = memberUntil;
 	        this.cardExpiration = cardExpiration;
-	        this.userStatus = UserStatus.ACTIVE;
+	        this.userStatus = userStatus;
 	    }
 	
 	@Override

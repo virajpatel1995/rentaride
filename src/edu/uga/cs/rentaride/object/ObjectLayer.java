@@ -5,20 +5,7 @@ import java.util.List;
 
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
-
-
+import edu.uga.cs.rentaride.entity.*;
 
 
 /**
@@ -131,9 +118,9 @@ public interface ObjectLayer
      * @return the new Customer object instance with the given attribute values, UserStatus is UserStatus.ACTIVE
      * @throws RARException in case the userName is non-unique
      */
-    public Customer createCustomer( String firstName, String lastName, String userName, String password,
-            String email, String address, Date createDate, Date membershipExpiration, String licenseState, 
-            String licenseNumber, String cardNumber, Date cardExpiration ) throws RARException;
+    public Customer createCustomer(String firstName, String lastName, String userName, String password,
+                                   String email, String address, Date createDate, Date membershipExpiration, String licenseState,
+                                   String licenseNumber, String cardNumber, Date cardExpiration , UserStatus userStatus) throws RARException;
 
     /**
      * Create a new Customer object with undefined attribute values.

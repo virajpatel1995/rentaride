@@ -1,11 +1,8 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -82,10 +79,8 @@ public class AdministratorManager {
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
 			if(administrator.getCreatedDate() != null) {
-                java.sql.Date sqldate = new java.sql.Date(administrator.getCreatedDate().getTime());
-                sqldate.setTime(administrator.getCreatedDate().getTime());
-                stmt.setDate(8, sqldate);
-                System.out.println(sqldate);
+                Object sqldate = new java.sql.Timestamp(administrator.getCreatedDate().getTime());
+                stmt.setObject(8, sqldate);
             }else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
@@ -137,8 +132,12 @@ public class AdministratorManager {
 			else if (administrator.getUserName() != null)
 				query.append(" where username = '" + administrator.getUserName() + "'");
             else {
-					if( administrator.getPassword() != null )
-						condition.append( " password = '" + administrator.getPassword() + "'" );
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " type = '" + "Administrator" + "'" );
+
+                    if( administrator.getPassword() != null )
+                        condition.append( " password = '" + administrator.getPassword() + "'" );
 
 					if( administrator.getEmail() != null ) {
 						if( condition.length() > 0 )
