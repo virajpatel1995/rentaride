@@ -137,8 +137,12 @@ public class AdministratorManager {
 			else if (administrator.getUserName() != null)
 				query.append(" where username = '" + administrator.getUserName() + "'");
             else {
-					if( administrator.getPassword() != null )
-						condition.append( " password = '" + administrator.getPassword() + "'" );
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " type = '" + "Administrator" + "'" );
+
+                    if( administrator.getPassword() != null )
+                        condition.append( " password = '" + administrator.getPassword() + "'" );
 
 					if( administrator.getEmail() != null ) {
 						if( condition.length() > 0 )

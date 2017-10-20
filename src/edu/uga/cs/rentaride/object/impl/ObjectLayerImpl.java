@@ -84,9 +84,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email,
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
-			String cardNumber, Date cardExpiration) throws RARException {
+			String cardNumber, Date cardExpiration, UserStatus userStatus) throws RARException {
 	
-		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration);
+		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration, userStatus);
 		Persistence.setPersistencvalayer(persistence);
 		return Customer;
 		
