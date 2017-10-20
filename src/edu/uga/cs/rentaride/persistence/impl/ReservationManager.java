@@ -34,7 +34,76 @@ public class ReservationManager {
 	}//constructor
 	
 	public void store(Reservation reservation) throws RARException{
-		//TODO
+		String insertReservationSql = "insert into reservation (pickup, length, canceled, userid, rentalLocationid, vehcileTypeid) values ( ?, ?, ?, ?, ?, ? )";
+		String updateReservationSql = "update person  set  pickup = ?, length = ?, canceled = ?, userid = ?, rentalLocationid = ?, vehicleTypeid = ? where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long reservationId;
+		
+		if(reservation.getRentalLocation() == null)
+			throw new RARException ("Reservation.save: Attempting ot save a Reservation with no RentalLocation defined");
+		if(reservation.getVehicleType() == null)
+			throw new RARException ("Reservation.save: Attempting ot save a Reservation with no VehicleType defined");
+		if(reservation.getCustomer() == null)
+			throw new RARException ("Reservation.save: Attempting ot save a Rental with no Reservation defined");
+		if(!reservation.getRentalLocation().isPersistent())	
+			throw new RARException ("Reservation.save: Attempting ot save a Rental Where RentalLocation is not persistent");
+		if(!reservation.getVehicleType().isPersistent())	
+			throw new RARException ("Reservation.save: Attempting ot save a Rental Where VehicleType is not persistent");
+		if(!reservation.getCustomer().isPersistent())	
+			throw new RARException ("Reservation.save: Attempting ot save a Reservation Where Customer is not persistent");
+		
+		try {
+	
+			if(!reservation.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertReservationSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateReservationSql);
+		
+			if(reservation.getPickupTime() != null)
+				stmt.setDate(1,new java.sql.Date(reservation.getPickupTime().getTime()));
+			else
+				throw new RARException("ResevrationManager.save: can't save a Reservation: Pickup Time undefined");
+
+			if(reservation.getLength() > 0)
+				stmt.setInt(2,reservation.getLength());
+			else
+				throw new RARException("ResevrationManager.save: can't save a Reservation: Length undefined");
+			
+			//stmt.setBoolean(3,reservation.get);
+
+			stmt.setLong(4,  reservation.getCustomer().getId());
+			stmt.setLong(5,  reservation.getRentalLocation().getId());
+			stmt.setLong(6,  reservation.getVehicleType().getId());
+			
+			if(reservation.isPersistent())
+				stmt.setLong(8, reservation.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!reservation.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							reservationId = r.getLong(1);
+							if(reservationId > 0)
+								reservation.setId(reservationId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("ReservationManager.save: failed to save a reservation");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("ReservationManager.save: Failed to save a Reservation: " + e);
+		}//try catch
 	}//store
 	
 	public List<Reservation> restore(Reservation reservation) throws RARException{
