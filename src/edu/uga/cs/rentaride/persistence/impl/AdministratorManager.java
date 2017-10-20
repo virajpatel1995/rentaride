@@ -80,9 +80,7 @@ public class AdministratorManager {
 
 			if(administrator.getCreatedDate() != null) {
                 Object sqldate = new java.sql.Timestamp(administrator.getCreatedDate().getTime());
-//                sqldate.setTime(administrator.getCreatedDate().getTime());
                 stmt.setObject(8, sqldate);
-                System.out.println((((Timestamp) sqldate).toString()));
             }else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
