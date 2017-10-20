@@ -9,16 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 public class CustomerManager {
@@ -162,6 +153,10 @@ public class CustomerManager {
 				else if (customer.getUserName() != null) // customer username is unique
 					query.append(" where username = '" + customer.getUserName() + "'");
 				else {
+					if( condition.length() > 0 )
+						condition.append( " and" );
+					condition.append( " type = '" + "Customer" + "'" );
+
 					if( customer.getPassword() != null )
 						condition.append( " password = '" + customer.getPassword() + "'" );
 
@@ -202,19 +197,23 @@ public class CustomerManager {
 					if( customer.getLicenseState() != null ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
-						condition.append( " licenseState = '" + customer.getLicenseState() + "'" );
+						condition.append( " licState = '" + customer.getLicenseState() + "'" );
 					}
 					if( customer.getCreditCardNumber() != null ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " ccNumber = '" + customer.getCreditCardNumber() + "'" );
 					}
-					if( customer.getLicenseState() != null ) {
+					if( customer.getLicenseNumber() != null ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
-						condition.append( " licenseState = '" + customer.getLicenseState() + "'" );
+						condition.append( " licNumber = '" + customer.getLicenseNumber() + "'" );
 					}
-					licNumber, ccNumber, ccExpiration, status from user";
+					if( customer.getCreditCardExpiration() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " ccExpiration = '" + customer.getCreditCardExpiration() + "'" );
+					}
 					if( customer.getUserStatus() != null ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
@@ -243,8 +242,13 @@ public class CustomerManager {
 					String password;
 					String email;
 					String address;
-					Date date;
-
+					String state;
+					String licenseNumber;
+					String cardNumber;
+					Date createdDate;
+					Date memberUntil;
+					Date cardExpiration;
+					UserStatus userStatus;
 					while( rs.next() ) {
 /**
  *  columnIndex need to match column index in database
@@ -256,16 +260,22 @@ public class CustomerManager {
 						password = rs.getString( 6 );
 						email = rs.getString( 7 );
 						address = rs.getString( 8 );
-						date = rs.getDate( 9 );
+						createdDate = rs.getDate( 9 );
+						memberUntil = rs.getDate( 10 );
+						state = rs.getString( 11 );
+						licenseNumber = rs.getString( 12 );
+						cardNumber = rs.getString( 13 );
+						cardExpiration = rs.getDate( 14 );
+						userStatus = UserStatus.valueOf(rs.getString(15));
 
-						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
-						administrator1.setId( id );
+						Customer customer1 = objectLayer.createCustomer( firstName, lastName, userName,password, email, address, createdDate, memberUntil, state, licenseNumber, cardNumber, cardExpiration, userStatus);
+						customer1.setId( id );
 
-						administrators.add( administrator1 );
+						customers.add( customer1 );
 
 					}
 
-					return administrators;
+					return customers;
 				}
 			}
 			catch( Exception e ) {      // just in case...
