@@ -41,25 +41,29 @@ public class RentARideTester {
         if( conn == null ) {
             System.out.println( "ReadTest: failed to connect to the database" );
             return;
-        }                                              
+        }
 
-        // obtain a reference to Persistence module and connect it to the ObjectModel                    
-        persistence = new PersistenceLayerImpl( conn, objectLayer );
-        // connect the ObjectModel module to the Persistence module                                      
+        // connect the ObjectModel module to the Persistence module
         objectLayer = new ObjectLayerImpl(persistence);
-	
+        // obtain a reference to Persistence module and connect it to the ObjectModel
+        persistence = new PersistenceLayerImpl( conn, objectLayer );
+
         try {
 //        	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("walmart", "1 walmart road", 50);
 //        	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("mcdonalds", "1 mcdonalds road", 10);
 //        	persistence.storeRentalLocation(rentalLocation1);
 //        	persistence.storeRentalLocation(rentalLocation2);
 
-//        	Administrator admin1 = objectLayer.createAdministrator("Shep", "Ogden", "admin1", "sheppassword", "shepogden@uga.edu", "1 Dawg Drive", null);
-        	Administrator admin1 = objectLayer.createAdministrator("John", null,null,null, null,null, null);
-			List<Administrator> administrators = persistence.restoreAdministrator(admin1);
-			for (Administrator admin: administrators) {
-				System.out.println(admin.toString());
-			}
+//        	Administrator admin1 = objectLayer.createAdministrator("Shep", "Ogden", "admin1", "sheppassword", "shepogden@uga.edu", "1 Dawg Drive", new Date(System.currentTimeMillis()));
+        	Administrator admin2 = objectLayer.createAdministrator("Viraj", "Patel", "admin2", "virajpassword", "virajpatel@uga.edu", "2 Dawg Drive", new Date(System.currentTimeMillis()));
+			System.out.println(admin2.getCreatedDate().toString());
+			persistence.storeAdministrator(admin2);
+//        	Administrator admin1 = objectLayer.createAdministrator("John", null,null,null, null,null, null);
+//        	admin1.setId(-1);
+//			List<Administrator> administrators = persistence.restoreAdministrator(admin1);
+//			for (Administrator admin: administrators) {
+//				System.out.println(admin.toString());
+//			}
 
 //        	VehicleType vehicleType1 = objectLayer.createVehicleType("truck");
 //        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(10, 5, vehicleType1);

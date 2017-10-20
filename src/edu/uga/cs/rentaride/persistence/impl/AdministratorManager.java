@@ -81,9 +81,12 @@ public class AdministratorManager {
 			else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
-			if(administrator.getCreatedDate() != null)
-					stmt.setDate(8,new java.sql.Date(administrator.getCreatedDate().getTime()));
-			else
+			if(administrator.getCreatedDate() != null) {
+                java.sql.Date sqldate = new java.sql.Date(administrator.getCreatedDate().getTime());
+                sqldate.setTime(administrator.getCreatedDate().getTime());
+                stmt.setDate(8, sqldate);
+                System.out.println(sqldate);
+            }else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
 			if(administrator.isPersistent())
@@ -201,13 +204,13 @@ public class AdministratorManager {
  *  columnIndex need to match column index in database
  */
 						id = rs.getLong( 1 );
-						firstName = rs.getString( 2 );
-						lastName = rs.getString( 3 );
-						userName = rs.getString( 4 );
-						password = rs.getString( 5 );
-						email = rs.getString( 6 );
-						address = rs.getString( 7 );
-						date = rs.getDate( 8 );
+						firstName = rs.getString( 3 );
+						lastName = rs.getString( 4 );
+						userName = rs.getString( 5 );
+						password = rs.getString( 6 );
+						email = rs.getString( 7 );
+						address = rs.getString( 8 );
+						date = rs.getDate( 9 );
 
 						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
 						administrator1.setId( id );

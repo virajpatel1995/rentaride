@@ -42,8 +42,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
                        String lastName,
                        String address,
                        Date createdDate,
-                       UserStatus userStatus,
-                       long id)
+                       UserStatus userStatus)
     {
         super( -1 );
         this.userName = userName;
@@ -54,7 +53,6 @@ public class AdministratorImpl extends Persistence implements Administrator {
         this.address = address;
         this.createdDate = createdDate;
         this.userStatus = userStatus;
-        this.id = id;
     }
 	
 	@Override
@@ -138,15 +136,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
 		this.userStatus = userStatus;
 	}
 
-	@Override
-	public long getId() {
-		return id;
-	}
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
 	//FINISH******************************************************************
 //	@Override
 //	public boolean isPersistent() {
