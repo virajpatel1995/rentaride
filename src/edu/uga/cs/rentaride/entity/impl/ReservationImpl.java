@@ -39,12 +39,6 @@ public class ReservationImpl extends Persistence implements Reservation {
 		this.rental = rental;
 	}
 
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-
 	@Override
 	public Date getPickupTime() {
 		return pickupTime;

@@ -69,9 +69,9 @@ public interface User
     public Date getCreatedDate();
     
     /** Set the user's creation date.
-     * @param createdDate the new creation date
+     * @param createDate the new creation date
      */
-    public void setCreatedDate( Date createdDate );
+    public void setCreatedDate( Date createDate );
     
     /** Return the residence address of this user.
      * @return the address of this user's residence

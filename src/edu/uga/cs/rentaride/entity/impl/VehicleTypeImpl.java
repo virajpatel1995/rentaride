@@ -28,15 +28,6 @@ public class VehicleTypeImpl extends Persistence implements VehicleType {
 		super( -1 );
 		this.name = name;
 	}
-	
-
-//FINISH********************************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//FINISH********************************************************************************
 
 	@Override
 	public String getName() {

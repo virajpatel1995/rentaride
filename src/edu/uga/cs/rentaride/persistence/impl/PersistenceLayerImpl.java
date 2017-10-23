@@ -235,7 +235,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreReservations(rentalLocation);
 	}
 
 	@Override
@@ -283,7 +283,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreVehicles(rentalLocation);
 	}
 
 	@Override
@@ -350,7 +350,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalManager.restoreComments(rental);
 	}
 
 	@Override

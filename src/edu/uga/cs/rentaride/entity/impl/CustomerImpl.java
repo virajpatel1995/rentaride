@@ -160,15 +160,6 @@ public class CustomerImpl extends Persistence implements Customer {
 		this.userStatus = userStatus;
 	}
 
-	
-//FINISH******************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//FINISH******************************************************************
-
 	@Override
 	public Date getMemberUntil() {
 		return memberUntil;
