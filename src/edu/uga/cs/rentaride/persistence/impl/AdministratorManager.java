@@ -22,7 +22,7 @@ import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 enum type{
-	CUSTOMER, ADMINISTRATOR
+	Customer, Administrator
 }//type
 
 public class AdministratorManager {
@@ -50,7 +50,7 @@ public class AdministratorManager {
 			else
 				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateAdministratorSql);
 		
-			stmt.setString(1,  "ADMINISTRATOR");
+			stmt.setObject(1,  "Administrator");
 		
 			if(administrator.getFirstName() != null)
 					stmt.setString(2,administrator.getFirstName());
