@@ -78,12 +78,12 @@ public class VehicleManager {
 				stmt.setNull(6,  java.sql.Types.DATE);
 			
 			if(vehicle.getStatus() != null)
-				stmt.setObject(7,vehicle.getStatus());
+				stmt.setString(7,vehicle.getStatus().toString());
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehicle: Status undefined");
 			
 			if(vehicle.getCondition() != null)
-				stmt.setObject(8,vehicle.getCondition());
+				stmt.setString(8,vehicle.getCondition().toString());
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehicle: Condititon undefined");
 			

@@ -21,10 +21,6 @@ import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
-enum type{
-	Customer, Administrator
-}//type
-
 public class AdministratorManager {
 	
 	//variables for objectlayer and connection
