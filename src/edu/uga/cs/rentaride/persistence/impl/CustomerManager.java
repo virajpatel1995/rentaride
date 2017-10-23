@@ -9,16 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 public class CustomerManager {
@@ -145,8 +136,155 @@ public class CustomerManager {
 	}//store
 	
 	public List<Customer> restore(Customer customer) throws RARException{
-		//TODO
-		return null;
+		{
+			String       selectCustomerSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<Customer> customers= new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectCustomerSql );
+			if(customer != null){
+				if(customer.getId() >= 0)		//customer id is unique
+					query.append(" where id = " + customer.getId());
+				else if (customer.getUserName() != null) // customer username is unique
+					query.append(" where username = '" + customer.getUserName() + "'");
+				else {
+					if( condition.length() > 0 )
+						condition.append( " and" );
+					condition.append( " type = '" + "Customer" + "'" );
+
+					if( customer.getPassword() != null )
+						condition.append( " password = '" + customer.getPassword() + "'" );
+
+					if( customer.getEmail() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " email = '" + customer.getEmail() + "'" );
+					}
+
+					if( customer.getFirstName() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " firstName = '" + customer.getFirstName() + "'" );
+					}
+
+					if( customer.getLastName() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " lastName = '" + customer.getLastName() + "'" );
+					}
+
+					if( customer.getAddress() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " address = '" + customer.getAddress() + "'" );
+					}
+
+					if( customer.getCreatedDate() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " createdDate = '" + customer.getCreatedDate() + "'" );
+					}
+					if( customer.getMemberUntil() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " memberUntil = '" + customer.getMemberUntil() + "'" );
+					}
+					if( customer.getLicenseState() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " licState = '" + customer.getLicenseState() + "'" );
+					}
+					if( customer.getCreditCardNumber() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " ccNumber = '" + customer.getCreditCardNumber() + "'" );
+					}
+					if( customer.getLicenseNumber() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " licNumber = '" + customer.getLicenseNumber() + "'" );
+					}
+					if( customer.getCreditCardExpiration() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " ccExpiration = '" + customer.getCreditCardExpiration() + "'" );
+					}
+					if( customer.getUserStatus() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " status = '" + customer.getUserStatus() + "'" );
+					}
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String firstName;
+					String lastName;
+					String userName;
+					String password;
+					String email;
+					String address;
+					String state;
+					String licenseNumber;
+					String cardNumber;
+					Date createdDate;
+					Date memberUntil;
+					Date cardExpiration;
+					UserStatus userStatus;
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getLong( 1 );
+						firstName = rs.getString( 3 );
+						lastName = rs.getString( 4 );
+						userName = rs.getString( 5 );
+						password = rs.getString( 6 );
+						email = rs.getString( 7 );
+						address = rs.getString( 8 );
+						createdDate = rs.getDate( 9 );
+						memberUntil = rs.getDate( 10 );
+						state = rs.getString( 11 );
+						licenseNumber = rs.getString( 12 );
+						cardNumber = rs.getString( 13 );
+						cardExpiration = rs.getDate( 14 );
+						userStatus = UserStatus.valueOf(rs.getString(15));
+
+						Customer customer1 = objectLayer.createCustomer( firstName, lastName, userName,password, email, address, createdDate, memberUntil, state, licenseNumber, cardNumber, cardExpiration, userStatus);
+						customer1.setId( id );
+
+						customers.add( customer1 );
+
+					}
+
+					return customers;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );
+		}
 	}//restore
 	
 	/*

@@ -1,11 +1,8 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -81,9 +78,10 @@ public class AdministratorManager {
 			else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Address undefined");
 
-			if(administrator.getCreatedDate() != null)
-					stmt.setDate(8,new java.sql.Date(administrator.getCreatedDate().getTime()));
-			else
+			if(administrator.getCreatedDate() != null) {
+                Object sqldate = new java.sql.Timestamp(administrator.getCreatedDate().getTime());
+                stmt.setObject(8, sqldate);
+            }else
 					throw new RARException("AdministratorManager.save: can't save an Administrator: Created Date undefined");
 			
 			if(administrator.isPersistent())
@@ -118,7 +116,7 @@ public class AdministratorManager {
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
-		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from User";
+		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
 		Statement    stmt = null;
 		StringBuffer query = new StringBuffer( 100 );
 		StringBuffer condition = new StringBuffer( 100 );
@@ -134,8 +132,12 @@ public class AdministratorManager {
 			else if (administrator.getUserName() != null)
 				query.append(" where username = '" + administrator.getUserName() + "'");
             else {
-					if( administrator.getPassword() != null )
-						condition.append( " password = '" + administrator.getPassword() + "'" );
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " type = '" + "Administrator" + "'" );
+
+                    if( administrator.getPassword() != null )
+                        condition.append( " password = '" + administrator.getPassword() + "'" );
 
 					if( administrator.getEmail() != null ) {
 						if( condition.length() > 0 )
@@ -201,13 +203,13 @@ public class AdministratorManager {
  *  columnIndex need to match column index in database
  */
 						id = rs.getLong( 1 );
-						firstName = rs.getString( 2 );
-						lastName = rs.getString( 3 );
-						userName = rs.getString( 4 );
-						password = rs.getString( 5 );
-						email = rs.getString( 6 );
-						address = rs.getString( 7 );
-						date = rs.getDate( 8 );
+						firstName = rs.getString( 3 );
+						lastName = rs.getString( 4 );
+						userName = rs.getString( 5 );
+						password = rs.getString( 6 );
+						email = rs.getString( 7 );
+						address = rs.getString( 8 );
+						date = rs.getDate( 9 );
 
 						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
 						administrator1.setId( id );

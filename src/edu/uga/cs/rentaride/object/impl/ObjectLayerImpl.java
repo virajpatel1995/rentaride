@@ -4,18 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.*;
 import edu.uga.cs.rentaride.entity.impl.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
@@ -47,7 +36,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 	
 	@Override
 	public Administrator createAdministrator() {
-		AdministratorImpl Administrator = new AdministratorImpl(null, null, null, null, null,null, null, null, 0);
+		AdministratorImpl Administrator = new AdministratorImpl();
 
 		Persistence.setPersistencvalayer(persistence);
 		return Administrator;
@@ -60,7 +49,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
 			String email, String address, Date createDate) throws RARException {
 
-		AdministratorImpl Administrator = new AdministratorImpl(firstName, lastName, userName, password, email, address, createDate, null, 0);
+		AdministratorImpl Administrator = new AdministratorImpl(userName, password, email, firstName, lastName, address, createDate, UserStatus.ACTIVE);
 		Persistence.setPersistencvalayer(persistence);
 		return Administrator;
 			}
@@ -95,9 +84,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email,
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
-			String cardNumber, Date cardExpiration) throws RARException {
+			String cardNumber, Date cardExpiration, UserStatus userStatus) throws RARException {
 	
-		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration);
+		CustomerImpl Customer = new CustomerImpl(userName, password, email, firstName, lastName, address, licenseState, licenseNumber, cardNumber,createDate, membershipExpiration, cardExpiration, userStatus);
 		Persistence.setPersistencvalayer(persistence);
 		return Customer;
 		
