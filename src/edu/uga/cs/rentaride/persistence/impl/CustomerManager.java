@@ -37,7 +37,7 @@ public class CustomerManager {
 			else
 				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateCustomerSql);
 		
-			stmt.setString(1,  "Customer");
+			stmt.setObject(1,  type.CUSTOMER);
 			
 			if(customer.getFirstName() != null)
 					stmt.setString(2,customer.getFirstName());
