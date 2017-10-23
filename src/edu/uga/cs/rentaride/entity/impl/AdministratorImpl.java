@@ -20,7 +20,7 @@ public class AdministratorImpl extends Persistence implements Administrator {
     private Date			 createdDate;
     private UserStatus		 userStatus;
     private long			 id;
-    
+
     public AdministratorImpl()
     {
         super( -1 );
@@ -136,12 +136,4 @@ public class AdministratorImpl extends Persistence implements Administrator {
 		this.userStatus = userStatus;
 	}
 
-
-	//FINISH******************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-	//FINISH******************************************************************
 }

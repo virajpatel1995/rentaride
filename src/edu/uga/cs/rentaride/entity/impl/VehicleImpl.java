@@ -65,16 +65,7 @@ public class VehicleImpl extends Persistence implements Vehicle {
         this.vehicleType = vehicleType;
         this.rentalLocation = rentalLocation;
     }
-	
 
-//FINISH***************************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//FINISH***************************************************************************
-	
 	@Override
 	public String getMake() {
 		return make;

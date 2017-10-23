@@ -31,14 +31,6 @@ public class HourlyPriceImpl extends Persistence implements HourlyPrice{
 		        this.vehicleType = vehicleType;
 		    }
 
-//FINISH**********************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//FINISH**********************************************************************
-
 	@Override
 	public int getMaxHours() {
 		return maxHours;

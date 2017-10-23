@@ -68,13 +68,31 @@ public interface Customer
      */
     public List<Reservation> getReservations() throws RARException;
     
+    /** Set the reservations for this customer;  reservations are added by creating new Reservation objects;
+     * Not needed, since reservations are added by creating new Reservation objects.
+     * @param reservations new reservations for this customer
+     */
+    //public void setReservations( List<Reservation> reservations );
+    
     /** Return a list of all comments made by this Customer.
      * @return a list of all comments made by this Customer
      */
     public List<Comment> getComments() throws RARException;
     
+    /** Set the comments of this customer;  derived association, so it is not needed.
+     * It is a derived association, so there is no setter method for this value.
+     * @param comments new comments list
+     */
+    //public void setComments( List<Comment> comments );
+    
     /** Return a list of all rentals made by this Customer.
      * @return a list of all rentals made by this Customer
      */
     public List<Rental> getRentals() throws RARException;
+    
+    /** Set the rentals for this customer;  derived association, so it is not needed.
+     * It is a derived association, so there is no setter method for this value.
+     * @param rentals new list of rentals for this customer
+     */
+    //public void setRentals( List<Rental> rentals );
 }
