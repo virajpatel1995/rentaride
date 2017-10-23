@@ -33,8 +33,65 @@ public class CommentManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Comment comment) {
-		//TODO
+	public void store(Comment comment) throws RARException{
+		String insertCommentSql = "insert into comment ( comment, commentDate, rentalid ) values ( ?, ?, ? )";
+		String updateCommentSql = "update person  set comment = ?, commentDate = ?, rentalid = ? where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long commentId;
+		
+		if(comment.getRental() == null)
+			throw new RARException ("CommentManager.save: Attempting ot save a Comment with no Rental defined");
+		if(!comment.getRental().isPersistent())	
+			throw new RARException ("CommentManager.save: Attempting ot save a Comment with no Rental is not persistent");
+		
+		try {
+	
+			if(!comment.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertCommentSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateCommentSql);
+		
+			if(comment.getText() != null)
+				stmt.setString(1,comment.getText());
+			else
+				throw new RARException("CommentManager.save: can't save an Comment: Text undefined");
+
+			if(comment.getDate() != null)
+				stmt.setDate(2,new java.sql.Date(comment.getDate().getTime()));
+			else
+				stmt.setNull(2,  java.sql.Types.DATE);
+			
+			stmt.setLong(3,  comment.getRental().getId());
+			
+			if(comment.isPersistent())
+				stmt.setLong(4,  comment.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!comment.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							commentId = r.getLong(1);
+							if(commentId > 0)
+								comment.setId(commentId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("CommentManager.save: failed to save a comment");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("CommentManager.save: Failed to save a comment: " + e);
+		}//try catch
 	}//store
 	
 	public List<Comment> restore(Comment comment) throws RARException{
