@@ -199,7 +199,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public void storeCustomerReservation(Customer customer, Reservation reservation) throws RARException {
 		customerManager.store(customer);
-		reservationManager.store(reservation);.
+		reservationManager.store(reservation);
 	}
 
 	@Override
