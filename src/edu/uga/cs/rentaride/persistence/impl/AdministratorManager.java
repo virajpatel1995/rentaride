@@ -50,7 +50,7 @@ public class AdministratorManager {
 			else
 				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateAdministratorSql);
 		
-			stmt.setObject(1,  "Administrator");
+			stmt.setObject(1,  type.Administrator);
 		
 			if(administrator.getFirstName() != null)
 					stmt.setString(2,administrator.getFirstName());
