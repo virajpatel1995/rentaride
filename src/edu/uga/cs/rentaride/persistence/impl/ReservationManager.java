@@ -218,6 +218,8 @@ public class ReservationManager {
 			throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation objects" );
 		}
 	}//restore
+
+
 	
 	public void delete(Reservation reservation) throws RARException{
 		

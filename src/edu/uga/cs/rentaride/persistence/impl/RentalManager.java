@@ -270,5 +270,7 @@ public class RentalManager {
 		
 		
 	}//delete
-	
+
+    public List<Comment> restoreComments(Rental rental) {
+    }
 }//RentalManager
