@@ -239,10 +239,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Reservation> restoreReservationRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalLocationManager.restoreReservations(rentalLocation);
 	}
 
@@ -294,11 +290,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Vehicle> restoreVehicleRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalLocationManager.restoreVehicles(rentalLocation);
 	}
 
@@ -374,10 +365,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Comment> restoreRentalComment(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalManager.restoreComments(rental);
 	}
 
