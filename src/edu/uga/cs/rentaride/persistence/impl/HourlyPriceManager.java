@@ -43,7 +43,7 @@ public class HourlyPriceManager {
 		if(hourlyPrice.getVehicleType() == null)
 			throw new RARException ("HourlyPriceManager.save: Attempting ot save a HourlyPrice with no VehicleType defined");
 		if(!hourlyPrice.getVehicleType().isPersistent())	
-			throw new RARException ("HourlyPriceManager.save: Attempting ot save a HourlyPrice with no Reservation is not persistent");
+			throw new RARException ("HourlyPriceManager.save: Attempting ot save a HourlyPrice with no VehicleType is not persistent");
 		
 		try {
 	
