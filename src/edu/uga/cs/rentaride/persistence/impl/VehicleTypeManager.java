@@ -34,7 +34,52 @@ public class VehicleTypeManager {
 	}//constructor
 	
 	public void store(VehicleType vehicleType) throws RARException{
-		//TODO
+		String insertVehicleTypeSql = "insert into vehicleType ( name) values ( ?)";
+		String updateVehicleTypeSql = "update person  set name = ? where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long vehicleTypeId;
+		
+		try {
+	
+			if(!vehicleType.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertVehicleTypeSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateVehicleTypeSql);
+			
+			if(vehicleType.getName() != null)
+					stmt.setString(1,vehicleType.getName());
+			else
+					throw new RARException("VehicleTypeManager.save: can't save a VehicleType Location: Name undefined");
+
+			if(vehicleType.isPersistent())
+				stmt.setLong(2,  vehicleType.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!vehicleType.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							vehicleTypeId = r.getLong(1);
+							if(vehicleTypeId > 0)
+								vehicleType.setId(vehicleTypeId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("VehicleTypeManager.save: failed to save a VehicleType");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("VehicleTypeManager.save: Failed to save a Vehicle type: " + e);
+		}//try catch
 	}//store
 	
 	public List<VehicleType> restore(VehicleType vehicleType) throws RARException{
