@@ -13,14 +13,6 @@ import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
-enum status{
-	INLOCATION, INRENTAL
-}//status
-
-enum maintenance{
-	GOOD, NEEDSMAINTENANCE
-}//maintenance
-
 public class VehicleManager {
 	
 	//variables for objectlayer and connection
