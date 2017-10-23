@@ -67,13 +67,10 @@ public class VehicleManager {
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehcile: Mileage undefined");
 			
-			//TODO
-			/*
-			if(vehicle.getTag() != null)
-				stmt.setString(5,vehicle.getTag());
+			if(vehicle.getRegistrationTag() != null)
+				stmt.setString(5,vehicle.getRegistrationTag());
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehicle: Tag undefined");
-			*/
 			
 			if(vehicle.getLastServiced() != null)
 				stmt.setDate(6,new java.sql.Date(vehicle.getLastServiced().getTime()));
