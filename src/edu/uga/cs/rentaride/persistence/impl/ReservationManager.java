@@ -10,17 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.*;
+import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
 import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
 public class ReservationManager {
 	
@@ -108,8 +103,120 @@ public class ReservationManager {
 	}//store
 	
 	public List<Reservation> restore(Reservation reservation) throws RARException{
-		//TODO
-		return null;
+
+		{
+			String       selectReservationSql = "select id, pickup, length, canceled, " +
+					"userid, rentalLocationid, vehicleTypeid from reservation";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<Reservation> reservations = new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectReservationSql );
+			if(reservation != null){
+				if(reservation.getId() >= 0)		//vehicle id is unique
+					query.append(" where id = " + reservation.getId());
+				else {
+
+					if( reservation.getPickupTime() != null )
+						condition.append( " pickup = '" + reservation.getPickupTime() + "'" );
+
+					if( reservation.getLength() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " length = '" + reservation.getLength() + "'" );
+					}
+
+					if( reservation.getCustomer().getId() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " userid = '" + reservation.getCustomer().getId() + "'" );
+					}
+
+					if( reservation.getRentalLocation().getId() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " rentalLocationid = '" + reservation.getRentalLocation().getId() + "'" );
+					}
+
+					if( reservation.getVehicleType().getId() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " vehicleTypeid = '" + reservation.getVehicleType().getId() + "'" );
+					}
+
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					Date pickupDate;
+					int length;
+					int customerid;
+					int rentalLocationid;
+					int vehicleTypeid;
+					Reservation reservation1;
+
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getInt(1);
+						pickupDate = rs.getDate(2);
+						length = rs.getInt(3);
+						//skipped cancelled
+						customerid = rs.getInt(5);
+						rentalLocationid = rs.getInt(6);
+						vehicleTypeid = rs.getInt(7);
+
+						PersistenceLayer persistenceLayer = Persistence.getPersistencvalayer();
+
+						Customer modelCustomer = new CustomerImpl();
+						modelCustomer.setId(customerid);
+						modelCustomer = persistenceLayer.restoreCustomer(modelCustomer).get(0);
+
+						RentalLocation modelRentalLocation = new RentalLocationImpl();
+						modelRentalLocation.setId(rentalLocationid);
+						modelRentalLocation = persistenceLayer.restoreRentalLocation(modelRentalLocation).get(0);
+
+						VehicleType modelVehicleType = new VehicleTypeImpl();
+						modelVehicleType.setId(vehicleTypeid);
+						modelVehicleType = persistenceLayer.restoreVehicleType(modelVehicleType).get(0);
+
+
+						reservation1 = objectLayer.createReservation(pickupDate, length, modelVehicleType, modelRentalLocation, modelCustomer);
+						reservation1.setId(id);
+
+						reservations.add( reservation1);
+
+					}
+
+					return reservations;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation objects" );
+		}
 	}//restore
 	
 	public void delete(Reservation reservation) throws RARException{

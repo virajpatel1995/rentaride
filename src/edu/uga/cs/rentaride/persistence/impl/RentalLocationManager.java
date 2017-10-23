@@ -94,8 +94,82 @@ public class RentalLocationManager {
 	}//store
 	
 	public List<RentalLocation> restore(RentalLocation rentalLocation) throws RARException{
-		//TODO
-		return null;
+		{
+			String       selectRentalLocationSql =
+					"select id, name, address, capacity " +
+					"from rentalLocation ";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<RentalLocation> rentalLocations = new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectRentalLocationSql );
+			if(rentalLocation != null){
+				if(rentalLocation.getId() >= 0)
+					query.append(" where id = " + rentalLocation.getId());
+				else if(rentalLocation.getName() != null)
+					query.append(" where name = " + rentalLocation.getName());
+				else{
+					if( rentalLocation.getAddress() != null )
+						if( condition.length() > 0 )
+							condition.append( " and" );
+					condition.append( " address = '" + rentalLocation.getAddress() + "'" );
+
+					if( rentalLocation.getCapacity() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " capacity = '" + rentalLocation.getCapacity() + "'" );
+					}
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String name;
+					String address;
+					int capacity;
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getLong( 1);
+						name = rs.getString(2);
+						address = rs.getString(3);
+						capacity = rs.getInt( 4);
+
+						RentalLocation rentalLocation1 = objectLayer.createRentalLocation(name, address, capacity);
+						rentalLocation1.setId( id );
+
+						rentalLocations.add( rentalLocation1 );
+
+					}
+
+					return rentalLocations;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "RentalLocationManager.restore: Could not restore persistent RentalLocation object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "RentalLocationManager.restore: Could not restore persistent RentalLocation objects" );
+		}
 	}//restore
 	
 	public void delete(RentalLocation rentalLocation) throws RARException{

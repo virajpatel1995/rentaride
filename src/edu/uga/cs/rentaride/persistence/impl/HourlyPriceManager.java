@@ -95,8 +95,86 @@ public class HourlyPriceManager {
 	}//store
 	
 	public List<HourlyPrice> restore(HourlyPrice hourlyPrice) throws RARException{
-		//TODO
-		return null;
+		{
+			String       selectPriceSql = "select vt.name, id, hp.maxHrs, hp.price, hp.vehicleTypeid from hourlyPrice hp INNER JOIN vehicleType vt ON hp.vehicleTypeid = vt.id";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<HourlyPrice> hourlyPrices = new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectPriceSql );
+			if(hourlyPrice != null){
+				if(hourlyPrice.getId() >= 0)
+					query.append(" where id = " + hourlyPrice.getId());
+				else {
+					if( hourlyPrice.getMaxHours() >= 0 )
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " maxHrs = '" + hourlyPrice.getMaxHours() + "'" );
+
+					if( hourlyPrice.getPrice() >= 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " price = '" + hourlyPrice.getPrice() + "'" );
+					}
+
+					if( hourlyPrice.getVehicleType() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " vehicleTypeid = " + hourlyPrice.getVehicleType().getId() );
+					}
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					int maxHrs;
+					int price;
+					String vehicleTypeName;
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						vehicleTypeName = rs.getString(1);
+						id = rs.getLong( 2);
+						maxHrs = rs.getInt( 3 );
+						price = rs.getInt( 4);
+
+						VehicleType vehicleType = objectLayer.createVehicleType(vehicleTypeName);
+
+						HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(maxHrs, price, vehicleType );
+						hourlyPrice1.setId( id );
+
+						hourlyPrices.add( hourlyPrice1 );
+
+					}
+
+					return hourlyPrices;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "HourlyPriceManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "HourlyPriceManager.restore: Could not restore persistent Administrator objects" );
+		}
 	}//restore
 	
 	public void delete(HourlyPrice HourlyPrice) throws RARException{
