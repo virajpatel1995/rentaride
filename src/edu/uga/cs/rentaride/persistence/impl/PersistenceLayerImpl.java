@@ -198,26 +198,23 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeCustomerReservation(Customer customer, Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		customerManager.store(customer);
+		reservationManager.store(reservation);.
 	}
 
 	@Override
 	public Customer restoreCustomerReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return reservation.getCustomer();
 	}
 
 	@Override
 	public List<Reservation> restoreCustomerReservation(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return customer.getReservations();
 	}
 
 	@Override
 	public void deleteCustomerReservation(Customer customer, Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		reservation.getCustomer().
 	}
 
 	@Override
