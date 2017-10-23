@@ -21,6 +21,10 @@ import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
+enum type{
+	CUSTOMER, ADMINISTRATOR
+}//type
+
 public class AdministratorManager {
 	
 	//variables for objectlayer and connection
@@ -46,8 +50,8 @@ public class AdministratorManager {
 			else
 				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateAdministratorSql);
 		
-			stmt.setString(1,  "Administrator");
-			
+			stmt.setObject(1,  type.ADMINISTRATOR);
+		
 			if(administrator.getFirstName() != null)
 					stmt.setString(2,administrator.getFirstName());
 			else
