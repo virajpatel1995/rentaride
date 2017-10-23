@@ -22,14 +22,6 @@ public class RentARideParamsImpl extends Persistence implements RentARideParams{
 	}
 
 
-
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-
-
 	@Override
 	public int getMembershipPrice() {
 		return membershipPrice;

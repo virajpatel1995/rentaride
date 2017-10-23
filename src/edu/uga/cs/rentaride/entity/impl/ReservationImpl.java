@@ -18,7 +18,7 @@ public class ReservationImpl extends Persistence implements Reservation {
 	private VehicleType vehicleType;
 	private RentalLocation rentalLocation;
 	private Rental rental;
-
+	
 	public ReservationImpl(){
 		super(-1);
 		this.pickupTime = null;
@@ -38,12 +38,6 @@ public class ReservationImpl extends Persistence implements Reservation {
 		this.rentalLocation = rentalLocation;
 		this.rental = rental;
 	}
-
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
 
 	@Override
 	public Date getPickupTime() {

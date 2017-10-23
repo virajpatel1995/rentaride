@@ -200,5 +200,10 @@ public class RentalLocationManager {
 		
 		
 	}//delete
-	
+
+	public List<Reservation> restoreReservations(RentalLocation rentalLocation) {
+	}
+
+	public List<Vehicle> restoreVehicles(RentalLocation rentalLocation) {
+	}
 }//RentalLocationManager

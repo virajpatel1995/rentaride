@@ -214,13 +214,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteCustomerReservation(Customer customer, Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -241,16 +235,13 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreReservations(rentalLocation);
 	}
 
 	@Override
 	public void deleteReservationRentalLocation(Reservation reservation, RentalLocation rentalLocation)
 			throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -271,10 +262,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteReservationVehicleType(Reservation reservation, VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -295,15 +283,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreVehicles(rentalLocation);
 	}
 
 	@Override
 	public void deleteVehicleRentalLocation(Vehicle vehicle, RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -324,10 +309,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteVehicleVehicleType(Vehicle vehicle, VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -348,11 +330,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteVehicleTypeHourlyPrice(VehicleType vehicleType, HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -372,15 +350,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		return null;
+		return rentalManager.restoreComments(rental);
 	}
 
 	@Override
 	public void deleteRentalComment(Rental rental, Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -401,11 +376,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteRentalReservation(Rental rental, Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		
+		//may be left empty with 4.2
 	}
 
 	@Override
@@ -426,10 +397,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void deleteVehicleRental(Vehicle vehicle, Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		//may be left empty with 4.2
 	}
 
 }

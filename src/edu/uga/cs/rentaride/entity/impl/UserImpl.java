@@ -9,7 +9,6 @@ import edu.uga.cs.rentaride.persistence.impl.Persistence;
 
 public class UserImpl extends Persistence implements User {
 
-	private long id;
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -44,12 +43,6 @@ public class UserImpl extends Persistence implements User {
 		this.address = address;
 		this.userStatus = userStatus;
 	}
-
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
 
 
 	@Override
