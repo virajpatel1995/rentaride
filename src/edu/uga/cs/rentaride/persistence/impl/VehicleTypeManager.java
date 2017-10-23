@@ -38,8 +38,70 @@ public class VehicleTypeManager {
 	}//store
 	
 	public List<VehicleType> restore(VehicleType vehicleType) throws RARException{
-		//TODO
-		return null;
+		{
+			String selectVehicleTypeSql =
+					"select id, name from vehicleType ";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<VehicleType> vehicleTypes = new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectVehicleTypeSql );
+			if(vehicleType != null){
+				if(vehicleType.getId() >= 0)
+					query.append(" where id = " + vehicleType.getId());
+				else if(vehicleType.getName() != null)
+					query.append(" where name = " + vehicleType.getName());
+				else{
+
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String name;
+
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getLong( 1);
+						name = rs.getString(2);
+
+
+						VehicleType vehicleType1 = objectLayer.createVehicleType(name);
+						vehicleType1.setId( id );
+
+						vehicleTypes.add( vehicleType1 );
+
+					}
+
+					return vehicleTypes;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "VehicleTypeManager.restore: Could not restore persistent VehicleType object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "VehicleTypeManager.restore: Could not restore persistent VehicleType objects" );
+		}
 	}//restore
 	
 	public void delete(VehicleType vehicleType) throws RARException{
