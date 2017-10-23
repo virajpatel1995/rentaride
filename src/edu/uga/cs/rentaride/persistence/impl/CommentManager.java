@@ -20,6 +20,7 @@ import edu.uga.cs.rentaride.entity.RentARideParams;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.impl.RentalImp;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 public class CommentManager {
@@ -33,13 +34,70 @@ public class CommentManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Comment comment) {
-		//TODO
+	public void store(Comment comment) throws RARException{
+		String insertCommentSql = "insert into comment ( comment, commentDate, rentalid ) values ( ?, ?, ? )";
+		String updateCommentSql = "update person  set comment = ?, commentDate = ?, rentalid = ? where id = ?";
+		java.sql.PreparedStatement stmt = null;
+		int inscnt;
+		long commentId;
+		
+		if(comment.getRental() == null)
+			throw new RARException ("CommentManager.save: Attempting ot save a Comment with no Rental defined");
+		if(!comment.getRental().isPersistent())	
+			throw new RARException ("CommentManager.save: Attempting ot save a Comment with no Rental is not persistent");
+		
+		try {
+	
+			if(!comment.isPersistent())
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(insertCommentSql);
+			else
+				stmt = (java.sql.PreparedStatement) conn.prepareStatement(updateCommentSql);
+		
+			if(comment.getText() != null)
+				stmt.setString(1,comment.getText());
+			else
+				throw new RARException("CommentManager.save: can't save an Comment: Text undefined");
+
+			if(comment.getDate() != null)
+				stmt.setDate(2,new java.sql.Date(comment.getDate().getTime()));
+			else
+				stmt.setNull(2,  java.sql.Types.DATE);
+			
+			stmt.setLong(3,  comment.getRental().getId());
+			
+			if(comment.isPersistent())
+				stmt.setLong(4,  comment.getId());
+		
+			inscnt = stmt.executeUpdate();
+			
+			if(!comment.isPersistent()) {
+				if(inscnt == 1) {
+					String sql = "select last_insert_id()";
+					if(stmt.execute(sql)) {
+						//retrieve the result
+						ResultSet r =stmt.getResultSet();
+						while(r.next()) {
+							commentId = r.getLong(1);
+							if(commentId > 0)
+								comment.setId(commentId);
+						}//while
+					}//if
+				}//if
+			}else {
+				if(inscnt < 1)
+					throw new RARException("CommentManager.save: failed to save a comment");
+			}//if else
+			
+		}catch (SQLException e) {
+
+			e.printStackTrace();
+				throw new RARException("CommentManager.save: Failed to save a comment: " + e);
+		}//try catch
 	}//store
 	
 	public List<Comment> restore(Comment comment) throws RARException{
 		{
-			String       selectCommentSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status";
+			String       selectCommentSql = "select id, comment, commentdate, rentalid from comment";
 			Statement    stmt = null;
 			StringBuffer query = new StringBuffer( 100 );
 			StringBuffer condition = new StringBuffer( 100 );
@@ -47,102 +105,73 @@ public class CommentManager {
 
 			condition.setLength( 0 );
 
-			// form the query based on the given Person object instance
-//			query.append( selectCommentSql );
-//			if(comment != null){
-//				if(comment.getId() >= 0)
-//					query.append(" where id = " + comment.getId());
-//				else if (comment.getUserName() != null)
-//					query.append(" where username = '" + comment.getUserName() + "'");
-//				else {
-//					if( comment.getPassword() != null )
-//						condition.append( " password = '" + comment.getPassword() + "'" );
-//
-//					if( comment.getEmail() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " email = '" + comment.getEmail() + "'" );
-//					}
-//
-//					if( comment.getFirstName() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " firstName = '" + comment.getFirstName() + "'" );
-//					}
-//
-//					if( comment.getLastName() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " lastName = '" + comment.getLastName() + "'" );
-//					}
-//
-//					if( comment.getAddress() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " address = '" + comment.getAddress() + "'" );
-//					}
-//
-//					if( comment.getCreatedDate() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " createdDate = '" + comment.getCreatedDate() + "'" );
-//					}
-//					if( comment.getUserStatus() != null ) {
-//						if( condition.length() > 0 )
-//							condition.append( " and" );
-//						condition.append( " status = '" + comment.getUserStatus() + "'" );
-//					}
-//					if( condition.length() > 0 ) {
-//						query.append(  " where " );
-//						query.append( condition );
-//					}
-//				}
-//			}
-//
-//			try {
-//
-//				stmt = conn.createStatement();
-//
-//				// retrieve the persistent Administrator objects
-//				//
-//				if( stmt.execute( query.toString() ) ) { // statement returned a result
-//					ResultSet rs = stmt.getResultSet();
-//
-//					long id;
-//					String firstName;
-//					String lastName;
-//					String userName;
-//					String password;
-//					String email;
-//					String address;
-//					Date date;
-//
-//					while( rs.next() ) {
-///**
-// *  columnIndex need to match column index in database
-// */
-//						id = rs.getLong( 1 );
-//						firstName = rs.getString( 2 );
-//						lastName = rs.getString( 3 );
-//						userName = rs.getString( 4 );
-//						password = rs.getString( 5 );
-//						email = rs.getString( 6 );
-//						address = rs.getString( 7 );
-//						date = rs.getDate( 8 );
-//
-//						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
-//						administrator1.setId( id );
-//
-//						administrators.add( administrator1 );
-//
-//					}
-//
-//					return administrators;
-//				}
-//			}
-//			catch( Exception e ) {      // just in case...
-//				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
-//			}
+			query.append( selectCommentSql );
+			if(comment != null){
+				if(comment.getId() >= 0)
+					query.append(" where id = " + comment.getId());
+				else {
+					if( comment.getText() != null )
+						condition.append( " comment = '" + comment.getText() + "'" );
+
+					if( comment.getDate() != null ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " commentdate = '" + comment.getDate() + "'" );
+					}
+
+					if( comment.getRental().getId() != 0 ) {
+						if( condition.length() > 0 )
+							condition.append( " and" );
+						condition.append( " rentalid = '" + comment.getRental().getId() + "'" );
+					}
+					if( condition.length() > 0 ) {
+						query.append(  " where " );
+						query.append( condition );
+					}
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String text;
+					Date date;
+					long rentalid;
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getLong( 1 );
+						text = rs.getString( 2 );
+						date = rs.getDate( 3 );
+						rentalid = rs.getLong(4);
+
+						Rental rental = new RentalImp();
+						rental.setId(rentalid);// rental model object based on rentalId from comment table
+
+						// find the rental object given only id
+						List<Rental> theRental = Persistence.getPersistencvalayer().restoreRental(rental);
+						rental = theRental.get(0); // There should only be one rental object in the list
+						Comment comment1 = objectLayer.createComment(text, date, rental, rental.getCustomer());
+
+						comments.add( comment );
+
+					}
+
+					return comments;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+			}
 
 			// if we get to this point, it's an error
 			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );

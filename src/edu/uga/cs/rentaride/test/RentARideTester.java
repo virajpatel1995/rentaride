@@ -84,6 +84,23 @@ public class RentARideTester {
 
 		
 		
+//        	VehicleType vehicleType1 = objectLayer.createVehicleType("truck");
+//        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(10, 5, vehicleType1);
+//
+//
+//
+//        	Administrator admin2 = objectLayer.createAdministrator("Viraj", "Patel", "admin2", "virajpassword", "virajpatel@uga.edu", "2 Dawg Drive", new Date("2017-10-08 10:00:00"));
+//
+//
+//
+//        	VehicleType vehicleType2 = objectLayer.createVehicleType("van");
+//        	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(20, 3, vehicleType2);
+//
+        	Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date("2017-08-05 09:00:00"), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date("2015-07-04 09:00:00"), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle3 = objectLayer.createVehicle("Chevrolet", "Silverado", 2015, "8FJFF445", 30000, new Date("2016-09-08 09:00:00"), vehicleType1, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle4 = objectLayer.createVehicle("Toyota", "Sienna", 2000, "MDP5325F", 60000, new Date("2017-09-10 09:00:00"), vehicleType2, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//
 //        	Customer customer1 = objectLayer.createCustomer("Chase", "Williams", "chasewilliams", "chasepassword", "chase@uga.edu", "3 Dawg Drive", new Date("2016-07-08 10:00:00"), new Date("2017-07-08 10:00:00"), "Georgia", "51DGf52G", "10484835823924", new Date("2018-07-08 10:00:00"));
 //        	Customer customer2 = objectLayer.createCustomer("Josh", "Dawson", "joshdawson", "joshpassword", "josh@uga.edu", "4 Dawg Drive", new Date("2017-08-08 10:00:00"), new Date("2018-08-08 10:00:00"), "Georgia", "81FH52F6H", "5471975974927459", new Date("2018-03-06 10:00:00"));
 //
