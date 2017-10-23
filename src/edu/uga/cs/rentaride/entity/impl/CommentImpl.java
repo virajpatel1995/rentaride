@@ -39,13 +39,6 @@ public class CommentImpl extends Persistence implements Comment {
 	        this.customer = customer;
 	    }
 
-	//FINISH******************************************************************
-//	@Override
-//	public boolean isPersistent() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-	//FINISH******************************************************************
 	@Override
 	public String getText() {
 		return text;

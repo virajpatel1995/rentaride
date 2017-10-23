@@ -123,4 +123,8 @@ public interface Vehicle
      * @return a list of all rentals for this vehicle
      */
     public List<Rental> getRentals() throws RARException;
+    
+    // Not needed;  rentals for this vehicle are added one-by-one by creating 
+    // Rental objects.
+    // void setRentals( List<Rental> rentals );
 }
