@@ -13,6 +13,14 @@ import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
+enum status{
+	INLOCATION, INRENTAL
+}//status
+
+enum maintenance{
+	GOOD, NEEDSMAINTENANCE
+}//maintenance
+
 public class VehicleManager {
 	
 	//variables for objectlayer and connection
@@ -81,12 +89,12 @@ public class VehicleManager {
 				stmt.setNull(6,  java.sql.Types.DATE);
 			
 			if(vehicle.getStatus() != null)
-				stmt.setString(7,vehicle.getStatus().toString());
+				stmt.setObject(7,vehicle.getStatus());
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehicle: Status undefined");
 			
 			if(vehicle.getCondition() != null)
-				stmt.setString(8,vehicle.getCondition().toString());
+				stmt.setObject(8,vehicle.getCondition());
 			else
 				throw new RARException("VehicleManager.save: can't save a Vehicle: Condititon undefined");
 			
