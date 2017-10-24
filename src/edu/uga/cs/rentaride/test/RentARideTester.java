@@ -50,6 +50,7 @@ public class RentARideTester {
         persistence = new PersistenceLayerImpl( conn, objectLayer );
 
         try {
+        	 ///ergejgerngerjkgnergerkjnger
         	
 //        	         	
 //        	/*
@@ -73,8 +74,30 @@ public class RentARideTester {
 //       	
         	Administrator admin1 = objectLayer.createAdministrator("S", "Patelll", "admin1", "pwdssss", "shepogden@uga.edu", "1 Dawg Drive", new Date(System.currentTimeMillis()));
         	Administrator admin2 = objectLayer.createAdministrator("J", "Patelll", "admin2", "pws", "virajpatel@uga.edu", "2 Dawg Drive", new Date(System.currentTimeMillis()));
-    		persistence.storeAdministrator(admin1);
-		persistence.storeAdministrator(admin2);
+
+          /*
+        	 * 
+        	 *  Create 2 rental locations.
+        	 *  
+        	 *  
+        	 *  */
+        	
+       	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("Tatex", "1 walmart road", 50);
+       	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("Boyd", "1 mcdonalds road", 10);
+       	persistence.storeRentalLocation(rentalLocation1);
+       	persistence.storeRentalLocation(rentalLocation2);
+       	
+	    	/*
+	    	 * 
+	    	 *  Create 2 rental locations.Create 2 administrators.
+	    	 *  
+	    	 *  
+	    	 *  */
+       	
+        	Administrator admin1 = objectLayer.createAdministrator("Shep", "Patel", "admin1", "sheppassword", "shepogden@uga.edu", "1 Dawg Drive", new Date(System.currentTimeMillis()));
+        	Administrator admin2 = objectLayer.createAdministrator("Viraj", "Patel", "admin2", "virajpassword", "virajpatel@uga.edu", "2 Dawg Drive", new Date(System.currentTimeMillis()));
+    		  persistence.storeAdministrator(admin1);
+		      persistence.storeAdministrator(admin2);
 			
 	
 //		
@@ -89,24 +112,33 @@ public class RentARideTester {
         	VehicleType vehicleType1 = objectLayer.createVehicleType("bigbigTruck");
         	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(101, 5, vehicleType1);
         	persistence.storeVehicleType(vehicleType1);
+
+		/*
+	    	 * 
+	    	 *  Create 2 vehicle types, each with 2 different hourly prices.
+	
+	    	 *  
+	    	 *  
+	    	 *  */
+    	
+        	VehicleType vehicleType1 = objectLayer.createVehicleType("truck");
+        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(10, 5, vehicleType1);
         	persistence.storeHourlyPrice(hourlyPrice1);
 
         	VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan");
         	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(202, 3, vehicleType2);
         	persistence.storeVehicleType(vehicleType2);
         	persistence.storeHourlyPrice(hourlyPrice2);
-
 		
-	
-//        	
-//        	/*
-//	    	 * 
-//	    	 *  Create 4 vehicles, 2 of one vehicle type and 2 of the other, assigned to the 2 rental
-//			locations (2 vehicles per location but with different vehicle types at each location).
-//	    	 *  
-//	    	 *  
-//	    	 *  */
-//       
+	     	
+        	/*
+	    	 * 
+	    	 *  Create 4 vehicles, 2 of one vehicle type and 2 of the other, assigned to the 2 rental
+			locations (2 vehicles per location but with different vehicle types at each location).
+	    	 *  
+	    	 *  
+	    	 *  */
+       
  
        	Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
@@ -131,6 +163,9 @@ public class RentARideTester {
 
     		  persistence.storeCustomer(customer1);
     		  persistence.storeCustomer(customer2);
+        	
+        	
+       
 
         	
      
