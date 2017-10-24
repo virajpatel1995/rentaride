@@ -45,9 +45,10 @@ public class RentARideTester {
         }
 
         // connect the ObjectModel module to the Persistence module
-        objectLayer = new ObjectLayerImpl(persistence);
+        objectLayer = new ObjectLayerImpl();
         // obtain a reference to Persistence module and connect it to the ObjectModel
         persistence = new PersistenceLayerImpl( conn, objectLayer );
+        objectLayer.setPersistence(persistence);
 
         try {
         	
@@ -186,6 +187,12 @@ public class RentARideTester {
         	persistence.storeComment(comment1);
         	persistence.storeComment(comment2);
 
+        	
+        	
+        	
+        	
+        	
+        	
          /*
 	    	 * 
 	    	 *  DELETE
@@ -193,22 +200,20 @@ public class RentARideTester {
 	    	 *  
 	    	 *  */
        
-        	objectLayer.deleteComment(comment2);
-       	objectLayer.deleteComment(comment1);
-       	
-     	objectLayer.deleteRental(rental2);
-      	objectLayer.deleteRental(rental1);
-  
-        	
+//        	objectLayer.deleteComment(comment2);
+//       	objectLayer.deleteComment(comment1);
+
+//     		objectLayer.deleteRental(rental2);
+//      		objectLayer.deleteRental(rental1);
         	
 //        	objectLayer.deleteReservation(reservation4);
 //        	objectLayer.deleteReservation(reservation3);
 //        	objectLayer.deleteReservation(reservation2);
 //        	objectLayer.deleteReservation(reservation1);
-//
-//        	//NOT IMPLEMENTED?????
-//        	//objectLayer.deleteCustomer(customer2);
-//        	//objectLayer.deleteCustomer(customer1);
+
+  
+//        	objectLayer.deleteCustomer(customer2);
+//        	objectLayer.deleteCustomer(customer1);
 //
 //        	objectLayer.deleteVehicle(vehicle4);
 //        	objectLayer.deleteVehicle(vehicle3);
@@ -223,8 +228,8 @@ public class RentARideTester {
 //        	objectLayer.deleteRentalLocation(rentalLocation2);
 //        	objectLayer.deleteRentalLocation(rentalLocation1);
 //
-//        	objectLayer.deleteAdministrator(admin2);
-//        	objectLayer.deleteAdministrator(admin1);
+        	objectLayer.deleteAdministrator(admin2);
+        	objectLayer.deleteAdministrator(admin1);
         	
         }
         catch( RARException ce)
@@ -234,6 +239,7 @@ public class RentARideTester {
         catch( Exception e)
         {
             System.out.flush();
+            e.printStackTrace();
             System.err.println( "Exception: " + e );
         }
         finally {
