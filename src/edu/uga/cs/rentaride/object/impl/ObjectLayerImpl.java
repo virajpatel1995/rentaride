@@ -43,6 +43,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 		
 	}
 
+	@Override
 	public void setPersistence(PersistenceLayer persistence) {
 		this.persistence = persistence;
 	}//setPersistence
