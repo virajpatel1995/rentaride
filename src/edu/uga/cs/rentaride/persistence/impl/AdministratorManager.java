@@ -255,6 +255,7 @@ public class AdministratorManager {
 		            e.printStackTrace();
 		            throw new RARException( "AdministratorManager.delete: failed to delete a Administrator: " + e );       
 		            }
+		        catch(Exception e) { System.out.println("IT HAPPENED");};
 		    }
 		
 		
