@@ -11,10 +11,7 @@ import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.*;
-import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
-import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
-import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
-import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
+import edu.uga.cs.rentaride.entity.impl.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
@@ -206,19 +203,17 @@ public class RentalManager {
 						reservationid= rs.getInt(7);
 						vehicleid = rs.getInt(8);
 
-						PersistenceLayer persistenceLayer = Persistence.getPersistencvalayer();
-
 						Customer modelCustomer = new CustomerImpl();
 						modelCustomer.setId(customerid);
-						modelCustomer = persistenceLayer.restoreCustomer(modelCustomer).get(0);
+						modelCustomer = objectLayer.findCustomer(modelCustomer).get(0);
 
 						Reservation modelReservation = new ReservationImpl();
 						modelReservation.setId(reservationid);
-						modelReservation = persistenceLayer.restoreReservation(modelReservation).get(0);
+						modelReservation = objectLayer.findReservation(modelReservation).get(0);
 
 						Vehicle modelVehicle = new VehicleImpl();
 						modelVehicle.setId(vehicleid);
-						modelVehicle = persistenceLayer.restoreVehicle(modelVehicle).get(0);
+						modelVehicle = objectLayer.findVehicle(modelVehicle).get(0);
 
 
 						rental1 = objectLayer.createRental(pickupDate, modelReservation, modelVehicle);
@@ -263,14 +258,106 @@ public class RentalManager {
 		            e.printStackTrace();
 		            throw new RARException( "RentalManager.delete: failed to delete a rental: " + e );       
 		            }
-		
-		
-		
-		
-		
-		
 	}//delete
 
-    public List<Comment> restoreComments(Rental rental) {
+    public List<Comment> restoreComments(Rental rental) throws RARException {
+		{
+			String       selectRentalSql = "select c.id, c.comment, c.commentdate, c.rentalid," +
+					"r.id, pickup, dropoff, late, charges, reservationid, vehicleid ,userid" +
+					"from rental r, comment c" +
+					"where r.id = c.rentalid";
+			Statement    stmt = null;
+			StringBuffer query = new StringBuffer( 100 );
+			StringBuffer condition = new StringBuffer( 100 );
+			List<Comment> comments = new ArrayList<>();
+
+			condition.setLength( 0 );
+
+			// form the query based on the given Person object instance
+			query.append( selectRentalSql );
+			if(rental != null){
+				if(rental.getId() >= 0)		//vehicle id is unique
+					query.append(" and r.id = " + rental.getId());
+				else {
+
+					if( rental.getPickupTime() != null )
+						condition.append( " and pickup = '" + rental.getPickupTime() + "'" );
+
+					if( rental.getReturnTime() != null ) {
+						condition.append( " and dropoff = '" + rental.getReturnTime() + "'" );
+					}
+					if( condition.length() > 0 )
+						condition.append( " and late = '" + rental.getLate() + "'" );
+
+					if( rental.getCharges() >= 0 ) {
+						condition.append( " and charges = '" + rental.getCharges() + "'" );
+					}
+					if( rental.getReservation().getId() >= 0 ) {
+						condition.append( " and reservationid = '" + rental.getReservation().getId() + "'" );
+					}
+
+					if( rental.getVehicle().getId() >= 0 ) {
+						condition.append( " and vehicleid = '" + rental.getVehicle().getId() + "'" );
+					}
+					if( rental.getCustomer().getId() >= 0 ) {
+						condition.append( " and userid = '" + rental.getCustomer().getId() + "'" );
+					}
+
+					query.append( condition );
+				}
+			}
+
+			try {
+
+				stmt = conn.createStatement();
+
+				// retrieve the persistent Administrator objects
+				//
+				if( stmt.execute( query.toString() ) ) { // statement returned a result
+					ResultSet rs = stmt.getResultSet();
+
+					long id;
+					String commentText;
+					Date commentDate;
+					long rentalId;
+					int reservationid;
+					int vehicleid;
+
+					Customer customer;
+					Rental rental1;
+					Comment comment;
+
+					while( rs.next() ) {
+/**
+ *  columnIndex need to match column index in database
+ */
+						id = rs.getInt(1);
+						commentText = rs.getString(2);
+						commentDate = rs.getDate(3);
+						rentalId = rs.getLong(4);
+
+						Rental modelRental = new RentalImp();
+						modelRental.setId(rentalId);
+
+						rental1 = objectLayer.findRental(modelRental).get(0);
+						customer = rental1.getCustomer();
+
+						comment = objectLayer.createComment(commentText, commentDate, rental1, customer);
+						comment.setId(id);
+
+						comments.add( comment);
+
+					}
+
+					return comments;
+				}
+			}
+			catch( Exception e ) {      // just in case...
+				throw new RARException( "RentalManager.restore: Could not restore persistent Rental object; Root cause: " + e );
+			}
+
+			// if we get to this point, it's an error
+			throw new RARException( "RentalManager.restore: Could not restore persistent Rental objects" );
+		}
     }
 }//RentalManager
