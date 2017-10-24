@@ -198,7 +198,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeCustomerReservation(Customer customer, Reservation reservation) throws RARException {
-		customerManager.store(customer);
+		if( reservation == null)
+			throw new RARException( "The reservation is null");
+		if (!reservation.isPersistent())
+			throw new RARException( "The reservation is not persistent");
+		reservation.setCustomer(customer);
 		reservationManager.store(reservation);
 	}
 
@@ -220,8 +224,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public void storeReservationRentalLocation(Reservation reservation, RentalLocation rentalLocation)
 			throws RARException {
+		if( rentalLocation == null)
+			throw new RARException( "The rental location is null");
+		if (!rentalLocation.isPersistent())
+			throw new RARException( "The rental location is not persistent");
+		reservation.setRentalLocation(rentalLocation);
 		reservationManager.store(reservation);
-		rentalLocationManager.store(rentalLocation);
 	}
 
 	@Override
@@ -231,10 +239,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Reservation> restoreReservationRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalLocationManager.restoreReservations(rentalLocation);
 	}
 
@@ -246,8 +250,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeReservationVehicleType(Reservation reservation, VehicleType vehicleType) throws RARException {
+		if( vehicleType == null)
+			throw new RARException( "The vehicle type is null");
+		if (!vehicleType.isPersistent())
+			throw new RARException( "The vehicle type is not persistent");
+		reservation.setVehicleType(vehicleType);
 		reservationManager.store(reservation);
-		vehicleTypeManager.store(vehicleType);
 	}
 
 	@Override
@@ -267,8 +275,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeVehicleRentalLocation(Vehicle vehicle, RentalLocation rentalLocation) throws RARException {
+		if( rentalLocation == null)
+			throw new RARException( "The rental location is null");
+		if (!rentalLocation.isPersistent())
+			throw new RARException( "The rental location is not persistent");
+		vehicle.setRentalLocation(rentalLocation);
 		vehicleManager.store(vehicle);
-		rentalLocationManager.store(rentalLocation);
 	}
 
 	@Override
@@ -278,11 +290,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Vehicle> restoreVehicleRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalLocationManager.restoreVehicles(rentalLocation);
 	}
 
@@ -293,8 +300,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeVehicleVehicleType(Vehicle vehicle, VehicleType vehicleType) throws RARException {
+		if( vehicleType == null)
+			throw new RARException( "The vehicle type is null");
+		if (!vehicleType.isPersistent())
+			throw new RARException( "The vehicle type is not persistent");
+		vehicle.setVehicleType(vehicleType);
 		vehicleManager.store(vehicle);
-		vehicleTypeManager.store(vehicleType);
 	}
 
 	@Override
@@ -314,7 +325,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeVehicleTypeHourlyPrice(VehicleType vehicleType, HourlyPrice hourlyPrice) throws RARException {
-		vehicleTypeManager.store(vehicleType);
+		if( vehicleType == null)
+			throw new RARException( "The vehicle type is null");
+		if (!vehicleType.isPersistent())
+			throw new RARException( "The vehicle type is not persistent");
+		hourlyPrice.setVehicleType(vehicleType);
 		hourlyPriceManager.store(hourlyPrice);
 	}
 
@@ -335,8 +350,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeRentalComment(Rental rental, Comment comment) throws RARException {
+		if( comment == null)
+			throw new RARException( "The comment is null");
+		if (!comment.isPersistent())
+			throw new RARException( "The comment is not persistent");
+		rental.setComment(comment);
 		rentalManager.store(rental);
-		commentManager.store(comment);
 	}
 
 	@Override
@@ -346,10 +365,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public List<Comment> restoreRentalComment(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		return rentalManager.restoreComments(rental);
 	}
 
@@ -360,8 +375,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeRentalReservation(Rental rental, Reservation reservation) throws RARException {
+		if( reservation == null)
+			throw new RARException( "The reservation is null");
+		if (!reservation.isPersistent())
+			throw new RARException( "The reservation is not persistent");
+		rental.setReservation(reservation);
 		rentalManager.store(rental);
-		reservationManager.store(reservation);
 	}
 
 	@Override
@@ -381,7 +400,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeVehicleRental(Vehicle vehicle, Rental rental) throws RARException {
-		vehicleManager.store(vehicle);
+		if( vehicle == null)
+			throw new RARException( "The vehicle is null");
+		if (!vehicle.isPersistent())
+			throw new RARException( "The vehicle is not persistent");
+		rental.setVehicle(vehicle);
 		rentalManager.store(rental);
 	}
 
