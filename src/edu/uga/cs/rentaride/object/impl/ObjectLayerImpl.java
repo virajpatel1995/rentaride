@@ -43,7 +43,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 		
 	}
 
-
+	public void setPersistence(PersistenceLayer persistence) {
+		this.persistence = persistence;
+	}//setPersistence
 	
 	@Override
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
@@ -172,7 +174,7 @@ public class ObjectLayerImpl implements ObjectLayer {
 	@Override
 	public Rental createRental(Date pickupTime, Reservation reservation, Vehicle vehicle) throws RARException {
 
-		RentalImp Rental = new RentalImp(pickupTime, pickupTime, false, 0, reservation, vehicle, null, null);
+		RentalImp Rental = new RentalImp(pickupTime, null, false, 0, reservation, vehicle, reservation.getCustomer(), null);
 		Persistence.setPersistencvalayer(persistence);
 		return Rental;
 	}
