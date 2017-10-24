@@ -43,7 +43,9 @@ public class ObjectLayerImpl implements ObjectLayer {
 		
 	}
 
-
+	public void setPersistence(PersistenceLayer persistence) {
+		this.persistence = persistence;
+	}//setPersistence
 	
 	@Override
 	public Administrator createAdministrator(String firstName, String lastName, String userName, String password,
