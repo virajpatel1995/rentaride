@@ -169,7 +169,7 @@ public class RentalLocationManager {
 	
 	public void delete(RentalLocation rentalLocation) throws RARException{
 		
-		String deleteRentalLocationSql = "delete from RentalLocation where id = ?";              
+		String deleteRentalLocationSql = "delete from rentalLocation where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
