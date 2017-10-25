@@ -3,7 +3,7 @@ package edu.uga.cs.rentaride.object;
 import java.util.Date;
 import java.util.List;
 
-
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.*;
 
@@ -71,6 +71,8 @@ public interface ObjectLayer
     public Administrator createAdministrator( String firstName, String lastName, String userName, 
                                               String password, String email, String address, Date createDate ) throws RARException;
 
+    public void setPersistence(PersistenceLayer persistence);
+    
     /**
      * Create a new Administrator object with undefined attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.
@@ -448,4 +450,5 @@ public interface ObjectLayer
      */
     public void storeRentARideParams( RentARideParams rentARideParams ) throws RARException;
 
+    public void deleteCustomer(Customer customer) throws RARException;
 }

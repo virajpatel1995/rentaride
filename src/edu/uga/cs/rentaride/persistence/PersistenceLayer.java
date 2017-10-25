@@ -611,5 +611,5 @@ public interface PersistenceLayer
      * @throws RARException in case an error occurred during the delete operation 
      */
     public void deleteVehicleRental( Vehicle vehicle, Rental rental ) throws RARException;
-
+    public void deleteCustomer(Customer customer) throws RARException;
 }

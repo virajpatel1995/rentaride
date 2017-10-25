@@ -260,7 +260,7 @@ public class VehicleManager {
 	
 	public void delete(Vehicle vehicle) throws RARException{
 		
-		String deleteVehicleSql = "delete from Vehicle where id = ?";              
+		String deleteVehicleSql = "delete from vehicle where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             

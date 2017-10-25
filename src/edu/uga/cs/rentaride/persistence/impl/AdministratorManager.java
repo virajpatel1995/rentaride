@@ -219,7 +219,7 @@ public class AdministratorManager {
 	
 	public void delete(Administrator administrator) throws RARException{
 		
-		String deleteAdministratorSql = "delete from administrator where id = ?";              
+		String deleteAdministratorSql = "delete from user where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt;
 		             
