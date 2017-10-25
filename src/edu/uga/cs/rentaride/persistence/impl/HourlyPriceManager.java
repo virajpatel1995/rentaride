@@ -179,7 +179,7 @@ public class HourlyPriceManager {
 	
 	public void delete(HourlyPrice HourlyPrice) throws RARException{
 		
-		String deleteHourlyPriceSql = "delete from HourlyPrice where id = ?";              
+		String deleteHourlyPriceSql = "delete from hourlyPrice where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
