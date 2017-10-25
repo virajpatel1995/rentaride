@@ -138,7 +138,11 @@ public class CustomerManager {
 	
 	public List<Customer> restore(Customer customer) throws RARException{
 		{
-			String       selectCustomerSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
+			String       selectCustomerSql = "select id, type, firstName, lastName, userName, " +
+					"password, email, address, createdDate, memberUntil, licState, licNumber," +
+					" ccNumber, ccExpiration, status " +
+					"from user " +
+					"where type = 'Customer' ";
 			Statement    stmt = null;
 			StringBuffer query = new StringBuffer( 100 );
 			StringBuffer condition = new StringBuffer( 100 );
@@ -150,80 +154,53 @@ public class CustomerManager {
 			query.append( selectCustomerSql );
 			if(customer != null){
 				if(customer.getId() >= 0)		//customer id is unique
-					query.append(" where id = " + customer.getId());
+					query.append(" and id = " + customer.getId());
 				else if (customer.getUserName() != null) // customer username is unique
-					query.append(" where username = '" + customer.getUserName() + "'");
+					query.append(" and username = '" + customer.getUserName() + "'");
 				else {
-					if( condition.length() > 0 )
-						condition.append( " and" );
-					condition.append( " type = '" + "Customer" + "'" );
-
 					if( customer.getPassword() != null )
-						condition.append( " password = '" + customer.getPassword() + "'" );
+						condition.append( " and password = '" + customer.getPassword() + "'" );
 
 					if( customer.getEmail() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " email = '" + customer.getEmail() + "'" );
+						condition.append( " and email = '" + customer.getEmail() + "'" );
 					}
 
 					if( customer.getFirstName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " firstName = '" + customer.getFirstName() + "'" );
+						condition.append( " and firstName = '" + customer.getFirstName() + "'" );
 					}
 
 					if( customer.getLastName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " lastName = '" + customer.getLastName() + "'" );
+						condition.append( " and lastName = '" + customer.getLastName() + "'" );
 					}
 
 					if( customer.getAddress() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " address = '" + customer.getAddress() + "'" );
+						condition.append( " and address = '" + customer.getAddress() + "'" );
 					}
 
 					if( customer.getCreatedDate() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " createdDate = '" + customer.getCreatedDate() + "'" );
+						condition.append( " and createdDate = '" + customer.getCreatedDate() + "'" );
 					}
 					if( customer.getMemberUntil() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " memberUntil = '" + customer.getMemberUntil() + "'" );
+						condition.append( " and memberUntil = '" + customer.getMemberUntil() + "'" );
 					}
 					if( customer.getLicenseState() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " licState = '" + customer.getLicenseState() + "'" );
+						condition.append( " and licState = '" + customer.getLicenseState() + "'" );
 					}
 					if( customer.getCreditCardNumber() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " ccNumber = '" + customer.getCreditCardNumber() + "'" );
+						condition.append( " and ccNumber = '" + customer.getCreditCardNumber() + "'" );
 					}
 					if( customer.getLicenseNumber() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " licNumber = '" + customer.getLicenseNumber() + "'" );
+						condition.append( " and licNumber = '" + customer.getLicenseNumber() + "'" );
 					}
 					if( customer.getCreditCardExpiration() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " ccExpiration = '" + customer.getCreditCardExpiration() + "'" );
+						condition.append( " and ccExpiration = '" + customer.getCreditCardExpiration() + "'" );
 					}
 					if( customer.getUserStatus() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " status = '" + customer.getUserStatus() + "'" );
+						condition.append( " and status = '" + customer.getUserStatus() + "'" );
 					}
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
+
+					query.append( condition );
+
 				}
 			}
 
