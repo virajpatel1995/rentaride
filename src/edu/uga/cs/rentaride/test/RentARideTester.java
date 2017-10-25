@@ -83,23 +83,23 @@ public class RentARideTester {
         	 *  */
         	
 
-       	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("Tatex", "1 walmart road", 50);
-       	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("Boyd", "1 mcdonalds road", 10);
-       	persistence.storeRentalLocation(rentalLocation1);
-       	persistence.storeRentalLocation(rentalLocation2);
-       	
-	    	/*
-	    	 * 
-	    	 *  Create 2 rental locations.Create 2 administrators.
-	    	 *  
-	    	 *  
-	    	 *  */
-       	
-        	Administrator admin1 = objectLayer.createAdministrator("Shep", "Patel", "admin1", "sheppassword", "shepogden@uga.edu", "1 Dawg Drive", new Date(System.currentTimeMillis()));
-        	Administrator admin2 = objectLayer.createAdministrator("Viraj", "Patel", "admin2", "virajpassword", "virajpatel@uga.edu", "2 Dawg Drive", new Date(System.currentTimeMillis()));
-    		  persistence.storeAdministrator(admin1);
-		      persistence.storeAdministrator(admin2);
-			
+//       	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("Tatex", "1 walmart road", 50);
+//       	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("Boyd", "1 mcdonalds road", 10);
+//       	persistence.storeRentalLocation(rentalLocation1);
+//       	persistence.storeRentalLocation(rentalLocation2);
+//
+//	    	/*
+//	    	 *
+//	    	 *  Create 2 rental locations.Create 2 administrators.
+//	    	 *
+//	    	 *
+//	    	 *  */
+//
+//        	Administrator admin1 = objectLayer.createAdministrator("Shep", "Patel", "admin1", "sheppassword", "shepogden@uga.edu", "1 Dawg Drive", new Date(System.currentTimeMillis()));
+//        	Administrator admin2 = objectLayer.createAdministrator("Viraj", "Patel", "admin2", "virajpassword", "virajpatel@uga.edu", "2 Dawg Drive", new Date(System.currentTimeMillis()));
+//    		  persistence.storeAdministrator(admin1);
+//		      persistence.storeAdministrator(admin2);
+//
 	
 //		
 //		/*
@@ -123,15 +123,15 @@ public class RentARideTester {
 	    	 *  
 	    	 *  */
     	
-        	VehicleType vehicleType1 = objectLayer.createVehicleType("truck");
-        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(10, 5, vehicleType1);
-        	persistence.storeHourlyPrice(hourlyPrice1);
-
-        	VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan");
-        	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(202, 3, vehicleType2);
-        	persistence.storeVehicleType(vehicleType2);
-        	persistence.storeHourlyPrice(hourlyPrice2);
-		
+//        	VehicleType vehicleType1 = objectLayer.createVehicleType("truck");
+//        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(10, 5, vehicleType1);
+//        	persistence.storeHourlyPrice(hourlyPrice1);
+//
+//        	VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan");
+//        	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(202, 3, vehicleType2);
+//        	persistence.storeVehicleType(vehicleType2);
+//        	persistence.storeHourlyPrice(hourlyPrice2);
+//
 	     	
         	/*
 	    	 * 
@@ -142,15 +142,15 @@ public class RentARideTester {
 	    	 *  */
        
  
-       	  Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
-        	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
-        	Vehicle vehicle3 = objectLayer.createVehicle("Chevrolet", "Silverado", 2015, "8FJFF445", 30000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
-        	Vehicle vehicle4 = objectLayer.createVehicle("Toyota", "Sienna", 2000, "MDP5325F", 60000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
-
-        	persistence.storeVehicle(vehicle1);
-        	persistence.storeVehicle(vehicle2);
-        	persistence.storeVehicle(vehicle3);
-        	persistence.storeVehicle(vehicle4);
+//       	  Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle3 = objectLayer.createVehicle("Chevrolet", "Silverado", 2015, "8FJFF445", 30000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//        	Vehicle vehicle4 = objectLayer.createVehicle("Toyota", "Sienna", 2000, "MDP5325F", 60000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+//
+//        	persistence.storeVehicle(vehicle1);
+//        	persistence.storeVehicle(vehicle2);
+//        	persistence.storeVehicle(vehicle3);
+//        	persistence.storeVehicle(vehicle4);
       	
         	   	
         	/*

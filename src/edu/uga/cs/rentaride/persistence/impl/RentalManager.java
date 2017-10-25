@@ -203,17 +203,20 @@ public class RentalManager {
 						reservationid= rs.getInt(7);
 						vehicleid = rs.getInt(8);
 
-						Customer modelCustomer = new CustomerImpl();
-						modelCustomer.setId(customerid);
-						modelCustomer = objectLayer.findCustomer(modelCustomer).get(0);
+//						CustomerManager customerManager = new CustomerManager(conn, objectLayer);
+//						Customer modelCustomer = new CustomerImpl();
+//						modelCustomer.setId(customerid);
+//						modelCustomer = customerManager.restore(modelCustomer).get(0);
 
+						ReservationManager reservationManager = new ReservationManager(conn, objectLayer);
 						Reservation modelReservation = new ReservationImpl();
 						modelReservation.setId(reservationid);
-						modelReservation = objectLayer.findReservation(modelReservation).get(0);
+						modelReservation = reservationManager.restore(modelReservation).get(0);
 
+						VehicleManager vehicleManager = new VehicleManager(conn, objectLayer);
 						Vehicle modelVehicle = new VehicleImpl();
 						modelVehicle.setId(vehicleid);
-						modelVehicle = objectLayer.findVehicle(modelVehicle).get(0);
+						modelVehicle = vehicleManager.restore(modelVehicle).get(0);
 
 
 						rental1 = objectLayer.createRental(pickupDate, modelReservation, modelVehicle);

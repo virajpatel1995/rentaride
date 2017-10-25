@@ -11,9 +11,7 @@ import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.*;
-import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
-import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
-import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
+import edu.uga.cs.rentaride.entity.impl.*;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
@@ -186,17 +184,20 @@ public class ReservationManager {
 
 						PersistenceLayer persistenceLayer = Persistence.getPersistencvalayer();
 
+						CustomerManager customerManager = new CustomerManager(conn, objectLayer);
 						Customer modelCustomer = new CustomerImpl();
 						modelCustomer.setId(customerid);
-						modelCustomer = persistenceLayer.restoreCustomer(modelCustomer).get(0);
+						modelCustomer = customerManager.restore(modelCustomer).get(0);
 
+						RentalLocationManager rentalLocationManager = new RentalLocationManager(conn, objectLayer);
 						RentalLocation modelRentalLocation = new RentalLocationImpl();
 						modelRentalLocation.setId(rentalLocationid);
-						modelRentalLocation = persistenceLayer.restoreRentalLocation(modelRentalLocation).get(0);
+						modelRentalLocation = rentalLocationManager.restore(modelRentalLocation).get(0);
 
+						VehicleTypeManager vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
 						VehicleType modelVehicleType = new VehicleTypeImpl();
 						modelVehicleType.setId(vehicleTypeid);
-						modelVehicleType = persistenceLayer.restoreVehicleType(modelVehicleType).get(0);
+						modelVehicleType = vehicleTypeManager.restore(modelVehicleType).get(0);
 
 
 						reservation1 = objectLayer.createReservation(pickupDate, length, modelVehicleType, modelRentalLocation, modelCustomer);
