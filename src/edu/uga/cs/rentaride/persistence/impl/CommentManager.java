@@ -119,7 +119,7 @@ public class CommentManager {
 						condition.append( " commentdate = '" + comment.getDate() + "'" );
 					}
 
-					if( comment.getRental().getId() != 0 ) {
+					if( comment.getRental() != null) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " rentalid = '" + comment.getRental().getId() + "'" );
@@ -158,11 +158,12 @@ public class CommentManager {
 						rental.setId(rentalid);// rental model object based on rentalId from comment table
 
 						// find the rental object given only id
-						List<Rental> theRental = Persistence.getPersistencvalayer().restoreRental(rental);
-						rental = theRental.get(0); // There should only be one rental object in the list
+						RentalManager rentalManager = new RentalManager(conn, objectLayer);
+						rental = rentalManager.restore(rental).get(0);
 						Comment comment1 = objectLayer.createComment(text, date, rental, rental.getCustomer());
+						comment1.setId(id);
 
-						comments.add( comment );
+						comments.add( comment1 );
 
 					}
 

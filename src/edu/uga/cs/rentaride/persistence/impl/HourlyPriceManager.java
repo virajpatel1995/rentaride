@@ -96,7 +96,8 @@ public class HourlyPriceManager {
 	
 	public List<HourlyPrice> restore(HourlyPrice hourlyPrice) throws RARException{
 		{
-			String       selectPriceSql = "select vt.name, id, hp.maxHrs, hp.price, hp.vehicleTypeid from hourlyPrice hp INNER JOIN vehicleType vt ON hp.vehicleTypeid = vt.id";
+			String       selectPriceSql = "select vt.name, id, hp.maxHrs, hp.price, hp.vehicleTypeid " +
+					"from hourlyPrice hp INNER JOIN vehicleType vt ON hp.vehicleTypeid = vt.id";
 			Statement    stmt = null;
 			StringBuffer query = new StringBuffer( 100 );
 			StringBuffer condition = new StringBuffer( 100 );

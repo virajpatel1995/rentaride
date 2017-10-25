@@ -263,17 +263,20 @@ public class RentalLocationManager {
 						rentalLocationid = rs.getInt(6);
 						vehicleTypeid = rs.getInt(7);
 
+						CustomerManager customerManager = new CustomerManager(conn, objectLayer);
 						Customer modelCustomer = new CustomerImpl();
 						modelCustomer.setId(customerid);
-						modelCustomer = objectLayer.findCustomer(modelCustomer).get(0);
+						modelCustomer = customerManager.restore(modelCustomer).get(0);
 
+						RentalLocationManager rentalLocationManager = new RentalLocationManager(conn, objectLayer);
 						RentalLocation modelRentalLocation = new RentalLocationImpl();
 						modelRentalLocation.setId(rentalLocationid);
-						modelRentalLocation = objectLayer.findRentalLocation(modelRentalLocation).get(0);
+						modelRentalLocation = rentalLocationManager.restore(modelRentalLocation).get(0);
 
+						VehicleTypeManager vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
 						VehicleType modelVehicleType = new VehicleTypeImpl();
 						modelVehicleType.setId(vehicleTypeid);
-						modelVehicleType = objectLayer.findVehicleType(modelVehicleType).get(0);
+						modelVehicleType = vehicleTypeManager.restore(modelVehicleType).get(0);
 
 
 						reservation1 = objectLayer.createReservation(pickupDate, length, modelVehicleType, modelRentalLocation, modelCustomer);
@@ -371,13 +374,15 @@ public class RentalLocationManager {
 							rentalLocationid = rs.getInt(10);
 							vehicleTypeid = rs.getInt(11);
 
+							RentalLocationManager rentalLocationManager = new RentalLocationManager(conn, objectLayer);
 							RentalLocation modelRentalLocation = new RentalLocationImpl();
 							modelRentalLocation.setId(rentalLocationid);
-							modelRentalLocation = objectLayer.findRentalLocation(modelRentalLocation).get(0);
+							modelRentalLocation = rentalLocationManager.restore(modelRentalLocation).get(0);
 
+							VehicleTypeManager vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
 							VehicleType modelVehicleType = new VehicleTypeImpl();
 							modelVehicleType.setId(vehicleTypeid);
-							modelVehicleType = objectLayer.findVehicleType(modelVehicleType).get(0);
+							modelVehicleType = vehicleTypeManager.restore(modelVehicleType).get(0);
 
 
 							vehicle = objectLayer.createVehicle(make, model,year, registrationTag, mileage, lastServiced, modelVehicleType, modelRentalLocation, vehicleCondition, status);
