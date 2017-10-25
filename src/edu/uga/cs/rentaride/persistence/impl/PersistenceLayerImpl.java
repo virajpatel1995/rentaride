@@ -364,8 +364,8 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public List<Comment> restoreRentalComment(Rental rental) throws RARException {
-		return rentalManager.restoreComments(rental);
+	public Comment restoreRentalComment(Rental rental) throws RARException {
+		return rental.getComment();
 	}
 
 	@Override

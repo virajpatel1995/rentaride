@@ -99,13 +99,13 @@ public class VehicleTypeManager {
 				if(vehicleType.getId() >= 0)
 					query.append(" where id = " + vehicleType.getId());
 				else if(vehicleType.getName() != null)
-					query.append(" where name = " + vehicleType.getName());
+					query.append(" where name = '" + vehicleType.getName() + "'");
 				else{
 
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
+//					if( condition.length() > 0 ) {
+//						query.append(  " where " );
+//						query.append( condition );
+//					}
 				}
 			}
 
