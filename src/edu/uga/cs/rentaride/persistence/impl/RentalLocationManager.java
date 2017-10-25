@@ -103,17 +103,17 @@ public class RentalLocationManager {
 			// form the query based on the given Person object instance
 			query.append( selectRentalLocationSql );
 			if(rentalLocation != null){
-				if(rentalLocation.getId() >= 0)
+				if(rentalLocation.getId() > 0)
 					query.append(" where id = " + rentalLocation.getId());
 				else if(rentalLocation.getName() != null)
-					query.append(" where name = " + rentalLocation.getName());
+					query.append(" where name = '" + rentalLocation.getName() + "'");
 				else{
-					if( rentalLocation.getAddress() != null )
-						if( condition.length() > 0 )
-							condition.append( " and" );
-					condition.append( " address = '" + rentalLocation.getAddress() + "'" );
-
-					if( rentalLocation.getCapacity() >= 0 ) {
+					if( rentalLocation.getAddress() != null ) {
+						if (condition.length() > 0)
+							condition.append(" and");
+						condition.append(" address = '" + rentalLocation.getAddress() + "'");
+					}
+					if( rentalLocation.getCapacity() > 0 ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " capacity = '" + rentalLocation.getCapacity() + "'" );
@@ -199,7 +199,7 @@ public class RentalLocationManager {
 	public List<Reservation> restoreReservations(RentalLocation rentalLocation) throws RARException {
 		{
 			String       selectReservationSql = "select r.id, r.pickup, r.length, r.canceled, " +
-					"r.userid, r.rentalLocationid, r.vehicleTypeid " +
+					"r.userid, r.rentalLocationid, r.vehicleTypeid, " +
 					"rl.id, rl.name, rl.address, rl.capacity " +
 					"from rentalLocation rl, reservation r " +
 					"where r.rentalLocationid = rl.id";
@@ -221,7 +221,7 @@ public class RentalLocationManager {
 					if( rentalLocation.getAddress() != null )
 					condition.append( " and rl.address = '" + rentalLocation.getAddress() + "'" );
 
-					if( rentalLocation.getCapacity() >= 0 ) {
+					if( rentalLocation.getCapacity() > 0 ) {
 						condition.append( " and rl.capacity = '" + rentalLocation.getCapacity() + "'" );
 					}
 
@@ -304,7 +304,7 @@ public class RentalLocationManager {
 				String       selectVehicleSql = "select v.id, make, model, year, mileage, tag, " +
 						"lastServiced, status, maintenance, rentalLocationid, vehicleTypeid," +
 						"rl.id, rl.name, rl.address, rl.capacity " +
-						"from rentalLocation rl, vehicle r " +
+						"from rentalLocation rl, vehicle v " +
 						"where rentalLocationid = rl.id";
 				Statement    stmt = null;
 				StringBuffer query = new StringBuffer( 100 );
