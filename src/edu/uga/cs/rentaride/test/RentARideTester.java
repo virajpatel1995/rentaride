@@ -15,7 +15,7 @@ import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 public class RentARideTester {
 
-	public static void main(String[] args) throws RARException {
+	public static void main(String[]  args){
 		Connection  conn = null;
         ObjectLayer objectLayer = null;
         PersistenceLayer persistence = null;
@@ -33,14 +33,14 @@ public class RentARideTester {
             return;
         }
 
-        // connect the ObjectModel module to the Persistence module
-        objectLayer = new ObjectLayerImpl();
-        // obtain a reference to Persistence module and connect it to the ObjectModel
-        persistence = new PersistenceLayerImpl( conn, objectLayer );
-        objectLayer.setPersistence(persistence);
-
         try {
-        	
+
+
+            // connect the ObjectModel module to the Persistence module
+            objectLayer = new ObjectLayerImpl();
+            // obtain a reference to Persistence module and connect it to the ObjectModel
+            persistence = new PersistenceLayerImpl( conn, objectLayer );
+            objectLayer.setPersistence(persistence);
       	         	
 
        	
@@ -64,9 +64,14 @@ public class RentARideTester {
        	 *
        	 *
        	 *  */
-
-      	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("xxxxxx", "33 walmart road", 50);
-      	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("bbbbbb", "55 mcdonalds road", 10);
+          
+// junwei_branch
+//RentalLocation rentalLocation1 = objectLayer.createRentalLocation("xxxxxx", "33 walmart road", 50);
+//	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("bbbbbb", "55 mcdonalds road", 10);
+       	
+      	RentalLocation rentalLocation1 = objectLayer.createRentalLocation("xxxBxxx", "33 walmart road", 50);
+      	RentalLocation rentalLocation2 = objectLayer.createRentalLocation("bbbCbbb", "55 mcdonalds road", 10);
+          
       	persistence.storeRentalLocation(rentalLocation1);
       	persistence.storeRentalLocation(rentalLocation2);
 
@@ -78,16 +83,26 @@ public class RentARideTester {
 	    	 *
 	    	 *
 	    	 *  */
+          
+// junwei_branch
+//	VehicleType vehicleType1 = objectLayer.createVehicleType("bigbigTruck");
+//	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(101, 5, vehicleType1);
 
-        	VehicleType vehicleType1 = objectLayer.createVehicleType("bigbigTruck");
-        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(101, 5, vehicleType1);
+  	
+        	VehicleType vehicleType1 = objectLayer.createVehicleType("bigbigTruck2");
+        	HourlyPrice hourlyPrice1 = objectLayer.createHourlyPrice(1019, 7, vehicleType1);
 
         	persistence.storeVehicleType(vehicleType1);
         	persistence.storeHourlyPrice(hourlyPrice1);
 
-        	VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan");
-        	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(202, 3, vehicleType2);
+          //junwei_branch
+        	//VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan");
+        	//HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(202, 3, vehicleType2);
 
+
+        	VehicleType vehicleType2 = objectLayer.createVehicleType("bigbigVan2");
+        	HourlyPrice hourlyPrice2 = objectLayer.createHourlyPrice(2229, 8, vehicleType2);
+        	
         	persistence.storeVehicleType(vehicleType2);
         	persistence.storeHourlyPrice(hourlyPrice2);
 
@@ -101,7 +116,7 @@ public class RentARideTester {
 	    	 *  */
 
 
-       	Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+         	Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle3 = objectLayer.createVehicle("Chevrolet", "Silverado", 2015, "8FJFF445", 30000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle4 = objectLayer.createVehicle("Toyota", "Sienna", 2000, "MDP5325F", 60000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
@@ -118,9 +133,13 @@ public class RentARideTester {
 	    	 *
 	    	 *
 	    	 *  */
+  //junwei_branch
+  //Customer customer1 = objectLayer.createCustomer("Chase22 ", "Williams", "chasewilliams", "chasepassword", "chase@uga.edu", "3 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "51DGf52G", "10484835823924", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
+  //Customer customer2 = objectLayer.createCustomer("Josh", "Dawson", "joshdawson", "joshpassword", "josh@uga.edu", "4 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "81FH52F6H", "5471975974927459", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
 
-          Customer customer1 = objectLayer.createCustomer("Chase22 ", "Williams", "chasewilliams", "chasepassword", "chase@uga.edu", "3 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "51DGf52G", "10484835823924", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
-          Customer customer2 = objectLayer.createCustomer("Josh", "Dawson", "joshdawson", "joshpassword", "josh@uga.edu", "4 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "81FH52F6H", "5471975974927459", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
+        	
+          Customer customer1 = objectLayer.createCustomer("Chase32 ", "Williams", "chasewilliams", "chasepassword", "chase@uga.edu", "3 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "51DGf52G", "10484835823924", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
+          Customer customer2 = objectLayer.createCustomer("Josh32", "Dawson", "joshdawson", "joshpassword", "josh@uga.edu", "4 Dawg Drive", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), "Georgia", "81FH52F6H", "5471975974927459", new Date(System.currentTimeMillis()), UserStatus.ACTIVE);
 
     		  persistence.storeCustomer(customer1);
     		  persistence.storeCustomer(customer2);
@@ -164,8 +183,8 @@ public class RentARideTester {
         	Rental rental2 = objectLayer.createRental(new Date(System.currentTimeMillis()),reservation2, vehicle2);
 
 
-        	Comment comment1 = objectLayer.createComment("Great car", new Date(System.currentTimeMillis()), rental1, customer1);
-        	Comment comment2 = objectLayer.createComment("Best car ever", new Date(System.currentTimeMillis()), rental2, customer2);
+        	Comment comment1 = objectLayer.createComment("Great carrrr", new Date(System.currentTimeMillis()), rental1, customer1);
+        	Comment comment2 = objectLayer.createComment("Best car everrrr", new Date(System.currentTimeMillis()), rental2, customer2);
 
         	rental1.setComment(comment1);
         	rental2.setComment(comment2);
@@ -176,15 +195,15 @@ public class RentARideTester {
         	persistence.storeComment(comment1);
         	persistence.storeComment(comment2);
 
+// junwei_branch
+          
             RentARideParams rentARideParams = objectLayer.createRentARideParams();
             rentARideParams.setMembershipPrice(1000);
             rentARideParams.setLateFee(500);
 
             persistence.storeRentARideConfig(rentARideParams);
 
-        	
-        	
-        	
+
         	
          /*
 	    	 * 
@@ -193,18 +212,19 @@ public class RentARideTester {
 	    	 *  
 	    	 *  */
        
-//        	objectLayer.deleteComment(comment2);
-//       	objectLayer.deleteComment(comment1);
+        objectLayer.deleteComment(comment2);
+       	objectLayer.deleteComment(comment1);
 
-//     		objectLayer.deleteRental(rental2);
-//      		objectLayer.deleteRental(rental1);
-        	
-//        	objectLayer.deleteReservation(reservation4);
-//        	objectLayer.deleteReservation(reservation3);
-//        	objectLayer.deleteReservation(reservation2);
-//        	objectLayer.deleteReservation(reservation1);
+     	  objectLayer.deleteRental(rental2);
+      	objectLayer.deleteRental(rental1);
+       	
+        	objectLayer.deleteReservation(reservation4);
+        	objectLayer.deleteReservation(reservation3);
+        	objectLayer.deleteReservation(reservation2);
+        	objectLayer.deleteReservation(reservation1);
 
   
+//junwei_branch
 //        	objectLayer.deleteCustomer(customer2);
 //        	objectLayer.deleteCustomer(customer1);
 //
@@ -223,6 +243,28 @@ public class RentARideTester {
 //
 //        	objectLayer.deleteAdministrator(admin2);
 //        	objectLayer.deleteAdministrator(admin1);
+
+          
+        	objectLayer.deleteCustomer(customer2);
+        	objectLayer.deleteCustomer(customer1);
+        	objectLayer.deleteVehicle(vehicle4);
+        	objectLayer.deleteVehicle(vehicle3);
+        	objectLayer.deleteVehicle(vehicle2);
+        	objectLayer.deleteVehicle(vehicle1);
+
+        	objectLayer.deleteHourlyPrice(hourlyPrice2);
+        	objectLayer.deleteVehicleType(vehicleType2);
+        	objectLayer.deleteHourlyPrice(hourlyPrice1);
+        	objectLayer.deleteVehicleType(vehicleType1);
+        	objectLayer.deleteRentalLocation(rentalLocation2);
+        	objectLayer.deleteRentalLocation(rentalLocation1);
+
+        	objectLayer.deleteAdministrator(admin2);
+        	objectLayer.deleteAdministrator(admin1);
+        	
+        	
+        	
+        	
         	
         }
         catch( RARException ce)
