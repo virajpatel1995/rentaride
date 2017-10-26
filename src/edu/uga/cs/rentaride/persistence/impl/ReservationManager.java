@@ -127,19 +127,19 @@ public class ReservationManager {
 						condition.append( " length = '" + reservation.getLength() + "'" );
 					}
 
-					if( reservation.getCustomer().getId() >= 0 ) {
+					if( reservation.getCustomer() != null && reservation.getCustomer().getId() >= 0 ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " userid = '" + reservation.getCustomer().getId() + "'" );
 					}
 
-					if( reservation.getRentalLocation().getId() >= 0 ) {
+					if( reservation.getRentalLocation() != null &&reservation.getRentalLocation().getId() >= 0 ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " rentalLocationid = '" + reservation.getRentalLocation().getId() + "'" );
 					}
 
-					if( reservation.getVehicleType().getId() >= 0 ) {
+					if( reservation.getVehicleType() != null &&reservation.getVehicleType().getId() >= 0 ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " vehicleTypeid = '" + reservation.getVehicleType().getId() + "'" );

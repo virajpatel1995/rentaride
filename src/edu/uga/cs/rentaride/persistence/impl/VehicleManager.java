@@ -157,7 +157,7 @@ public class VehicleManager {
 
 					if( vehicle.getMileage() != 0 ) {
 
-						condition.append( " and millage = '" + vehicle.getMileage() + "'" );
+						condition.append( " and mileage = '" + vehicle.getMileage() + "'" );
 					}
 
 					if( vehicle.getLastServiced() != null ) {
@@ -173,11 +173,11 @@ public class VehicleManager {
 
 						condition.append( " and maintenance = '" + vehicle.getCondition() + "'" );
 					}
-					if( vehicle.getRentalLocation().getId() > 0 ) {
+					if(vehicle.getRentalLocation() != null && vehicle.getRentalLocation().getId() > 0 ) {
 
 						condition.append( " and rentalLocationid = '" + vehicle.getRentalLocation().getId() + "'" );
 					}
-					if( vehicle.getVehicleType().getId() > 0 ) {
+					if( vehicle.getVehicleType() != null && vehicle.getVehicleType().getId() > 0 ) {
 
 						condition.append( " and vehicleTypeid = '" + vehicle.getVehicleType().getId() + "'" );
 					}
@@ -222,9 +222,9 @@ public class VehicleManager {
 						id = rs.getLong( 1 );
 						make = rs.getString( 2 );
 						model = rs.getString( 3 );
-						registrationTag = rs.getString( 4 );
-						year = rs.getInt( 5 );
-						mileage = rs.getInt( 6 );
+						year = rs.getInt( 4 );
+						mileage = rs.getInt( 5 );
+						registrationTag = rs.getString( 6 );
 						lastServiced = rs.getDate( 7 );
 						status = VehicleStatus.valueOf(rs.getString( 8 ));
 						vehicleCondition = VehicleCondition.valueOf(rs.getString( 9 ));
