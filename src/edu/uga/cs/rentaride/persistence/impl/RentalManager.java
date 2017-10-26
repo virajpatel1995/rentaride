@@ -107,8 +107,8 @@ public class RentalManager {
 	public List<Rental> restore(Rental rental) throws RARException{
 
 		{
-			String       selectRentalSql = "select id, pickup, dropoff, late, charges," +
-					"reservationid, vehicleid ,userid from rental";
+			String       selectRentalSql = "select r.id, pickup, dropoff, late, charges," +
+					"reservationid, vehicleid ,userid ,c.id, c.comment, c.commentdate from rental r left join comment c on r.id= c.rentalid";
 			Statement    stmt = null;
 			StringBuffer query = new StringBuffer( 100 );
 			StringBuffer condition = new StringBuffer( 100 );
@@ -120,7 +120,7 @@ public class RentalManager {
 			query.append( selectRentalSql );
 			if(rental != null){
 				if(rental.getId() >= 0)		//vehicle id is unique
-					query.append(" where id = " + rental.getId());
+					query.append(" where r.id = " + rental.getId());
 				else {
 
 					if( rental.getPickupTime() != null )
@@ -131,7 +131,6 @@ public class RentalManager {
 							condition.append( " and" );
 						condition.append( " dropoff = '" + rental.getReturnTime() + "'" );
 					}
-
 
 					if( condition.length() > 0 )
 						condition.append( " and" );
@@ -183,6 +182,9 @@ public class RentalManager {
 					int customerid;
 					int reservationid;
 					int vehicleid;
+					int commentid;
+					String commentText;
+					Date cdate;
 
 					Customer customer;
 					Reservation reservation;
@@ -202,23 +204,34 @@ public class RentalManager {
 						customerid = rs.getInt(6);
 						reservationid= rs.getInt(7);
 						vehicleid = rs.getInt(8);
+						commentid = rs.getInt(9);
+						commentText= rs.getString(10);
+						cdate= rs.getDate(11);
 
-						Customer modelCustomer = new CustomerImpl();
-						modelCustomer.setId(customerid);
-						modelCustomer = objectLayer.findCustomer(modelCustomer).get(0);
+//						CustomerManager customerManager = new CustomerManager(conn, objectLayer);
+//						Customer modelCustomer = new CustomerImpl();
+//						modelCustomer.setId(customerid);
+//						modelCustomer = customerManager.restore(modelCustomer).get(0);
 
+						ReservationManager reservationManager = new ReservationManager(conn, objectLayer);
 						Reservation modelReservation = new ReservationImpl();
 						modelReservation.setId(reservationid);
-						modelReservation = objectLayer.findReservation(modelReservation).get(0);
+						modelReservation = reservationManager.restore(modelReservation).get(0);
 
+						VehicleManager vehicleManager = new VehicleManager(conn, objectLayer);
 						Vehicle modelVehicle = new VehicleImpl();
 						modelVehicle.setId(vehicleid);
-						modelVehicle = objectLayer.findVehicle(modelVehicle).get(0);
+						modelVehicle = vehicleManager.restore(modelVehicle).get(0);
+
 
 
 						rental1 = objectLayer.createRental(pickupDate, modelReservation, modelVehicle);
 						rental1.setId(id);
 
+						Comment comment = objectLayer.createComment(commentText, cdate, rental1, rental1.getCustomer());
+						comment.setId(commentid);
+
+						rental1.setComment(comment);
 						rentals.add( rental1);
 
 					}
@@ -260,104 +273,104 @@ public class RentalManager {
 		            }
 	}//delete
 
-    public List<Comment> restoreComments(Rental rental) throws RARException {
-		{
-			String       selectRentalSql = "select c.id, c.comment, c.commentdate, c.rentalid," +
-					"r.id, pickup, dropoff, late, charges, reservationid, vehicleid ,userid" +
-					"from rental r, comment c" +
-					"where r.id = c.rentalid";
-			Statement    stmt = null;
-			StringBuffer query = new StringBuffer( 100 );
-			StringBuffer condition = new StringBuffer( 100 );
-			List<Comment> comments = new ArrayList<>();
-
-			condition.setLength( 0 );
-
-			// form the query based on the given Person object instance
-			query.append( selectRentalSql );
-			if(rental != null){
-				if(rental.getId() >= 0)		//vehicle id is unique
-					query.append(" and r.id = " + rental.getId());
-				else {
-
-					if( rental.getPickupTime() != null )
-						condition.append( " and pickup = '" + rental.getPickupTime() + "'" );
-
-					if( rental.getReturnTime() != null ) {
-						condition.append( " and dropoff = '" + rental.getReturnTime() + "'" );
-					}
-					if( condition.length() > 0 )
-						condition.append( " and late = '" + rental.getLate() + "'" );
-
-					if( rental.getCharges() >= 0 ) {
-						condition.append( " and charges = '" + rental.getCharges() + "'" );
-					}
-					if( rental.getReservation().getId() >= 0 ) {
-						condition.append( " and reservationid = '" + rental.getReservation().getId() + "'" );
-					}
-
-					if( rental.getVehicle().getId() >= 0 ) {
-						condition.append( " and vehicleid = '" + rental.getVehicle().getId() + "'" );
-					}
-					if( rental.getCustomer().getId() >= 0 ) {
-						condition.append( " and userid = '" + rental.getCustomer().getId() + "'" );
-					}
-
-					query.append( condition );
-				}
-			}
-
-			try {
-
-				stmt = conn.createStatement();
-
-				// retrieve the persistent Administrator objects
-				//
-				if( stmt.execute( query.toString() ) ) { // statement returned a result
-					ResultSet rs = stmt.getResultSet();
-
-					long id;
-					String commentText;
-					Date commentDate;
-					long rentalId;
-					int reservationid;
-					int vehicleid;
-
-					Customer customer;
-					Rental rental1;
-					Comment comment;
-
-					while( rs.next() ) {
-/**
- *  columnIndex need to match column index in database
- */
-						id = rs.getInt(1);
-						commentText = rs.getString(2);
-						commentDate = rs.getDate(3);
-						rentalId = rs.getLong(4);
-
-						Rental modelRental = new RentalImp();
-						modelRental.setId(rentalId);
-
-						rental1 = objectLayer.findRental(modelRental).get(0);
-						customer = rental1.getCustomer();
-
-						comment = objectLayer.createComment(commentText, commentDate, rental1, customer);
-						comment.setId(id);
-
-						comments.add( comment);
-
-					}
-
-					return comments;
-				}
-			}
-			catch( Exception e ) {      // just in case...
-				throw new RARException( "RentalManager.restore: Could not restore persistent Rental object; Root cause: " + e );
-			}
-
-			// if we get to this point, it's an error
-			throw new RARException( "RentalManager.restore: Could not restore persistent Rental objects" );
-		}
-    }
+//    public List<Comment> restoreComments(Rental rental) throws RARException {
+//		{
+//			String       selectRentalSql = "select c.id, c.comment, c.commentdate, c.rentalid," +
+//					"r.id, pickup, dropoff, late, charges, reservationid, vehicleid ,userid" +
+//					"from rental r, comment c" +
+//					"where r.id = c.rentalid";
+//			Statement    stmt = null;
+//			StringBuffer query = new StringBuffer( 100 );
+//			StringBuffer condition = new StringBuffer( 100 );
+//			List<Comment> comments = new ArrayList<>();
+//
+//			condition.setLength( 0 );
+//
+//			// form the query based on the given Person object instance
+//			query.append( selectRentalSql );
+//			if(rental != null){
+//				if(rental.getId() >= 0)		//vehicle id is unique
+//					query.append(" and r.id = " + rental.getId());
+//				else {
+//
+//					if( rental.getPickupTime() != null )
+//						condition.append( " and pickup = '" + rental.getPickupTime() + "'" );
+//
+//					if( rental.getReturnTime() != null ) {
+//						condition.append( " and dropoff = '" + rental.getReturnTime() + "'" );
+//					}
+//					if( condition.length() > 0 )
+//						condition.append( " and late = '" + rental.getLate() + "'" );
+//
+//					if( rental.getCharges() >= 0 ) {
+//						condition.append( " and charges = '" + rental.getCharges() + "'" );
+//					}
+//					if( rental.getReservation().getId() >= 0 ) {
+//						condition.append( " and reservationid = '" + rental.getReservation().getId() + "'" );
+//					}
+//
+//					if( rental.getVehicle().getId() >= 0 ) {
+//						condition.append( " and vehicleid = '" + rental.getVehicle().getId() + "'" );
+//					}
+//					if( rental.getCustomer().getId() >= 0 ) {
+//						condition.append( " and userid = '" + rental.getCustomer().getId() + "'" );
+//					}
+//
+//					query.append( condition );
+//				}
+//			}
+//
+//			try {
+//
+//				stmt = conn.createStatement();
+//
+//				// retrieve the persistent Administrator objects
+//				//
+//				if( stmt.execute( query.toString() ) ) { // statement returned a result
+//					ResultSet rs = stmt.getResultSet();
+//
+//					long id;
+//					String commentText;
+//					Date commentDate;
+//					long rentalId;
+//					int reservationid;
+//					int vehicleid;
+//
+//					Customer customer;
+//					Rental rental1;
+//					Comment comment;
+//
+//					while( rs.next() ) {
+///**
+// *  columnIndex need to match column index in database
+// */
+//						id = rs.getInt(1);
+//						commentText = rs.getString(2);
+//						commentDate = rs.getDate(3);
+//						rentalId = rs.getLong(4);
+//
+//						Rental modelRental = new RentalImp();
+//						modelRental.setId(rentalId);
+//
+//						rental1 = objectLayer.findRental(modelRental).get(0);
+//						customer = rental1.getCustomer();
+//
+//						comment = objectLayer.createComment(commentText, commentDate, rental1, customer);
+//						comment.setId(id);
+//
+//						comments.add( comment);
+//
+//					}
+//
+//					return comments;
+//				}
+//			}
+//			catch( Exception e ) {      // just in case...
+//				throw new RARException( "RentalManager.restore: Could not restore persistent Rental object; Root cause: " + e );
+//			}
+//
+//			// if we get to this point, it's an error
+//			throw new RARException( "RentalManager.restore: Could not restore persistent Rental objects" );
+//		}
+//    }
 }//RentalManager

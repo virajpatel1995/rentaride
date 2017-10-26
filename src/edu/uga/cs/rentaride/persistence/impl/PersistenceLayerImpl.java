@@ -364,8 +364,8 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public List<Comment> restoreRentalComment(Rental rental) throws RARException {
-		return rentalManager.restoreComments(rental);
+	public Comment restoreRentalComment(Rental rental) throws RARException {
+		return rental.getComment();
 	}
 
 	@Override
@@ -422,5 +422,9 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	public void deleteVehicleRental(Vehicle vehicle, Rental rental) throws RARException {
 		//may be left empty with 4.2
 	}
+	
+	public void deleteCustomer(Customer customer) throws RARException{
+		customerManager.delete(customer);
+	}//deleteCustomer
 
 }

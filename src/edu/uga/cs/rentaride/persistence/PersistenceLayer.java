@@ -533,7 +533,7 @@ public interface PersistenceLayer
      * @return a List of Comment objects for the Rental
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public List<Comment> restoreRentalComment( Rental rental ) throws RARException;    
+    public Comment restoreRentalComment( Rental rental ) throws RARException;
 
     /** 
      * Delete a link between a Rental and a Comment describing the Rental.
@@ -611,5 +611,5 @@ public interface PersistenceLayer
      * @throws RARException in case an error occurred during the delete operation 
      */
     public void deleteVehicleRental( Vehicle vehicle, Rental rental ) throws RARException;
-
+    public void deleteCustomer(Customer customer) throws RARException;
 }

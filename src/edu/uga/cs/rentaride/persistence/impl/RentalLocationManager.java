@@ -103,17 +103,17 @@ public class RentalLocationManager {
 			// form the query based on the given Person object instance
 			query.append( selectRentalLocationSql );
 			if(rentalLocation != null){
-				if(rentalLocation.getId() >= 0)
+				if(rentalLocation.getId() > 0)
 					query.append(" where id = " + rentalLocation.getId());
 				else if(rentalLocation.getName() != null)
-					query.append(" where name = " + rentalLocation.getName());
+					query.append(" where name = '" + rentalLocation.getName() + "'");
 				else{
-					if( rentalLocation.getAddress() != null )
-						if( condition.length() > 0 )
-							condition.append( " and" );
-					condition.append( " address = '" + rentalLocation.getAddress() + "'" );
-
-					if( rentalLocation.getCapacity() >= 0 ) {
+					if( rentalLocation.getAddress() != null ) {
+						if (condition.length() > 0)
+							condition.append(" and");
+						condition.append(" address = '" + rentalLocation.getAddress() + "'");
+					}
+					if( rentalLocation.getCapacity() > 0 ) {
 						if( condition.length() > 0 )
 							condition.append( " and" );
 						condition.append( " capacity = '" + rentalLocation.getCapacity() + "'" );
@@ -169,7 +169,7 @@ public class RentalLocationManager {
 	
 	public void delete(RentalLocation rentalLocation) throws RARException{
 		
-		String deleteRentalLocationSql = "delete from RentalLocation where id = ?";              
+		String deleteRentalLocationSql = "delete from rentalLocation where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
@@ -199,7 +199,7 @@ public class RentalLocationManager {
 	public List<Reservation> restoreReservations(RentalLocation rentalLocation) throws RARException {
 		{
 			String       selectReservationSql = "select r.id, r.pickup, r.length, r.canceled, " +
-					"r.userid, r.rentalLocationid, r.vehicleTypeid " +
+					"r.userid, r.rentalLocationid, r.vehicleTypeid, " +
 					"rl.id, rl.name, rl.address, rl.capacity " +
 					"from rentalLocation rl, reservation r " +
 					"where r.rentalLocationid = rl.id";
@@ -221,7 +221,7 @@ public class RentalLocationManager {
 					if( rentalLocation.getAddress() != null )
 					condition.append( " and rl.address = '" + rentalLocation.getAddress() + "'" );
 
-					if( rentalLocation.getCapacity() >= 0 ) {
+					if( rentalLocation.getCapacity() > 0 ) {
 						condition.append( " and rl.capacity = '" + rentalLocation.getCapacity() + "'" );
 					}
 
@@ -263,17 +263,20 @@ public class RentalLocationManager {
 						rentalLocationid = rs.getInt(6);
 						vehicleTypeid = rs.getInt(7);
 
+						CustomerManager customerManager = new CustomerManager(conn, objectLayer);
 						Customer modelCustomer = new CustomerImpl();
 						modelCustomer.setId(customerid);
-						modelCustomer = objectLayer.findCustomer(modelCustomer).get(0);
+						modelCustomer = customerManager.restore(modelCustomer).get(0);
 
+						RentalLocationManager rentalLocationManager = new RentalLocationManager(conn, objectLayer);
 						RentalLocation modelRentalLocation = new RentalLocationImpl();
 						modelRentalLocation.setId(rentalLocationid);
-						modelRentalLocation = objectLayer.findRentalLocation(modelRentalLocation).get(0);
+						modelRentalLocation = rentalLocationManager.restore(modelRentalLocation).get(0);
 
+						VehicleTypeManager vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
 						VehicleType modelVehicleType = new VehicleTypeImpl();
 						modelVehicleType.setId(vehicleTypeid);
-						modelVehicleType = objectLayer.findVehicleType(modelVehicleType).get(0);
+						modelVehicleType = vehicleTypeManager.restore(modelVehicleType).get(0);
 
 
 						reservation1 = objectLayer.createReservation(pickupDate, length, modelVehicleType, modelRentalLocation, modelCustomer);
@@ -301,7 +304,7 @@ public class RentalLocationManager {
 				String       selectVehicleSql = "select v.id, make, model, year, mileage, tag, " +
 						"lastServiced, status, maintenance, rentalLocationid, vehicleTypeid," +
 						"rl.id, rl.name, rl.address, rl.capacity " +
-						"from rentalLocation rl, vehicle r " +
+						"from rentalLocation rl, vehicle v " +
 						"where rentalLocationid = rl.id";
 				Statement    stmt = null;
 				StringBuffer query = new StringBuffer( 100 );
@@ -371,13 +374,15 @@ public class RentalLocationManager {
 							rentalLocationid = rs.getInt(10);
 							vehicleTypeid = rs.getInt(11);
 
+							RentalLocationManager rentalLocationManager = new RentalLocationManager(conn, objectLayer);
 							RentalLocation modelRentalLocation = new RentalLocationImpl();
 							modelRentalLocation.setId(rentalLocationid);
-							modelRentalLocation = objectLayer.findRentalLocation(modelRentalLocation).get(0);
+							modelRentalLocation = rentalLocationManager.restore(modelRentalLocation).get(0);
 
+							VehicleTypeManager vehicleTypeManager = new VehicleTypeManager(conn, objectLayer);
 							VehicleType modelVehicleType = new VehicleTypeImpl();
 							modelVehicleType.setId(vehicleTypeid);
-							modelVehicleType = objectLayer.findVehicleType(modelVehicleType).get(0);
+							modelVehicleType = vehicleTypeManager.restore(modelVehicleType).get(0);
 
 
 							vehicle = objectLayer.createVehicle(make, model,year, registrationTag, mileage, lastServiced, modelVehicleType, modelRentalLocation, vehicleCondition, status);

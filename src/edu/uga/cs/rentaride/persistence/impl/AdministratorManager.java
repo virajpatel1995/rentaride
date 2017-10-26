@@ -116,7 +116,9 @@ public class AdministratorManager {
 	}//store
 	
 	public List<Administrator> restore(Administrator administrator) throws RARException{
-		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email, address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status from user";
+		String       selectAdminSql = "select id, type, firstName, lastName, userName, password, email," +
+				" address, createdDate, memberUntil, licState, licNumber, ccNumber, ccExpiration, status " +
+				"from user where type = 'Administrator' ";
 		Statement    stmt = null;
 		StringBuffer query = new StringBuffer( 100 );
 		StringBuffer condition = new StringBuffer( 100 );
@@ -128,55 +130,38 @@ public class AdministratorManager {
 		query.append( selectAdminSql );
 		if(administrator != null){
 			if(administrator.getId() >= 0)
-				query.append(" where id = " + administrator.getId());
+				query.append(" and id = " + administrator.getId());
 			else if (administrator.getUserName() != null)
-				query.append(" where username = '" + administrator.getUserName() + "'");
+				query.append(" and username = '" + administrator.getUserName() + "'");
             else {
-                    if( condition.length() > 0 )
-                        condition.append( " and" );
-                    condition.append( " type = '" + "Administrator" + "'" );
 
                     if( administrator.getPassword() != null )
-                        condition.append( " password = '" + administrator.getPassword() + "'" );
+                        condition.append( " and password = '" + administrator.getPassword() + "'" );
 
 					if( administrator.getEmail() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " email = '" + administrator.getEmail() + "'" );
+						condition.append( " and email = '" + administrator.getEmail() + "'" );
 					}
 
 					if( administrator.getFirstName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " firstName = '" + administrator.getFirstName() + "'" );
+						condition.append( " and firstName = '" + administrator.getFirstName() + "'" );
 					}
 
 					if( administrator.getLastName() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " lastName = '" + administrator.getLastName() + "'" );
+						condition.append( " and lastName = '" + administrator.getLastName() + "'" );
 					}
 
 					if( administrator.getAddress() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " address = '" + administrator.getAddress() + "'" );
+						condition.append( " and address = '" + administrator.getAddress() + "'" );
 					}
 
 					if( administrator.getCreatedDate() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " createdDate = '" + administrator.getCreatedDate() + "'" );
+						condition.append( " and createdDate = '" + administrator.getCreatedDate() + "'" );
 					}
 					if( administrator.getUserStatus() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " status = '" + administrator.getUserStatus() + "'" );
+						condition.append(" and status = '" + administrator.getUserStatus() + "'");
 					}
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
+
+				query.append(condition);
 				}
 			}
 
@@ -211,7 +196,7 @@ public class AdministratorManager {
 						address = rs.getString( 8 );
 						date = rs.getDate( 9 );
 
-						Administrator administrator1 = objectLayer.createAdministrator( firstName, password, email, firstName, lastName, address, date);
+						Administrator administrator1 = objectLayer.createAdministrator( firstName, lastName, userName, password, email,  address, date);
 						administrator1.setId( id );
 
 						administrators.add( administrator1 );
@@ -234,7 +219,7 @@ public class AdministratorManager {
 	
 	public void delete(Administrator administrator) throws RARException{
 		
-		String deleteAdministratorSql = "delete from administrator where id = ?";              
+		String deleteAdministratorSql = "delete from user where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt;
 		             

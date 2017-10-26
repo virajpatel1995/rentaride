@@ -96,7 +96,9 @@ public class HourlyPriceManager {
 	
 	public List<HourlyPrice> restore(HourlyPrice hourlyPrice) throws RARException{
 		{
-			String       selectPriceSql = "select vt.name, id, hp.maxHrs, hp.price, hp.vehicleTypeid from hourlyPrice hp INNER JOIN vehicleType vt ON hp.vehicleTypeid = vt.id";
+			String       selectPriceSql = "select vt.name, hp.id, hp.maxHrs, hp.price, hp.vehicleTypeid " +
+					"from hourlyPrice hp, vehicleType vt " +
+					"where hp.vehicleTypeid = vt.id";
 			Statement    stmt = null;
 			StringBuffer query = new StringBuffer( 100 );
 			StringBuffer condition = new StringBuffer( 100 );
@@ -108,28 +110,21 @@ public class HourlyPriceManager {
 			query.append( selectPriceSql );
 			if(hourlyPrice != null){
 				if(hourlyPrice.getId() >= 0)
-					query.append(" where id = " + hourlyPrice.getId());
+					query.append(" and hp.id = " + hourlyPrice.getId());
 				else {
-					if( hourlyPrice.getMaxHours() >= 0 )
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " maxHrs = '" + hourlyPrice.getMaxHours() + "'" );
+					if( hourlyPrice.getMaxHours() > 0 )
+						condition.append( " and hp.maxHrs = '" + hourlyPrice.getMaxHours() + "'" );
 
-					if( hourlyPrice.getPrice() >= 0 ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " price = '" + hourlyPrice.getPrice() + "'" );
+					if( hourlyPrice.getPrice() > 0 ) {
+						condition.append( " and hp.price = '" + hourlyPrice.getPrice() + "'" );
 					}
 
 					if( hourlyPrice.getVehicleType() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " vehicleTypeid = " + hourlyPrice.getVehicleType().getId() );
+						condition.append( " and hp.vehicleTypeid = " + hourlyPrice.getVehicleType().getId() );
 					}
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
+
+					query.append( condition );
+
 				}
 			}
 
@@ -179,7 +174,7 @@ public class HourlyPriceManager {
 	
 	public void delete(HourlyPrice HourlyPrice) throws RARException{
 		
-		String deleteHourlyPriceSql = "delete from HourlyPrice where id = ?";              
+		String deleteHourlyPriceSql = "delete from hourlyPrice where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             

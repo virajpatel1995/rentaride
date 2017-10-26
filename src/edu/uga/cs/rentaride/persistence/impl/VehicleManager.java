@@ -137,62 +137,53 @@ public class VehicleManager {
 			query.append( selectVehicleSql );
 			if(vehicle != null){
 				if(vehicle.getId() >= 0)		//vehicle id is unique
-					query.append(" where id = " + vehicle.getId());
+					query.append(" and v.id = " + vehicle.getId());
 				else if (vehicle.getRegistrationTag() != null) // vehicle username is unique
-					query.append(" where tag = '" + vehicle.getRegistrationTag() + "'");
+					query.append(" and tag = '" + vehicle.getRegistrationTag() + "'");
 				else {
 
 					if( vehicle.getMake() != null )
-						condition.append( " make = '" + vehicle.getMake() + "'" );
+						condition.append( " and make = '" + vehicle.getMake() + "'" );
 
 					if( vehicle.getModel() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " model = '" + vehicle.getModel() + "'" );
+
+						condition.append( " and model = '" + vehicle.getModel() + "'" );
 					}
 
 					if( vehicle.getYear() != 0 ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " year = '" + vehicle.getYear() + "'" );
+
+						condition.append( " and year = '" + vehicle.getYear() + "'" );
 					}
 
 					if( vehicle.getMileage() != 0 ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " millage = '" + vehicle.getMileage() + "'" );
+
+						condition.append( " and mileage = '" + vehicle.getMileage() + "'" );
 					}
 
 					if( vehicle.getLastServiced() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " lastServiced = '" + vehicle.getLastServiced() + "'" );
+
+						condition.append( " and lastServiced = '" + vehicle.getLastServiced() + "'" );
 					}
 
 					if( vehicle.getStatus() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " status = '" + vehicle.getStatus() + "'" );
+
+						condition.append( " and status = '" + vehicle.getStatus() + "'" );
 					}
 					if( vehicle.getCondition() != null ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " maintenance = '" + vehicle.getCondition() + "'" );
+
+						condition.append( " and maintenance = '" + vehicle.getCondition() + "'" );
 					}
-					if( vehicle.getRentalLocation().getId() > 0 ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " rentalLocationid = '" + vehicle.getRentalLocation().getId() + "'" );
+					if(vehicle.getRentalLocation() != null && vehicle.getRentalLocation().getId() > 0 ) {
+
+						condition.append( " and rentalLocationid = '" + vehicle.getRentalLocation().getId() + "'" );
 					}
-					if( vehicle.getVehicleType().getId() > 0 ) {
-						if( condition.length() > 0 )
-							condition.append( " and" );
-						condition.append( " vehicleTypeid = '" + vehicle.getVehicleType().getId() + "'" );
+					if( vehicle.getVehicleType() != null && vehicle.getVehicleType().getId() > 0 ) {
+
+						condition.append( " and vehicleTypeid = '" + vehicle.getVehicleType().getId() + "'" );
 					}
-					if( condition.length() > 0 ) {
-						query.append(  " where " );
-						query.append( condition );
-					}
+
+					query.append( condition );
+
 				}
 			}
 
@@ -231,9 +222,9 @@ public class VehicleManager {
 						id = rs.getLong( 1 );
 						make = rs.getString( 2 );
 						model = rs.getString( 3 );
-						registrationTag = rs.getString( 4 );
-						year = rs.getInt( 5 );
-						mileage = rs.getInt( 6 );
+						year = rs.getInt( 4 );
+						mileage = rs.getInt( 5 );
+						registrationTag = rs.getString( 6 );
 						lastServiced = rs.getDate( 7 );
 						status = VehicleStatus.valueOf(rs.getString( 8 ));
 						vehicleCondition = VehicleCondition.valueOf(rs.getString( 9 ));
@@ -259,17 +250,17 @@ public class VehicleManager {
 				}
 			}
 			catch( Exception e ) {      // just in case...
-				throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator object; Root cause: " + e );
+				throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object; Root cause: " + e );
 			}
 
 			// if we get to this point, it's an error
-			throw new RARException( "AdministratorManager.restore: Could not restore persistent Administrator objects" );
+			throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle objects" );
 		}
 	}//restore
 	
 	public void delete(Vehicle vehicle) throws RARException{
 		
-		String deleteVehicleSql = "delete from Vehicle where id = ?";              
+		String deleteVehicleSql = "delete from vehicle where id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
