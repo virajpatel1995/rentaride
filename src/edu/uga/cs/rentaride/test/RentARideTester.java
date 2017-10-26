@@ -116,7 +116,7 @@ public class RentARideTester {
 	    	 *  */
 
 
-         	Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+        Vehicle vehicle1 = objectLayer.createVehicle("GMC", "Sierra", 1990, "15ZB35", 100000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle2 = objectLayer.createVehicle("Honda", "Odyssey", 1998, "1SH5F25", 80000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle3 = objectLayer.createVehicle("Chevrolet", "Silverado", 2015, "8FJFF445", 30000, new Date(System.currentTimeMillis()), vehicleType1, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
         	Vehicle vehicle4 = objectLayer.createVehicle("Toyota", "Sienna", 2000, "MDP5325F", 60000, new Date(System.currentTimeMillis()), vehicleType2, rentalLocation2, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
@@ -205,48 +205,27 @@ public class RentARideTester {
 
 
         	
-         /*
-	    	 * 
-	    	 *  DELETE
-	    	 *  
-	    	 *  
-	    	 *  */
+  /**************************************************************************
+   * 
+   *************************** DELETE ***************************************
+   *  
+   *  
+   **************************************************************************/
        
         objectLayer.deleteComment(comment2);
        	objectLayer.deleteComment(comment1);
 
-     	  objectLayer.deleteRental(rental2);
+     	objectLayer.deleteRental(rental2);
       	objectLayer.deleteRental(rental1);
        	
         	objectLayer.deleteReservation(reservation4);
         	objectLayer.deleteReservation(reservation3);
         	objectLayer.deleteReservation(reservation2);
         	objectLayer.deleteReservation(reservation1);
-
-  
-//junwei_branch
-//        	objectLayer.deleteCustomer(customer2);
-//        	objectLayer.deleteCustomer(customer1);
-//
-//        	objectLayer.deleteVehicle(vehicle4);
-//        	objectLayer.deleteVehicle(vehicle3);
-//        	objectLayer.deleteVehicle(vehicle2);
-//        	objectLayer.deleteVehicle(vehicle1);
-//
-//        	objectLayer.deleteHourlyPrice(hourlyPrice2);
-//        	objectLayer.deleteVehicleType(vehicleType2);
-//        	objectLayer.deleteHourlyPrice(hourlyPrice1);
-//        	objectLayer.deleteVehicleType(vehicleType1);
-//
-//        	objectLayer.deleteRentalLocation(rentalLocation2);
-//        	objectLayer.deleteRentalLocation(rentalLocation1);
-//
-//        	objectLayer.deleteAdministrator(admin2);
-//        	objectLayer.deleteAdministrator(admin1);
-
-          
+    
         	objectLayer.deleteCustomer(customer2);
         	objectLayer.deleteCustomer(customer1);
+        	
         	objectLayer.deleteVehicle(vehicle4);
         	objectLayer.deleteVehicle(vehicle3);
         	objectLayer.deleteVehicle(vehicle2);
@@ -256,6 +235,7 @@ public class RentARideTester {
         	objectLayer.deleteVehicleType(vehicleType2);
         	objectLayer.deleteHourlyPrice(hourlyPrice1);
         	objectLayer.deleteVehicleType(vehicleType1);
+        	
         	objectLayer.deleteRentalLocation(rentalLocation2);
         	objectLayer.deleteRentalLocation(rentalLocation1);
 
